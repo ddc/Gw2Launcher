@@ -49,7 +49,7 @@ class MainSrc():
             
         self._set_all_configs_on_form_from_settings_file()
         self._register_form_events()
-        self.qtObj.tabWidget.setCurrentIndex(0)
+        self.qtObj.main_tabWidget.setCurrentIndex(0)
         self.qtObj.findGw2File_button.setFocus()
 ################################################################################
 ################################################################################
@@ -89,20 +89,20 @@ class MainSrc():
 ################################################################################
 ################################################################################         
     def _enable_form(self):
-        self.qtObj.tabWidget.setTabEnabled(0,True)
-        self.qtObj.tabWidget.setTabEnabled(1,True)
-        self.qtObj.tabWidget.setTabEnabled(2,True)
-        self.qtObj.tabWidget.setTabEnabled(3,True)
+        self.qtObj.main_tabWidget.setTabEnabled(0,True)
+        self.qtObj.main_tabWidget.setTabEnabled(1,True)
+        self.qtObj.main_tabWidget.setTabEnabled(2,True)
+        self.qtObj.main_tabWidget.setTabEnabled(3,True)
         self.qtObj.startGw2_button.setEnabled(True)
         self.qtObj.currentParam_groupBox.setEnabled(True)
 ################################################################################
 ################################################################################
 ################################################################################     
     def _disable_form(self):
-        self.qtObj.tabWidget.setTabEnabled(0,False)
-        self.qtObj.tabWidget.setTabEnabled(1,False)
-        self.qtObj.tabWidget.setTabEnabled(2,False)
-        self.qtObj.tabWidget.setTabEnabled(3,False)
+        self.qtObj.main_tabWidget.setTabEnabled(0,False)
+        self.qtObj.main_tabWidget.setTabEnabled(1,False)
+        self.qtObj.main_tabWidget.setTabEnabled(2,False)
+        self.qtObj.main_tabWidget.setTabEnabled(3,False)
         self.qtObj.startGw2_button.setEnabled(False)     
         self.qtObj.currentParam_groupBox.setEnabled(False)   
 ################################################################################
@@ -742,7 +742,12 @@ class MainSrc():
 ################################################################################    
     def _set_arcdps_tab(self):
         arcdps_url = constants.arcdps_url
-        self.qtObj.arcdps_label_disclamer.setText(messages.arcdps_disclamer+"\n"+arcdps_url)
+        arcdps_ref = "<p align=\"left\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px;"\
+                    +"margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\""+arcdps_url\
+                    +"\"><span style=\" font-size:9pt; text-decoration: underline; color:#FFFFFF;\">"+arcdps_url\
+                    +"</span></a></p>"
+        self.qtObj.arcps_url_textBrowser.setHtml(arcdps_ref)
+        self.qtObj.arcdps_disclamer_label.setText(messages.arcdps_disclamer)
 
         response = requests.get(arcdps_url)
         if response.status_code != 200: 

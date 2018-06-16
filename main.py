@@ -30,10 +30,10 @@ class Ui_Main(object):
         self.startGw2_button = QtWidgets.QPushButton(Main)
         self.startGw2_button.setGeometry(QtCore.QRect(20, 470, 131, 71))
         self.startGw2_button.setObjectName("startGw2_button")
-        self.tabWidget = QtWidgets.QTabWidget(Main)
-        self.tabWidget.setGeometry(QtCore.QRect(20, 50, 631, 411))
-        self.tabWidget.setUsesScrollButtons(False)
-        self.tabWidget.setObjectName("tabWidget")
+        self.main_tabWidget = QtWidgets.QTabWidget(Main)
+        self.main_tabWidget.setGeometry(QtCore.QRect(20, 50, 631, 411))
+        self.main_tabWidget.setUsesScrollButtons(False)
+        self.main_tabWidget.setObjectName("main_tabWidget")
         self.parameters1_tab = QtWidgets.QWidget()
         self.parameters1_tab.setObjectName("parameters1_tab")
         self.port_groupBox = QtWidgets.QGroupBox(self.parameters1_tab)
@@ -102,7 +102,7 @@ class Ui_Main(object):
         self.bmp_checkBox = QtWidgets.QCheckBox(self.parameters1_tab)
         self.bmp_checkBox.setGeometry(QtCore.QRect(10, 30, 511, 20))
         self.bmp_checkBox.setObjectName("bmp_checkBox")
-        self.tabWidget.addTab(self.parameters1_tab, "")
+        self.main_tabWidget.addTab(self.parameters1_tab, "")
         self.parameters2_tab = QtWidgets.QWidget()
         self.parameters2_tab.setObjectName("parameters2_tab")
         self.dat_checkBox = QtWidgets.QCheckBox(self.parameters2_tab)
@@ -171,7 +171,7 @@ class Ui_Main(object):
         self.assetsrv_textEdit.raise_()
         self.authsrv_textEdit.raise_()
         self.portal_textEdit.raise_()
-        self.tabWidget.addTab(self.parameters2_tab, "")
+        self.main_tabWidget.addTab(self.parameters2_tab, "")
         self.arcDps_tab = QtWidgets.QWidget()
         self.arcDps_tab.setObjectName("arcDps_tab")
         self.arcdps_groupBox = QtWidgets.QGroupBox(self.arcDps_tab)
@@ -183,13 +183,13 @@ class Ui_Main(object):
         self.arcdps_no_radioButton = QtWidgets.QRadioButton(self.arcdps_groupBox)
         self.arcdps_no_radioButton.setGeometry(QtCore.QRect(60, 20, 51, 20))
         self.arcdps_no_radioButton.setObjectName("arcdps_no_radioButton")
-        self.arcdps_label_disclamer = QtWidgets.QLabel(self.arcDps_tab)
-        self.arcdps_label_disclamer.setGeometry(QtCore.QRect(140, 10, 461, 81))
-        self.arcdps_label_disclamer.setText("")
-        self.arcdps_label_disclamer.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
-        self.arcdps_label_disclamer.setWordWrap(True)
-        self.arcdps_label_disclamer.setOpenExternalLinks(True)
-        self.arcdps_label_disclamer.setObjectName("arcdps_label_disclamer")
+        self.arcdps_disclamer_label = QtWidgets.QLabel(self.arcDps_tab)
+        self.arcdps_disclamer_label.setGeometry(QtCore.QRect(140, 10, 461, 61))
+        self.arcdps_disclamer_label.setText("")
+        self.arcdps_disclamer_label.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.arcdps_disclamer_label.setWordWrap(True)
+        self.arcdps_disclamer_label.setOpenExternalLinks(True)
+        self.arcdps_disclamer_label.setObjectName("arcdps_disclamer_label")
         self.arcdps_current_version_label = QtWidgets.QLabel(self.arcDps_tab)
         self.arcdps_current_version_label.setGeometry(QtCore.QRect(20, 80, 111, 20))
         self.arcdps_current_version_label.setText("")
@@ -204,18 +204,27 @@ class Ui_Main(object):
         self.arcdps_webpage_textEdit.setReadOnly(True)
         self.arcdps_webpage_textEdit.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
         self.arcdps_webpage_textEdit.setObjectName("arcdps_webpage_textEdit")
-        self.tabWidget.addTab(self.arcDps_tab, "")
+        self.arcps_url_textBrowser = QtWidgets.QTextBrowser(self.arcDps_tab)
+        self.arcps_url_textBrowser.setGeometry(QtCore.QRect(130, 70, 481, 21))
+        self.arcps_url_textBrowser.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.arcps_url_textBrowser.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.arcps_url_textBrowser.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.arcps_url_textBrowser.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse)
+        self.arcps_url_textBrowser.setOpenExternalLinks(True)
+        self.arcps_url_textBrowser.setObjectName("arcps_url_textBrowser")
+        self.main_tabWidget.addTab(self.arcDps_tab, "")
         self.about_tab = QtWidgets.QWidget()
         self.about_tab.setObjectName("about_tab")
-        self.about_textEdit = QtWidgets.QTextEdit(self.about_tab)
-        self.about_textEdit.setGeometry(QtCore.QRect(0, 0, 631, 381))
-        self.about_textEdit.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.about_textEdit.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.about_textEdit.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.about_textEdit.setUndoRedoEnabled(False)
-        self.about_textEdit.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByKeyboard|QtCore.Qt.LinksAccessibleByMouse|QtCore.Qt.TextBrowserInteraction|QtCore.Qt.TextSelectableByKeyboard|QtCore.Qt.TextSelectableByMouse)
-        self.about_textEdit.setObjectName("about_textEdit")
-        self.tabWidget.addTab(self.about_tab, "")
+        self.about_textBrowser = QtWidgets.QTextBrowser(self.about_tab)
+        self.about_textBrowser.setGeometry(QtCore.QRect(0, 0, 631, 381))
+        self.about_textBrowser.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.about_textBrowser.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.about_textBrowser.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.about_textBrowser.setUndoRedoEnabled(False)
+        self.about_textBrowser.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse)
+        self.about_textBrowser.setOpenExternalLinks(True)
+        self.about_textBrowser.setObjectName("about_textBrowser")
+        self.main_tabWidget.addTab(self.about_tab, "")
         self.currentParam_groupBox = QtWidgets.QGroupBox(Main)
         self.currentParam_groupBox.setGeometry(QtCore.QRect(160, 460, 491, 81))
         self.currentParam_groupBox.setObjectName("currentParam_groupBox")
@@ -228,6 +237,7 @@ class Ui_Main(object):
         self.current_param_label.setObjectName("current_param_label")
 
         self.retranslateUi(Main)
+        self.main_tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Main)
 
         mainSrc = MainSrc(self, Main)
@@ -260,7 +270,7 @@ class Ui_Main(object):
         self.windowed_checkBox.setText(_translate("Main", "Force Guild Wars 2 to run in windowed mode. (-windowed)"))
         self.umbra_checkBox.setText(_translate("Main", "Force the use of Umbra\'s GPU accelerated culling. (-umbra gpu)"))
         self.bmp_checkBox.setText(_translate("Main", "Force the game to create lossless screenshots as .BMP files. (-bmp)"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.parameters1_tab), _translate("Main", "Parameters I"))
+        self.main_tabWidget.setTabText(self.main_tabWidget.indexOf(self.parameters1_tab), _translate("Main", "Parameters I"))
         self.dat_label.setText(_translate("Main", "Use the specified .dat file instead of the default GW2.dat file. (-dat )"))
         self.daFile_button.setText(_translate("Main", ".dat File"))
         self.authsrv_label.setText(_translate("Main", "IP or DNS that can be used to connect to a login server. (-authsrv)"))
@@ -271,13 +281,13 @@ class Ui_Main(object):
         self.uninstall_checkBox.setText(_translate("Main", "Delete the contents of the Guild Wars 2 folder except GW2.EXE itself. (-uninstall)"))
         self.verify_checkBox.setText(_translate("Main", "Verify the .dat file. (-verify)"))
         self.utilities_groupBox.setTitle(_translate("Main", "Other Utilities"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.parameters2_tab), _translate("Main", "Parameters II"))
+        self.main_tabWidget.setTabText(self.main_tabWidget.indexOf(self.parameters2_tab), _translate("Main", "Parameters II"))
         self.arcdps_groupBox.setTitle(_translate("Main", "Use ArcDps"))
         self.arcdps_yes_radioButton.setText(_translate("Main", "YES"))
         self.arcdps_no_radioButton.setText(_translate("Main", "NO"))
         self.arcdps_latest_version_label.setText(_translate("Main", "Latest Version"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.arcDps_tab), _translate("Main", "ArcDps"))
-        self.about_textEdit.setHtml(_translate("Main", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.main_tabWidget.setTabText(self.main_tabWidget.indexOf(self.arcDps_tab), _translate("Main", "ArcDps"))
+        self.about_textBrowser.setHtml(_translate("Main", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
@@ -288,20 +298,20 @@ class Ui_Main(object):
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">Implemented using python and QT5.</span></p>\n"
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;\"><br /></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">More info about Arcdps, gw2 dps meter and general metrics tool.</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.deltaconnected.com/arcdps/\"><span style=\" font-size:9pt; text-decoration: underline; color:#0000ff;\">Arcdps</span></a></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.deltaconnected.com/arcdps/\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Arcdps</span></a></p>\n"
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt; text-decoration: underline; color:#0000ff;\"><br /></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">Acknowledgements</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.qt.io\"><span style=\" font-size:9pt; text-decoration: underline; color:#0000ff;\">QT5</span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.python.org/downloads/\"><span style=\" font-size:9pt; text-decoration: underline; color:#0000ff;\">Python</span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://pypi.org/project/beautifulsoup4/\"><span style=\" font-size:9pt; text-decoration: underline; color:#0000ff;\">Beautifulsoup4</span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://pyinstaller.readthedocs.io/en/stable/installation.html\"><span style=\" font-size:9pt; text-decoration: underline; color:#0000ff;\">PyInstaller</span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.guildwars2.com/en/\"><span style=\" font-size:9pt; text-decoration: underline; color:#0000ff;\">Guild Wars 2</span></a></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.qt.io\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">QT5</span></a></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.python.org/downloads/\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Python</span></a></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://pypi.org/project/beautifulsoup4/\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Beautifulsoup4</span></a></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://pyinstaller.readthedocs.io/en/stable/installation.html\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">PyInstaller</span></a></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.guildwars2.com/en/\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Guild Wars 2</span></a></p>\n"
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt; text-decoration: underline; color:#0000ff;\"><br /></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">Developed by Hadesz#1223</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"mailto:hadesz456@gmail.com\"><span style=\" font-size:9pt; text-decoration: underline; color:#0000ff;\">Email</span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://github.com/Hadesz1/Gw2Utils/releases/latest\"><span style=\" font-size:9pt; text-decoration: underline; color:#0000ff;\">Download</span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=CTYZ8TK5MJV76\"><span style=\" font-size:9pt; text-decoration: underline; color:#0000ff;\">Donations</span></a></p></body></html>"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.about_tab), _translate("Main", "About"))
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"mailto:hadesz456@gmail.com\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Email</span></a></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://github.com/Hadesz1/Gw2Utils/releases/latest\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Download</span></a></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=CTYZ8TK5MJV76\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Donations</span></a></p></body></html>"))
+        self.main_tabWidget.setTabText(self.main_tabWidget.indexOf(self.about_tab), _translate("Main", "About"))
         self.currentParam_groupBox.setTitle(_translate("Main", "Current Parameters"))
 
 
