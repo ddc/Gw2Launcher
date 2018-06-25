@@ -756,8 +756,14 @@ class MainSrc():
             html = str(response.text)
             soup = BeautifulSoup(html, "html.parser")
             body = soup.body
-            changes = str(body).split("<b>")[17].replace("changes</b><br/>","").replace("<br/>","").replace("     ","")
-            version = str(body).split("<b>")[18].split("</a>")[1].split("<br/>")[0]
+            blist = str(body).split("<b>")
+            
+            for content in blist:
+                if content.startswith('changes'):
+                    changes = content.replace("changes</b><br/>","").replace("<br/>","").replace("     ","")
+                if content.startswith('download'):
+                    version = content.split("</a>")[1].split("<br/>")[0]
+                    
             self.qtObj.arcdps_webpage_textEdit.setPlainText(changes.strip())
             self.qtObj.arcdps_current_version_label.setText(version.strip()) 
 ################################################################################
