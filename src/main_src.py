@@ -762,7 +762,7 @@ class MainSrc():
                 if content.startswith('changes'):
                     changes = content.replace("changes</b><br/>","").replace("<br/>","").replace("     ","")
                 if content.startswith('download'):
-                    version = content.split("</a>")[1].split("<br/>")[0]
+                    version = content.split("</a>")[1].split("<br/>")[0].strip(" (").strip(")")
                     
             self.qtObj.arcdps_webpage_textEdit.setPlainText(changes.strip())
             self.qtObj.arcdps_current_version_label.setText(version.strip()) 
