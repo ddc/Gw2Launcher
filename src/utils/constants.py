@@ -54,6 +54,6 @@ arcdps_url              = "http://www.deltaconnected.com/arcdps"
 d3d9_url                = str(arcdps_url+"/x64/d3d9.dll")
 md5sum_url              = str(arcdps_url+"/x64/d3d9.dll.md5sum")
 buildTemplate_url       = str(arcdps_url+"/x64/buildtemplates/d3d9_arcdps_buildtemplates.dll")
-github_exe_program_url  = "https://github.com/Hadesz1/Gw2Utils/raw/dev/dist/Gw2Utils.exe"
+github_exe_program_url  = "https://github.com/Hadesz1/Gw2Utils/releases/download/"+str(VERSION)+"/Gw2Utils.exe"
 remote_version_filename = 'https://api.github.com/repos/Hadesz1/Gw2Utils/contents/VERSION'
 ################################################################################
