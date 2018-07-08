@@ -42,7 +42,7 @@ IS_LINUX                = sys.platform == "linux"
 IS_64BIT                = platform.machine().endswith("64")
 PYTHON_OK               = sys.version_info >= (3,5)
 ################################################################################
-gw2_executable_names    = ["Gw2-64.exe", "Gw2.exe"]
+gw2_64_bit_exec_name    = ["Gw2-64.exe"]
 ################################################################################
 my_docs_path            = str(utils.get_my_documents_path())
 program_path            = str(my_docs_path + "/Gw2Utils/")
