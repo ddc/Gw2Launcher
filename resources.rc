@@ -44,7 +44,7 @@ StringFileInfo(
     u'040904B0',
     [
     StringStruct(u'CompanyName',			u'Hadesz'),
-    StringStruct(u'LegalCopyright', 		u'Copyright (c) 2018'),
+    StringStruct(u'LegalCopyright', 		u'Copyright (c) 2018 Hadesz'),
     StringStruct(u'FileDescription',		u'Guild Wars 2 Utilities'),
     StringStruct(u'ProductName', 			u'Guild Wars 2 Utilities'),
     StringStruct(u'InternalName',			u'Gw2Utils'),
