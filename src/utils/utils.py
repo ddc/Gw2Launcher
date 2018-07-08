@@ -10,11 +10,11 @@
 
 import ast, sys, os, json
 import logging, hashlib
-from time import sleep
 from src.utils import constants
 from configparser import ConfigParser
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5 import QtCore, QtWidgets
+import ctypes.wintypes
 ################################################################################
 ################################################################################
 ################################################################################
@@ -135,6 +135,20 @@ def show_progress_bar(self, message, value):
     
     if value == 100:
         self.progressBar.hide()
+################################################################################
+################################################################################
+################################################################################
+def get_my_documents_path():
+    if constants.IS_WINDOWS:
+        CSIDL_PERSONAL = 5 #My Documents
+        SHGFP_TYPE_CURRENT = 0
+         
+        buf= ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
+        ctypes.windll.shell32.SHGetFolderPathW(None, CSIDL_PERSONAL, None, SHGFP_TYPE_CURRENT, buf)
+         
+        return str(buf.value)
+    else:
+        return str(os.path.expanduser("~/Documents"))
 ################################################################################
 ################################################################################
 ################################################################################    

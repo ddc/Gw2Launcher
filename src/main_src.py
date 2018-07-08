@@ -390,6 +390,7 @@ class MainSrc():
 ################################################################################
     def _get_gw2_file_name(self):
         path = str(utils.open_get_filename(self))
+        filename = None
         if path is not "":
             filename = str(path.split("/")[-1])
             gw2_names = constants.gw2_executable_names
@@ -401,14 +402,16 @@ class MainSrc():
                     self._enable_form()
                     utils.set_file_settings("GW2", "gw2path", "\""+str(self.gw2Path)+"\"") 
                     return
-            
+
+        if str(self.gw2Path) == "":
             self._disable_form()
-            not_valid_gw2_msg = "\"" + filename + "\" "+messages.not_valid_gw2
             self.qtObj.gw2Path_label.clear()
-            self.qtObj.findGw2File_button.setFocus()
-            utils.show_message_box("error", not_valid_gw2_msg)
-        else:
             self.qtObj.gw2Path_label.setText(messages.need_find_gw2)
+            self.qtObj.findGw2File_button.setFocus()
+            
+        if filename is not None:
+            not_valid_gw2_msg = "\"" + filename + "\" "+messages.not_valid_gw2
+            utils.show_message_box("error", not_valid_gw2_msg)
 ################################################################################
 ################################################################################
 ################################################################################

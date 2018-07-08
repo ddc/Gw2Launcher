@@ -12,11 +12,12 @@ import os
 import sys
 import platform
 import logging
+from src.utils import utils
 ################################################################################
 ################################################################################
 ################################################################################
 PROGRAM_NAME            = "Guild Wars 2 Utilities"
-VERSION                 = 1.1
+VERSION                 = 1.2
 ################################################################################
 exit_timer              = 5
 ################################################################################
@@ -29,9 +30,11 @@ exit_timer              = 5
 FULL_PROGRAM_NAME       = PROGRAM_NAME +" v"+str(VERSION)
 exe_program_name        = "Gw2Utils.exe"
 ################################################################################
-LOG_LEVEL               = logging.ERROR
-LOG_FORMATTER           = logging.Formatter('%(asctime)s:%(levelname)s:%(message)s',
-                                            datefmt="[%d/%b/%Y %H:%M:%S]")
+date_formatter          = "%b/%d/%Y"
+time_formatter          = "%H:%M:%S"
+LOG_LEVEL               = logging.INFO
+LOG_FORMATTER           = logging.Formatter('%(asctime)s:[%(levelname)s]:[%(funcName)s:%(lineno)d]:%(message)s',
+                                  datefmt="["+date_formatter+" "+time_formatter+"]")
 ################################################################################
 IS_WINDOWS              = os.name == "nt"
 IS_MAC                  = sys.platform == "darwin"
@@ -41,8 +44,8 @@ PYTHON_OK               = sys.version_info >= (3,5)
 ################################################################################
 gw2_executable_names    = ["Gw2-64.exe", "Gw2.exe"]
 ################################################################################
-win_appdata_path        = os.getenv('APPDATA') #C:\Users\username\AppData\Roaming
-program_path            = str(win_appdata_path + "/Gw2 Utils/")
+my_docs_path            = str(utils.get_my_documents_path())
+program_path            = str(my_docs_path + "/Gw2 Utils/")
 data_path               = str(program_path + "data")
 logs_path               = str(program_path + "logs")
 ################################################################################
