@@ -10,7 +10,6 @@
 
 ## Program Notes
 + Configuration, logs and database files will be saved inside "Documents/Gw2Utils"
-    + "Documents/Gw2Utils/config/"
     + "Documents/Gw2Utils/data/"
     + "Documents/Gw2Utils/logs/"
 

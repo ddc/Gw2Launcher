@@ -45,7 +45,7 @@ PYTHON_OK               = sys.version_info >= (3,5)
 gw2_executable_names    = ["Gw2-64.exe", "Gw2.exe"]
 ################################################################################
 my_docs_path            = str(utils.get_my_documents_path())
-program_path            = str(my_docs_path + "/Gw2 Utils/")
+program_path            = str(my_docs_path + "/Gw2Utils/")
 data_path               = str(program_path + "data")
 logs_path               = str(program_path + "logs")
 ################################################################################
