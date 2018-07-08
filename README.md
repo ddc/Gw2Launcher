@@ -9,6 +9,7 @@
 + [Latest Release](https://github.com/Hadesz1/Gw2Utils/releases/latest)
 
 ## Program Notes
++ Guild Wars 2 32bits client not supported
 + Configuration, logs and database files will be saved inside "Documents/Gw2Utils"
     + "Documents/Gw2Utils/data/"
     + "Documents/Gw2Utils/logs/"
