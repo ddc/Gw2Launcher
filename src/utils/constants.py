@@ -4,7 +4,7 @@
 # * Author            : Hadesz#1223 (discord)
 # * E-Mail            : hadesz456@gmail.com
 # * License           : GPL v3
-# * Python            : 3.5
+# * Python            : 3.6
 #|*****************************************************
 # # -*- coding: utf-8 -*-
 

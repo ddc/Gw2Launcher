@@ -4,7 +4,7 @@
 # * Author            : Hadesz#1223 (discord)
 # * E-Mail            : hadesz456@gmail.com
 # * License           : GPL v3
-# * Python            : 3.5
+# * Python            : 3.6
 #|*****************************************************
 # # -*- coding: utf-8 -*-
 
@@ -19,8 +19,12 @@ import ctypes.wintypes
 ################################################################################
 ################################################################################
 class Object():
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+    def toJson(self):
+        return json.dumps(self,default=lambda o: o.__dict__,sort_keys=True,indent=4)
+    def toDict(self):
+        jsonString = json.dumps(self,default=lambda o: o.__dict__,sort_keys=True,indent=4)
+        jsonDict = json.loads(jsonString)
+        return jsonDict
 ################################################################################
 ################################################################################
 ################################################################################
