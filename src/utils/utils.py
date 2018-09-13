@@ -156,4 +156,59 @@ def get_my_documents_path():
 ################################################################################
 ################################################################################
 ################################################################################    
+def remove_arcdps_files(self):
+    gw2_dir_path        = os.path.dirname(self.gw2Path)
+    d3d9_path           = gw2_dir_path + "/bin64/d3d9.dll"
+    template_path       = gw2_dir_path + "/bin64/d3d9_arcdps_buildtemplates.dll"
+    extras_path         = gw2_dir_path + "/bin64/d3d9_arcdps_extras.dll"
     
+    if os.path.isfile(d3d9_path):
+        os.remove(d3d9_path)
+    if os.path.isfile(template_path):
+        os.remove(template_path)
+    if os.path.isfile(extras_path):
+        os.remove(extras_path) 
+################################################################################
+################################################################################
+################################################################################
+def remove_arcdps_backup_files(self):
+    gw2_dir_path        = os.path.dirname(self.gw2Path)
+    d3d9_bak_path       = gw2_dir_path + "/bin64/d3d9.dll.bak"
+    template_bak_path   = gw2_dir_path + "/bin64/d3d9_arcdps_buildtemplates.dll.bak"
+    extras_bak_path     = gw2_dir_path + "/bin64/d3d9_arcdps_extras.dll.bak"    
+
+    if os.path.isfile(d3d9_bak_path):
+        os.remove(d3d9_bak_path)
+    if os.path.isfile(template_bak_path):
+        os.remove(template_bak_path)
+    if os.path.isfile(extras_bak_path):
+        os.remove(extras_bak_path)
+################################################################################
+################################################################################
+################################################################################
+def backup_arcdps_files(self, type_backup:str):
+    if type_backup == "backup":
+        gw2_dir_path        = os.path.dirname(self.gw2Path)
+        d3d9_path           = gw2_dir_path + "/bin64/d3d9.dll"
+        template_path       = gw2_dir_path + "/bin64/d3d9_arcdps_buildtemplates.dll"
+        extras_path         = gw2_dir_path + "/bin64/d3d9_arcdps_extras.dll"
+        d3d9_bak_path       = gw2_dir_path + "/bin64/d3d9.dll.bak"
+        template_bak_path   = gw2_dir_path + "/bin64/d3d9_arcdps_buildtemplates.dll.bak"
+        extras_bak_path     = gw2_dir_path + "/bin64/d3d9_arcdps_extras.dll.bak"      
+        
+        if os.path.isfile(d3d9_path):
+            os.rename(d3d9_path, d3d9_bak_path) 
+        if os.path.isfile(template_path):
+            os.rename(template_path, template_bak_path) 
+        if os.path.isfile(extras_path):
+            os.rename(extras_path, extras_bak_path) 
+    elif type_backup == "revert_backup":
+        if os.path.isfile(d3d9_bak_path):
+            os.rename(d3d9_bak_path, d3d9_path) 
+        if os.path.isfile(template_bak_path):
+            os.rename(template_bak_path, template_path) 
+        if os.path.isfile(extras_bak_path):
+            os.rename(extras_bak_path, extras_path)
+################################################################################
+################################################################################
+################################################################################
