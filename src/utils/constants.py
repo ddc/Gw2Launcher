@@ -17,9 +17,9 @@ from src.utils import utils
 ################################################################################
 ################################################################################
 PROGRAM_NAME            = "Guild Wars 2 Utilities"
-VERSION                 = 1.3
+VERSION                 = 1.4
 ################################################################################
-exit_timer              = 5
+exit_timer              = 3
 ################################################################################
 ################################################################################
 ################################################################################
@@ -33,19 +33,19 @@ exe_program_name        = "Gw2Utils.exe"
 date_formatter          = "%b/%d/%Y"
 time_formatter          = "%H:%M:%S"
 LOG_LEVEL               = logging.INFO
-LOG_FORMATTER           = logging.Formatter('%(asctime)s:[%(levelname)s]:[%(funcName)s:%(lineno)d]:%(message)s',
+LOG_FORMATTER           = logging.Formatter('%(asctime)s:[%(levelname)s]:[%(filename)s:%(funcName)s:%(lineno)d]:%(message)s',
                                   datefmt="["+date_formatter+" "+time_formatter+"]")
 ################################################################################
 IS_WINDOWS              = os.name == "nt"
 IS_MAC                  = sys.platform == "darwin"
 IS_LINUX                = sys.platform == "linux"
 IS_64BIT                = platform.machine().endswith("64")
-PYTHON_OK               = sys.version_info >= (3,5)
+PYTHON_OK               = sys.version_info >= (3,6)
 ################################################################################
 gw2_64_bit_exec_name    = ["Gw2-64.exe"]
 ################################################################################
 my_docs_path            = str(utils.get_my_documents_path())
-program_path            = str(my_docs_path + "/Gw2Utils/")
+program_path            = f"{my_docs_path}/Gw2Utils/"
 data_path               = str(program_path + "data")
 logs_path               = str(program_path + "logs")
 ################################################################################
@@ -57,6 +57,7 @@ arcdps_url              = "http://www.deltaconnected.com/arcdps"
 d3d9_url                = str(arcdps_url+"/x64/d3d9.dll")
 md5sum_url              = str(arcdps_url+"/x64/d3d9.dll.md5sum")
 buildTemplate_url       = str(arcdps_url+"/x64/buildtemplates/d3d9_arcdps_buildtemplates.dll")
+extras_url              = str(arcdps_url+"/x64/extras/d3d9_arcdps_extras.dll")
 github_exe_program_url  = "https://github.com/Hadesz1/Gw2Utils/releases/download/"+str(VERSION)+"/Gw2Utils.exe"
 remote_version_filename = 'https://api.github.com/repos/Hadesz1/Gw2Utils/contents/VERSION'
 ################################################################################

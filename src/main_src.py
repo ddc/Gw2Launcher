@@ -664,13 +664,17 @@ class MainSrc():
     def _update_arcdps(self):
         d3d9_url            = constants.d3d9_url
         md5sum_url          = constants.md5sum_url
-        buildTemplate_url   = constants.buildTemplate_url      
+        buildTemplate_url   = constants.buildTemplate_url
+        extras_url          = constants.extras_url      
         gw2_dir_path        = os.path.dirname(self.gw2Path)
         d3d9_path           = gw2_dir_path + "/bin64/d3d9.dll"
         d3d9_bak_path       = gw2_dir_path + "/bin64/d3d9.dll.bak"
         template_path       = gw2_dir_path + "/bin64/d3d9_arcdps_buildtemplates.dll"
         template_bak_path   = gw2_dir_path + "/bin64/d3d9_arcdps_buildtemplates.dll.bak"
-                        
+        extras_path         = gw2_dir_path + "/bin64/d3d9_arcdps_extras.dll"
+        extras_bak_path     = gw2_dir_path + "/bin64/d3d9_arcdps_extras.dll.bak"
+        
+        
         if str(self.arcdps).lower() == "true":
             arcdps_404_msg          = messages.arcdps_404
             arcdps_timeout_msg      = messages.arcdps_timeout
@@ -698,21 +702,26 @@ class MainSrc():
                         os.rename(d3d9_path, d3d9_bak_path) 
                     if os.path.isfile(template_path):
                         os.rename(template_path, template_bak_path) 
-                    
+                    if os.path.isfile(extras_path):
+                        os.rename(extras_path, extras_bak_path)        
                     try:
                         utils.show_progress_bar(self, arcdps_updating_msg, 50)
                         urllib.request.urlretrieve(d3d9_url, d3d9_path)          
-                        urllib.request.urlretrieve(buildTemplate_url, template_path) 
+                        urllib.request.urlretrieve(buildTemplate_url, template_path)
+                        urllib.request.urlretrieve(extras_url, extras_path)
                     except urllib.request.HTTPError as e:
                         if os.path.isfile(d3d9_path):
                             os.remove(d3d9_path)
                         if os.path.isfile(template_path):
                             os.remove(template_path)  
+                        if os.path.isfile(extras_path):
+                            os.remove(extras_path) 
                         if os.path.isfile(d3d9_bak_path):
                             os.rename(d3d9_bak_path, d3d9_path) 
                         if os.path.isfile(template_bak_path):
                             os.rename(template_bak_path, template_path) 
-                        
+                        if os.path.isfile(extras_bak_path):
+                            os.rename(extras_bak_path, extras_path)  
                         utils.show_message_box("error", arcdps_404_msg)
                         self.log.error(str(e)+" "+str(e.url))
                         utils.show_progress_bar(self, arcdps_updating_msg, 100) 
@@ -723,23 +732,28 @@ class MainSrc():
                         os.remove(d3d9_bak_path)
                     if os.path.isfile(template_bak_path):
                         os.remove(template_bak_path)
+                    if os.path.isfile(extras_bak_path):
+                        os.remove(extras_bak_path)
                     utils.show_progress_bar(self, arcdps_updating_msg, 100)        
             else:
                     utils.show_progress_bar(self, arcdps_installing_msg, 25)
                     if os.path.isfile(template_path):
                         os.remove(template_path)                  
-                
+                    if os.path.isfile(extras_path):
+                        os.remove(extras_path)                 
                     try:
                         utils.show_progress_bar(self, arcdps_installing_msg, 50)
                         urllib.request.urlretrieve(d3d9_url, d3d9_path)  
                         utils.show_progress_bar(self, arcdps_installing_msg, 75)        
-                        urllib.request.urlretrieve(buildTemplate_url, template_path) 
+                        urllib.request.urlretrieve(buildTemplate_url, template_path)
+                        urllib.request.urlretrieve(extras_url, extras_path)
                     except urllib.request.HTTPError as e:
                         if os.path.isfile(d3d9_path):
                             os.remove(d3d9_path)
                         if os.path.isfile(template_path):
                             os.remove(template_path)  
-                        
+                        if os.path.isfile(extras_path):
+                            os.remove(extras_path)                         
                         utils.show_message_box("error", arcdps_404_msg)
                         self.log.error(str(e)+" "+str(e.url))
                     
