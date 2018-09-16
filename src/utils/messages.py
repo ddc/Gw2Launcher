@@ -14,6 +14,8 @@ not_valid_gw2                   = "is not a valid Gw2 executable!!!\nThis progra
 
 arcdps_404                      = "Could not find arcdps file to download from the website!!!!"
 
+arcdps_unreacheable             = "Unable to reach Arcdps website!!!"
+
 arcdps_timeout                  = "Unable to reach Arcdps website to check for updates!!!"
 
 arcdps_new_version              = "Checking for new version of ArcDps: "
@@ -25,9 +27,11 @@ arcdps_installing               = "Installing ArcDps: "
 arcdps_error_dl                 = "Error downloading arcdps!!!"
 
 arcdps_disclamer                = "I did not write this loader nor do i provide any support for it or it's compatibility with Guild Wars 2.\n"\
-                                + "Credit goes to /u/deltaconnected for the code."
+                                    "Credit goes to /u/deltaconnected for the code."
                         
 dl_new_version                  = "Downloading New Version..."
+
+dl_new_version_timeout          = "Unable to reach Website to check for updates!!!"
 
 error_dl_new_version            = "Theres was an ERROR trying to download new version.\nPlease try again later"
 

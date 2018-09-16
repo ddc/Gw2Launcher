@@ -25,41 +25,41 @@ class CreateFiles():
 ; Use True or False.
 
 [GW2]
-gw2Path = ""
-port = 6112
-arcdps = False 
+gw2Path=""
+port=6112
+arcdps=False 
 
 [Parameters1]
-autologin = False
-32bits = False
-bmp = False
-mapLoadinfo = False
-mce = False
-dx9single = False
-forwardrenderer = False
-log = False
-nodelta = False
-nomusic = False
-noui = False
-nosound = False
-prefreset = False
-shareArchive = False
-uispanallmonitors = False
-useOldFov = False
-windowed = False
-umbra = False
+autologin=False
+32bits=False
+bmp=False
+mapLoadinfo=False
+mce=False
+dx9single=False
+forwardrenderer=False
+log=False
+nodelta=False
+nomusic=False
+noui=False
+nosound=False
+prefreset=False
+shareArchive=False
+uispanallmonitors=False
+useOldFov=False
+windowed=False
+umbra=False
 
 [Parameters2]
-assetsrv = ""  
-authsrv = ""  
-portal = ""  
-datFile = ""  
-useDatFile = False  
-verify = False  
-copydat = False  
-repair = False  
-diag = False
-uninstall = False  
+assetsrv=""  
+authsrv=""  
+portal=""  
+datFile=""  
+useDatFile=False  
+verify=False  
+copydat=False  
+repair=False  
+diag=False
+uninstall=False  
 """)
         file.close()        
 ################################################################################
