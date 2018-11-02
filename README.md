@@ -12,6 +12,7 @@
 + [Latest Release](https://github.com/Hadesz1/Gw2Utils/releases/latest)
 
 ## Program Notes
++ This program was compiled with PyInstaller
 + Guild Wars 2 "32bits" not supported
 + I did not write ArcDps loader nor do i provide any support for it or it's compatibility with Guild Wars 2. Credit goes to /u/deltaconnected.
 + Configuration, logs and database files will be saved inside "Documents/Gw2Utils"
