@@ -12,6 +12,7 @@
 
 ## Program Notes
 + Guild Wars 2 "32bits" not supported
++ I did not write ArcDps loader nor do i provide any support for it or it's compatibility with Guild Wars 2. Credit goes to /u/deltaconnected.
 + Configuration, logs and database files will be saved inside "Documents/Gw2Utils"
     + "Documents/Gw2Utils/data/"
     + "Documents/Gw2Utils/logs/"
@@ -22,6 +23,7 @@
 + [Beautifulsoup4](https://pypi.org/project/beautifulsoup4/)
 + [PyInstaller](https://pyinstaller.readthedocs.io/en/stable/installation.html)
 + [Guild Wars 2](https://www.guildwars2.com/en/)
++ [ArcDps](http://www.deltaconnected.com/arcdps/)
 
 ## License
 Released under the [GNU GPL v3](LICENSE).

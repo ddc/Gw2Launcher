@@ -154,7 +154,12 @@ class MainSrc():
 ################################################################################
     def _get_all_configs_from_settings_file(self):
         # Configs
-        self.useTheme           = utils.get_file_settings("Configs", "useTheme")
+        useTheme = utils.get_file_settings("Configs", "useTheme")
+        if useTheme is None:
+            self.useTheme = True
+        else:
+            self.useTheme = useTheme
+        
         # GW2
         self.gw2Path            = utils.get_file_settings("GW2", "gw2Path")
         self.port               = utils.get_file_settings("GW2", "port")

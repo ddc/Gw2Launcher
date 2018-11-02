@@ -36,7 +36,9 @@ def get_file_settings(section, config_name):
         value = ast.literal_eval(parser.get(section, config_name))
     except ValueError:
         value = parser.get(section, config_name)
-    except SyntaxError:
+    #except SyntaxError:
+    #    value = None
+    except Exception as e:
         value = None
     return value
 ################################################################################
