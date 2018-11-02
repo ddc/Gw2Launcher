@@ -153,7 +153,8 @@ class MainSrc():
 ################################################################################
 ################################################################################
     def _get_all_configs_from_settings_file(self):
-        self.useTheme           = True
+        # Configs
+        self.useTheme           = utils.get_file_settings("Configs", "useTheme")
         # GW2
         self.gw2Path            = utils.get_file_settings("GW2", "gw2Path")
         self.port               = utils.get_file_settings("GW2", "port")
@@ -737,9 +738,10 @@ class MainSrc():
                     +f"margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"{arcdps_url}"\
                     +f"\"><span style=\" font-size:9pt; text-decoration: underline; color:#FFFFFF;\">{arcdps_url}"\
                     +"</span></a></p>"
-        self.qtObj.arcps_url_textBrowser.setHtml(arcdps_ref)
+        
         self.qtObj.arcdps_disclamer_label.setText(messages.arcdps_disclamer)
-
+        self.qtObj.arcps_url_textBrowser.setHtml(arcdps_ref)
+        
         try:
             response = requests.get(arcdps_url)
             if response.status_code != 200: 

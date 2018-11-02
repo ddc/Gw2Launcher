@@ -24,6 +24,9 @@ class CreateFiles():
 ; Use Notepad++ or any other modern text editor.
 ; Use True or False.
 
+[Configs]
+useTheme=True
+
 [GW2]
 gw2Path=""
 port=6112
@@ -146,32 +149,32 @@ QPushButton:pressed {
 
 /* QTabWidget */
 
-QTabWidget{
-    border: 1px transparent #FFFFFF;
+QTabWidget::pane {
+    border: 1px transparent #222222;
 }
 
 QTabWidget:focus {
-    border: 1px transparent #FFFFFF;
+    border: 1px transparent #000000;
 }
 
 QTabWidget::tab-bar {
     alignment: center;
-    border: 1px transparent #FFFFFF;
+    border: 1px transparent #000000;
 }
 
 /* QTabBar */
 
 QTabBar::tab {
-    background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #cccccc, stop: 1.0 #ffffff);;
-    border:1px solid grey;
-    border-top-left-radius:12px;
-    border-top-right-radius:12px;
+    background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #cccccc, stop: 1.0 #FFFFFF);
+    border: 1px transparent #000000;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
     padding:4px;
 }
 
 QTabBar::tab:selected {
     border-bottom: 1px transparent #FFFFFF;
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #8b0000, stop: 1.0 #ffffff);
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #8b0000, stop: 1.0 #FFFFFF);
 }
 
 /* QProgressBar */
@@ -217,16 +220,6 @@ QCheckBox::indicator:unchecked {
 }
 
 /* QScrollBar */
-
-QScrollBar::down-arrow:horizontal{background: none;display:none;}
-QScrollBar::up-arrow:horizontal{background: none;display:none;}
-QScrollBar::add-page:horizontal{background: none;display:none;}
-QScrollBar::sub-page:horizontal{background: none;display:none;}
-
-QScrollBar::up-arrow:vertical{background: none;display:none;} 
-QScrollBar::down-arrow:vertical{background: none;display:none;}
-QScrollBar::add-page:vertical{background: none;display:none;}
-QScrollBar::sub-page:vertical{background: none;display:none;}
 
 QScrollBar:horizontal {
     height: 15px;
