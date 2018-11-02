@@ -2,41 +2,19 @@
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=plastic)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CTYZ8TK5MJV76)
 [<img src="https://img.shields.io/github/license/Hadesz1/Gw2Utils.svg?style=plastic">](https://github.com/Hadesz1/Gw2Utils/blob/master/LICENSE)
-[![Python](https://img.shields.io/badge/python-3.5-blue.svg?style=plastic)](https://www.python.org/downloads/)
+[![Python](https://img.shields.io/badge/python-3.7-blue.svg?style=plastic)](https://www.python.org/downloads/)
 [![GitHub release](https://img.shields.io/github/release/Hadesz1/Gw2Utils.svg?style=plastic)](https://github.com/Hadesz1/Gw2Utils/releases/latest)
+
+![screenshot](https://user-images.githubusercontent.com/34492089/47893497-fafb2580-de3b-11e8-90b8-3a985c710c13.png)
 
 ## Download
 + [Latest Release](https://github.com/Hadesz1/Gw2Utils/releases/latest)
 
 ## Program Notes
-+ Guild Wars 2 32bits client not supported
++ Guild Wars 2 "32bits" not supported
 + Configuration, logs and database files will be saved inside "Documents/Gw2Utils"
     + "Documents/Gw2Utils/data/"
     + "Documents/Gw2Utils/logs/"
-
-## Requirements
-+ [Python 3.5](https://www.python.org/downloads/)
-+ [Beautifulsoup4](https://pypi.org/project/beautifulsoup4/)
-    
-## Requirements to Compile
-+ [PyInstaller](https://pyinstaller.readthedocs.io/en/stable/installation.html)
-
-## Steps to Compile
-+ Make sure python3 is your default (linux)
-    + python --version (to check the python version)
-+ Install PyInstaller through pip as admin/root:
-    + pip install --upgrade pyinstaller requests urllib3
-+ Execute the program at least once with python3:
-    + python main.py
-+ Execute python3 and call PyInstaller as a module to compile with python optmizations:
-    + python -O -m PyInstaller -y -F Gw2Utils.spec
-    
-+ Executable file will be inside the "dist" directory as "Gw2Utils.exe"
-
-## Notes
-+ PyInstaller is only needed to create the executable file. Python scripts don't need to be compiled to be usable, just run the main.py to launch the program itself.
-+ The format/extension of the executable will depend on which operating system you used for compilation. For example, if you run the PyInstaller command on windows the executable file will be .exe. If you run it on Linux the extension will depend on the distribution you are using.
-+ For example, it is not possible to create a Windows executable (.exe) by directly running a Pyinstaller command on a Linux Distribution and vice versa.
 
 ## Acknowledgements
 + [QT5](https://www.qt.io)
