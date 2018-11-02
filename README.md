@@ -4,6 +4,7 @@
 [<img src="https://img.shields.io/github/license/Hadesz1/Gw2Utils.svg?style=plastic">](https://github.com/Hadesz1/Gw2Utils/blob/master/LICENSE)
 [![Python](https://img.shields.io/badge/python-3.7-blue.svg?style=plastic)](https://www.python.org/downloads/)
 [![GitHub release](https://img.shields.io/github/release/Hadesz1/Gw2Utils.svg?style=plastic)](https://github.com/Hadesz1/Gw2Utils/releases/latest)
+[![QT5](https://img.shields.io/badge/QT-5-brightgreen.svg?style=plastic)](https://www.qt.io/)
 
 ![screenshot](https://user-images.githubusercontent.com/34492089/47893497-fafb2580-de3b-11e8-90b8-3a985c710c13.png)
 
