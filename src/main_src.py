@@ -677,7 +677,7 @@ class MainSrc():
             arcdps_updating_msg     = messages.arcdps_updating
             arcdps_installing_msg   = messages.arcdps_installing
             
-            if not os.path.isdir(f"{gw2_dir_path}/bin64/"):
+            if not os.path.exists(f"{gw2_dir_path}/bin64/"):
                 os.makedirs(f"{gw2_dir_path}/bin64/") 
             
             if os.path.isfile(d3d9_path):
