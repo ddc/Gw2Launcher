@@ -70,8 +70,8 @@ uninstall=False
 ################################################################################
     def create_style_file(self):
         file = open(constants.style_qss_filename, encoding="utf-8", mode="w")
-        file.write("""
-QWidget {
+        file.write(
+"""QWidget {
    background-color: #222222;
 }
 
@@ -175,22 +175,6 @@ QTabBar::tab {
 QTabBar::tab:selected {
     border-bottom: 1px transparent #FFFFFF;
     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #8b0000, stop: 1.0 #FFFFFF);
-}
-
-/* QProgressBar */
-
-QProgressBar,
-QProgressBar:horizontal {
-    background: #bdc1c9;
-    border: 1px solid #b6b6b6;
-    text-align: center;
-    padding: 1px;
-    border-radius: 4px;
-}
-QProgressBar::chunk,
-QProgressBar::chunk:horizontal {
-    background-color: qlineargradient(spread:pad, x1:1, y1:0.545, x2:1, y2:0, stop:0 #3874f2, stop:1 #5e90fa);
-    border-radius: 3px;
 }
 
 /* QRadioButton */
@@ -304,7 +288,24 @@ QScrollBar::add-page:vertical,
 QScrollBar::sub-page:vertical {
     background: none;
 }
-""")
+
+/* QProgressBar */
+
+QProgressBar,
+QProgressBar:horizontal {  
+    border: 1px solid #b6b6b6;
+    border-radius: 4px;
+    text-align: center;
+    padding: 1px;
+    background: #bdc1c9;
+    background-color: #8b0000;
+}
+
+QProgressBar::chunk,
+QProgressBar::chunk:horizontal {
+    background-color: qlineargradient(spread:pad, x1:1, y1:0.545, x2:1, y2:0, stop:0 #3874f2, stop:1 #5e90fa);
+    border-radius: 3px;
+}""")
         file.close()  
 ################################################################################
 ################################################################################

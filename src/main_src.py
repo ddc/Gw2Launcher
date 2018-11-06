@@ -681,6 +681,8 @@ class MainSrc():
                 os.makedirs(f"{gw2_dir_path}/bin64/") 
             
             if os.path.isfile(d3d9_path):
+                self._disable_form()
+                
                 try:
                     req_d3d9_md5 = ""
                     utils.show_progress_bar(self, arcdps_new_version_msg, 0)
@@ -688,6 +690,7 @@ class MainSrc():
                 except Exception as e:
                     self.log.error(f"{e} {e.url}")
                     utils.show_progress_bar(self, arcdps_updating_msg, 100)
+                    self._enable_form()
                     return                     
                     
                 utils.show_progress_bar(self, arcdps_new_version_msg, 15)
@@ -696,7 +699,8 @@ class MainSrc():
                 else:
                     utils.show_message_box("error", arcdps_timeout_msg)
                     self.log.error(arcdps_timeout_msg)
-                    utils.show_progress_bar(self, arcdps_updating_msg, 100)          
+                    utils.show_progress_bar(self, arcdps_updating_msg, 100)
+                    self._enable_form()        
                     return
                 
                 current_d3d9_md5 = utils.md5Checksum(d3d9_path)
@@ -716,11 +720,14 @@ class MainSrc():
                         utils.show_message_box("error", arcdps_404_msg)
                         self.log.error(f"{e} {e.url}")
                         utils.show_progress_bar(self, arcdps_updating_msg, 100)
-                        return                    
+                        self._enable_form()
+                        return
 
                     utils.show_progress_bar(self, arcdps_updating_msg, 75)
                     utils.remove_arcdps_backup_files(self)
+                    
                 utils.show_progress_bar(self, arcdps_updating_msg, 100)
+                self._enable_form()
             else:
                 utils.show_progress_bar(self, arcdps_installing_msg, 25)
                 utils.remove_arcdps_files(self)
@@ -736,7 +743,9 @@ class MainSrc():
                     utils.remove_arcdps_files(self)
                     utils.show_message_box("error", arcdps_404_msg)
                     self.log.error(f"{e} {e.url}")
+                    
                 utils.show_progress_bar(self, arcdps_installing_msg, 100)
+                self._enable_form()
 ################################################################################
 ################################################################################
 ################################################################################
