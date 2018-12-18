@@ -687,43 +687,67 @@ class MainSrc():
                     req_d3d9_md5 = ""
                     utils.show_progress_bar(self, arcdps_new_version_msg, 0)
                     req = requests.get(md5sum_url)
-                except Exception as e:
-                    self.log.error(f"{e} {e.url}")
+                    utils.show_progress_bar(self, arcdps_new_version_msg, 15)
+                    if req.status_code == 200:
+                        req_d3d9_md5 = str(req.text.split()[0])
+                    else:
+                        utils.show_message_box("error", arcdps_timeout_msg)
+                        self.log.error(arcdps_timeout_msg)
+                        utils.show_progress_bar(self, arcdps_updating_msg, 100)
+                        self._enable_form()        
+                        return
+                #except Exception as e:
+                except requests.exceptions.ConnectionError as e:
+                    self.log.error(f"{e} {md5sum_url}")
                     utils.show_progress_bar(self, arcdps_updating_msg, 100)
                     self._enable_form()
                     return                     
                     
-                utils.show_progress_bar(self, arcdps_new_version_msg, 15)
-                if req.status_code == 200:
-                    req_d3d9_md5 = str(req.text.split()[0])
-                else:
-                    utils.show_message_box("error", arcdps_timeout_msg)
-                    self.log.error(arcdps_timeout_msg)
-                    utils.show_progress_bar(self, arcdps_updating_msg, 100)
-                    self._enable_form()        
-                    return
-                
                 current_d3d9_md5 = utils.md5Checksum(d3d9_path)
                 if req_d3d9_md5 != current_d3d9_md5:
-                    utils.show_progress_bar(self, arcdps_updating_msg, 25)
+                    utils.show_progress_bar(self, arcdps_updating_msg, 30)
                     utils.backup_arcdps_files(self, "backup")
-                    
+
+                    #try d3d9_url
                     try:
-                        utils.show_progress_bar(self, arcdps_updating_msg, 50)
+                        utils.show_progress_bar(self, arcdps_updating_msg, 45)
                         urllib.request.urlretrieve(d3d9_url, d3d9_path)
-                        utils.show_progress_bar(self, arcdps_updating_msg, 75)       
-                        urllib.request.urlretrieve(buildTemplate_url, template_path)
-                        urllib.request.urlretrieve(extras_url, extras_path)
                     except urllib.request.HTTPError as e:
                         utils.remove_arcdps_files(self)
                         utils.backup_arcdps_files(self, "revert_backup")
                         utils.show_message_box("error", arcdps_404_msg)
-                        self.log.error(f"{e} {e.url}")
+                        self.log.error(f"{e} {d3d9_url}")
                         utils.show_progress_bar(self, arcdps_updating_msg, 100)
                         self._enable_form()
                         return
 
-                    utils.show_progress_bar(self, arcdps_updating_msg, 75)
+                    #try buildTemplate_url
+                    try:
+                        urllib.request.urlretrieve(buildTemplate_url, template_path)
+                        utils.show_progress_bar(self, arcdps_updating_msg, 60)       
+                    except urllib.request.HTTPError as e:
+                        utils.remove_arcdps_files(self)
+                        utils.backup_arcdps_files(self, "revert_backup")
+                        utils.show_message_box("error", arcdps_404_msg)
+                        self.log.error(f"{e} {buildTemplate_url}")
+                        utils.show_progress_bar(self, arcdps_updating_msg, 100)
+                        self._enable_form()
+                        return
+
+                    #try extras_url
+                    try:
+                        urllib.request.urlretrieve(extras_url, extras_path)
+                        utils.show_progress_bar(self, arcdps_updating_msg, 75)       
+                    except urllib.request.HTTPError as e:
+                        utils.remove_arcdps_files(self)
+                        utils.backup_arcdps_files(self, "revert_backup")
+                        utils.show_message_box("error", arcdps_404_msg)
+                        self.log.error(f"{e} {extras_url}")
+                        utils.show_progress_bar(self, arcdps_updating_msg, 100)
+                        self._enable_form()
+                        return
+
+                    utils.show_progress_bar(self, arcdps_updating_msg, 90)
                     utils.remove_arcdps_backup_files(self)
                     
                 utils.show_progress_bar(self, arcdps_updating_msg, 100)
@@ -731,18 +755,33 @@ class MainSrc():
             else:
                 utils.show_progress_bar(self, arcdps_installing_msg, 25)
                 utils.remove_arcdps_files(self)
-                        
+
+                #try d3d9_url
                 try:
                     utils.show_progress_bar(self, arcdps_installing_msg, 50)
                     urllib.request.urlretrieve(d3d9_url, d3d9_path)  
-                    utils.show_progress_bar(self, arcdps_installing_msg, 75)        
+                except urllib.request.HTTPError as e:
+                    utils.remove_arcdps_files(self)
+                    utils.show_message_box("error", arcdps_404_msg)
+                    self.log.error(f"{e} {d3d9_url}")
+                    
+                #try buildTemplate_url
+                try:
+                    utils.show_progress_bar(self, arcdps_installing_msg, 75)
                     urllib.request.urlretrieve(buildTemplate_url, template_path)
+                except urllib.request.HTTPError as e:
+                    utils.remove_arcdps_files(self)
+                    utils.show_message_box("error", arcdps_404_msg)
+                    self.log.error(f"{e} {buildTemplate_url}")                    
+                    
+                #try extras_url
+                try:
                     utils.show_progress_bar(self, arcdps_installing_msg, 90)
                     urllib.request.urlretrieve(extras_url, extras_path)
                 except urllib.request.HTTPError as e:
                     utils.remove_arcdps_files(self)
                     utils.show_message_box("error", arcdps_404_msg)
-                    self.log.error(f"{e} {e.url}")
+                    self.log.error(f"{e} {extras_url}")                     
                     
                 utils.show_progress_bar(self, arcdps_installing_msg, 100)
                 self._enable_form()

@@ -30,7 +30,7 @@ arcdps_disclamer                = "I did not write this loader nor do i provide 
                         
 dl_new_version                  = "Downloading New Version..."
 
-dl_new_version_timeout          = "Unable to reach Website to check for updates!!!"
+dl_new_version_timeout          = "Unable to reach Website to check for new version!!!"
 
 error_dl_new_version            = "Theres was an ERROR trying to download new version.\nPlease try again later"
 
