@@ -164,12 +164,19 @@ def remove_arcdps_files(self):
     template_path       = f"{gw2_dir_path}{constants.template_path}"
     extras_path         = f"{gw2_dir_path}{constants.extras_path}"
     
-    if os.path.isfile(d3d9_path):
-        os.remove(d3d9_path)
-    if os.path.isfile(template_path):
-        os.remove(template_path)
-    if os.path.isfile(extras_path):
-        os.remove(extras_path) 
+    try:
+        if os.path.isfile(d3d9_path):
+            os.remove(d3d9_path)
+        if os.path.isfile(template_path):
+            os.remove(template_path)
+        if os.path.isfile(extras_path):
+            os.remove(extras_path)
+        success = True
+    except OSError as e:
+        self.log.error(f"{e}")
+        success = False
+    
+    return success
 ################################################################################
 ################################################################################
 ################################################################################
@@ -179,12 +186,19 @@ def remove_arcdps_backup_files(self):
     template_bak_path   = f"{gw2_dir_path}{constants.template_bak_path}"
     extras_bak_path     = f"{gw2_dir_path}{constants.extras_bak_path}" 
 
-    if os.path.isfile(d3d9_bak_path):
-        os.remove(d3d9_bak_path)
-    if os.path.isfile(template_bak_path):
-        os.remove(template_bak_path)
-    if os.path.isfile(extras_bak_path):
-        os.remove(extras_bak_path)
+    try:
+        if os.path.isfile(d3d9_bak_path):
+            os.remove(d3d9_bak_path)
+        if os.path.isfile(template_bak_path):
+            os.remove(template_bak_path)
+        if os.path.isfile(extras_bak_path):
+            os.remove(extras_bak_path)
+        success = True
+    except OSError as e:
+        self.log.error(f"{e}")
+        success = False
+    
+    return success
 ################################################################################
 ################################################################################
 ################################################################################
@@ -214,3 +228,18 @@ def backup_arcdps_files(self, type_backup:str):
 ################################################################################
 ################################################################################
 ################################################################################
+def show_ok_window(self, icon, window_title:str, msg:str):
+    #icons can be Information, Warning, Critical, Question
+    #icon = QtWidgets.QMessageBox.Information
+    msgBox = QtWidgets.QMessageBox()
+    msgBox.setIcon(icon)
+    msgBox.setWindowTitle(window_title)
+    msgBox.setInformativeText(msg)
+    msgBox.setStandardButtons(QtWidgets.QMessageBox.Ok)
+    msgBox.setDefaultButton(QtWidgets.QMessageBox.Ok)
+    reply = msgBox.exec_()
+    return reply
+################################################################################
+################################################################################
+################################################################################
+

@@ -48,4 +48,10 @@ arcdps_installing               = "Installing ArcDps: "
 
 arcdps_error_dl                 = "Error downloading arcdps!!!"
 
+arcdps_error_install            = "Error installing arcdps!!!"
+
 arcdps_disclamer                = "I did not write this loader nor do i provide any support for it or it's compatibility with Guild Wars 2. Credit goes to /u/deltaconnected."
+
+arcdps_installed                = "Arcdps sucessfully installed !!!"
+
+arcdps_removed                  = "Arcdps sucessfully removed !!!"

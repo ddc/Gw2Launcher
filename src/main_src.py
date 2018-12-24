@@ -57,10 +57,6 @@ class MainSrc():
     def _check_dirs(self):
         if not os.path.exists(constants.program_path):
             os.makedirs(constants.program_path)  
-#         if not os.path.exists(constants.data_path):
-#             os.makedirs(constants.data_path)              
-#         if not os.path.exists(constants.logs_path):
-#             os.makedirs(constants.logs_path)  
 ################################################################################
 ################################################################################
 ################################################################################
@@ -118,8 +114,8 @@ class MainSrc():
         self.qtObj.port443_radioButton.clicked.connect(lambda: self._set_port())
         self.qtObj.port6112_radioButton.clicked.connect(lambda: self._set_port())
         # arcdps
-        self.qtObj.arcdps_yes_radioButton.clicked.connect(lambda: self._set_arcdps())
         self.qtObj.arcdps_no_radioButton.clicked.connect(lambda: self._set_arcdps())
+        self.qtObj.arcdps_yes_radioButton.clicked.connect(lambda: self._set_arcdps())
         # Parameters1
         self.qtObj.autologin_checkBox.clicked.connect(lambda: self._set_parameters1())
         self.qtObj.bit32_checkBox.clicked.connect(lambda: self._set_parameters1())
@@ -606,10 +602,12 @@ class MainSrc():
 ################################################################################
     def _set_assetsrv(self):
         assetsrv_textEdit = str(self.qtObj.assetsrv_textEdit.toPlainText())
+        
         if assetsrv_textEdit is not None and assetsrv_textEdit != "":
             self.assetsrv = assetsrv_textEdit
         else:
             self.assetsrv = ""
+            
         utils.set_file_settings("Parameters2", "assetsrv", f"\"{self.assetsrv}\"")
         self._set_all_configs_on_form_from_settings_file()   
 ################################################################################
@@ -617,10 +615,12 @@ class MainSrc():
 ################################################################################
     def _set_authsrv(self):
         authsrv_textEdit = str(self.qtObj.authsrv_textEdit.toPlainText())
+        
         if authsrv_textEdit is not None and authsrv_textEdit != "":
             self.authsrv = authsrv_textEdit
         else:
             self.authsrv = ""
+            
         utils.set_file_settings("Parameters2", "authsrv", f"\"{self.authsrv}\"")
         self._set_all_configs_on_form_from_settings_file()       
 ################################################################################
@@ -628,10 +628,12 @@ class MainSrc():
 ################################################################################
     def _set_portal(self):
         portal_textEdit = str(self.qtObj.portal_textEdit.toPlainText())
+        
         if portal_textEdit is not None and portal_textEdit != "":
             self.portal = portal_textEdit
         else:
             self.portal = ""
+            
         utils.set_file_settings("Parameters2", "portal", f"\"{self.portal}\"")
         self._set_all_configs_on_form_from_settings_file()          
 ################################################################################
@@ -644,6 +646,7 @@ class MainSrc():
             self.port = 443
         else:
             self.port = 6112
+            
         utils.set_file_settings("GW2", "port", str(self.port))    
         self._set_all_configs_on_form_from_settings_file()       
 ################################################################################
@@ -651,12 +654,28 @@ class MainSrc():
 ################################################################################
     def _set_arcdps(self):
         self.qtObj.main_tabWidget.setCurrentIndex(2)
+        icon = QtWidgets.QMessageBox.Information
+        result = True
+        
         if self.qtObj.arcdps_yes_radioButton.isChecked():
+            window_title = "Installed"
+            msg = messages.arcdps_installed
             self.arcdps = True
-            self._update_arcdps()
-        else:
+            result = self._update_arcdps()
+        elif self.qtObj.arcdps_no_radioButton.isChecked():
+            window_title = "Removed"
+            msg =  messages.arcdps_removed
             self.arcdps = False
-            utils.remove_arcdps_files(self)
+            result = utils.remove_arcdps_files(self)
+            
+        if result:
+            utils.show_ok_window(self, icon, window_title, msg)
+        else:
+            icon = QtWidgets.QMessageBox.Critical
+            window_title = "ERROR"
+            msg =  messages.arcdps_error_install            
+            utils.show_ok_window(self, icon, window_title, msg)
+            
         utils.set_file_settings("GW2", "arcdps", str(self.arcdps))
 ################################################################################
 ################################################################################
@@ -698,14 +717,14 @@ class MainSrc():
                         utils.show_progress_bar(self, arcdps_updating_msg, 100)
                         self._enable_form()
                         self.qtObj.main_tabWidget.setCurrentIndex(2)    
-                        return
+                        return False
                 #except Exception as e:
                 except requests.exceptions.ConnectionError as e:
                     self.log.error(f"{e} {md5sum_url}")
                     utils.show_progress_bar(self, arcdps_updating_msg, 100)
                     self._enable_form()
                     self.qtObj.main_tabWidget.setCurrentIndex(2)
-                    return                     
+                    return False                     
                     
                 current_d3d9_md5 = utils.md5Checksum(d3d9_path)
                 if req_d3d9_md5 != current_d3d9_md5:
@@ -724,7 +743,7 @@ class MainSrc():
                         utils.show_progress_bar(self, arcdps_updating_msg, 100)
                         self._enable_form()
                         self.qtObj.main_tabWidget.setCurrentIndex(2)
-                        return
+                        return False
 
                     #try buildTemplate_url
                     try:
@@ -738,7 +757,7 @@ class MainSrc():
                         utils.show_progress_bar(self, arcdps_updating_msg, 100)
                         self._enable_form()
                         self.qtObj.main_tabWidget.setCurrentIndex(2)
-                        return
+                        return False
 
                     #try extras_url
                     try:
@@ -752,7 +771,7 @@ class MainSrc():
                         utils.show_progress_bar(self, arcdps_updating_msg, 100)
                         self._enable_form()
                         self.qtObj.main_tabWidget.setCurrentIndex(2)
-                        return
+                        return False
 
                     utils.show_progress_bar(self, arcdps_updating_msg, 90)
                     utils.remove_arcdps_backup_files(self)
@@ -760,6 +779,7 @@ class MainSrc():
                 utils.show_progress_bar(self, arcdps_updating_msg, 100)
                 self._enable_form()
                 self.qtObj.main_tabWidget.setCurrentIndex(2)
+                return True
             else:
                 utils.show_progress_bar(self, arcdps_installing_msg, 0)
                 utils.remove_arcdps_files(self)
@@ -772,10 +792,10 @@ class MainSrc():
                     requests.get(arcdps_url)
                     utils.show_progress_bar(self, arcdps_installing_msg, 30)
                 except requests.exceptions.ConnectionError as e:
-                    self.log.error(f"{e} {arcdps_url}")
                     utils.show_progress_bar(self, arcdps_installing_msg, 100)
+                    self.log.error(f"{e} {arcdps_url}")
                     self._enable_form()
-                    return
+                    return False
                 
                 #try d3d9_url
                 try:
@@ -783,33 +803,43 @@ class MainSrc():
                     urllib.request.urlretrieve(d3d9_url, d3d9_path)
                     utils.show_progress_bar(self, arcdps_installing_msg, 50) 
                 except urllib.request.HTTPError as e:
+                    utils.show_progress_bar(self, arcdps_installing_msg, 100)
                     utils.remove_arcdps_files(self)
                     utils.show_message_box("error", arcdps_404_msg)
                     self.log.error(f"{e} {d3d9_url}")
-                    
+                    self._enable_form()
+                    return False
+                                    
                 #try buildTemplate_url
                 try:
                     utils.show_progress_bar(self, arcdps_installing_msg, 60)
                     urllib.request.urlretrieve(buildTemplate_url, template_path)
                     utils.show_progress_bar(self, arcdps_installing_msg, 70)
                 except urllib.request.HTTPError as e:
+                    utils.show_progress_bar(self, arcdps_installing_msg, 100)
                     utils.remove_arcdps_files(self)
                     utils.show_message_box("error", arcdps_404_msg)
                     self.log.error(f"{e} {buildTemplate_url}")                    
-                    
+                    self._enable_form()
+                    return False
+                                    
                 #try extras_url
                 try:
                     utils.show_progress_bar(self, arcdps_installing_msg, 80)
                     urllib.request.urlretrieve(extras_url, extras_path)
                     utils.show_progress_bar(self, arcdps_installing_msg, 90)
                 except urllib.request.HTTPError as e:
+                    utils.show_progress_bar(self, arcdps_installing_msg, 100)
                     utils.remove_arcdps_files(self)
                     utils.show_message_box("error", arcdps_404_msg)
                     self.log.error(f"{e} {extras_url}")                     
-                    
+                    self._enable_form()
+                    return False
+                                    
                 utils.show_progress_bar(self, arcdps_installing_msg, 100)
                 self._enable_form()
                 self.qtObj.main_tabWidget.setCurrentIndex(2)
+                return True
 ################################################################################
 ################################################################################
 ################################################################################
