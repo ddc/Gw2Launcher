@@ -18,7 +18,7 @@ dl_new_version_timeout          = "Unable to reach Website to check for new vers
 
 error_dl_new_version            = "There was an ERROR trying to download new version.\nPlease try again later."
 
-info_dl_new_version             = "Download completed sucessfully.\nNew version downloaded to \"Downloads\" directory."
+info_dl_new_version             = "Download completed successfully.\nNew version downloaded to \"Downloads\" directory."
 
 checking_new_version            = "Checking for new program version: "
 
@@ -52,6 +52,6 @@ arcdps_error_install            = "Error installing arcdps!!!"
 
 arcdps_disclamer                = "I did not write this loader nor do i provide any support for it or it's compatibility with Guild Wars 2. Credit goes to /u/deltaconnected."
 
-arcdps_installed                = "Arcdps sucessfully installed !!!"
+arcdps_installed                = "Arcdps successfully installed !!!"
 
-arcdps_removed                  = "Arcdps sucessfully removed !!!"
+arcdps_removed                  = "Arcdps successfully removed !!!"
