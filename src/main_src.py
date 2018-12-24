@@ -89,22 +89,22 @@ class MainSrc():
 ################################################################################
 ################################################################################
     def _enable_form(self):
+        self.qtObj.startGw2_button.setEnabled(True)
+        self.qtObj.currentParam_groupBox.setEnabled(True)
         self.qtObj.main_tabWidget.setTabEnabled(0,True)
         self.qtObj.main_tabWidget.setTabEnabled(1,True)
         self.qtObj.main_tabWidget.setTabEnabled(2,True)
         self.qtObj.main_tabWidget.setTabEnabled(3,True)
-        self.qtObj.startGw2_button.setEnabled(True)
-        self.qtObj.currentParam_groupBox.setEnabled(True)
 ################################################################################
 ################################################################################
 ################################################################################
     def _disable_form(self):
+        self.qtObj.startGw2_button.setEnabled(False)
+        self.qtObj.currentParam_groupBox.setEnabled(False)
         self.qtObj.main_tabWidget.setTabEnabled(0,False)
         self.qtObj.main_tabWidget.setTabEnabled(1,False)
         self.qtObj.main_tabWidget.setTabEnabled(2,False)
         self.qtObj.main_tabWidget.setTabEnabled(3,False)
-        self.qtObj.startGw2_button.setEnabled(False)     
-        self.qtObj.currentParam_groupBox.setEnabled(False)   
 ################################################################################
 ################################################################################
 ################################################################################  
@@ -682,6 +682,7 @@ class MainSrc():
             
             if os.path.isfile(d3d9_path):
                 self._disable_form()
+                self.qtObj.main_tabWidget.setCurrentIndex(2)
                 
                 try:
                     req_d3d9_md5 = ""
@@ -694,13 +695,15 @@ class MainSrc():
                         utils.show_message_box("error", arcdps_timeout_msg)
                         self.log.error(arcdps_timeout_msg)
                         utils.show_progress_bar(self, arcdps_updating_msg, 100)
-                        self._enable_form()        
+                        self._enable_form()
+                        self.qtObj.main_tabWidget.setCurrentIndex(2)    
                         return
                 #except Exception as e:
                 except requests.exceptions.ConnectionError as e:
                     self.log.error(f"{e} {md5sum_url}")
                     utils.show_progress_bar(self, arcdps_updating_msg, 100)
                     self._enable_form()
+                    self.qtObj.main_tabWidget.setCurrentIndex(2)
                     return                     
                     
                 current_d3d9_md5 = utils.md5Checksum(d3d9_path)
@@ -719,6 +722,7 @@ class MainSrc():
                         self.log.error(f"{e} {d3d9_url}")
                         utils.show_progress_bar(self, arcdps_updating_msg, 100)
                         self._enable_form()
+                        self.qtObj.main_tabWidget.setCurrentIndex(2)
                         return
 
                     #try buildTemplate_url
@@ -732,6 +736,7 @@ class MainSrc():
                         self.log.error(f"{e} {buildTemplate_url}")
                         utils.show_progress_bar(self, arcdps_updating_msg, 100)
                         self._enable_form()
+                        self.qtObj.main_tabWidget.setCurrentIndex(2)
                         return
 
                     #try extras_url
@@ -745,6 +750,7 @@ class MainSrc():
                         self.log.error(f"{e} {extras_url}")
                         utils.show_progress_bar(self, arcdps_updating_msg, 100)
                         self._enable_form()
+                        self.qtObj.main_tabWidget.setCurrentIndex(2)
                         return
 
                     utils.show_progress_bar(self, arcdps_updating_msg, 90)
@@ -752,10 +758,23 @@ class MainSrc():
                     
                 utils.show_progress_bar(self, arcdps_updating_msg, 100)
                 self._enable_form()
+                self.qtObj.main_tabWidget.setCurrentIndex(2)
             else:
                 utils.show_progress_bar(self, arcdps_installing_msg, 25)
                 utils.remove_arcdps_files(self)
-
+                arcdps_url = constants.arcdps_url
+                self._disable_form()
+                
+                #check arcdps website is up
+                try:
+                    requests.get(arcdps_url)
+                except requests.exceptions.ConnectionError as e:
+                    self.log.error(f"{e} {arcdps_url}")
+                    utils.show_progress_bar(self, arcdps_installing_msg, 100)
+                    self._enable_form()
+                    self.qtObj.main_tabWidget.setCurrentIndex(2)
+                    return
+                
                 #try d3d9_url
                 try:
                     utils.show_progress_bar(self, arcdps_installing_msg, 50)
@@ -785,6 +804,7 @@ class MainSrc():
                     
                 utils.show_progress_bar(self, arcdps_installing_msg, 100)
                 self._enable_form()
+                self.qtObj.main_tabWidget.setCurrentIndex(2)
 ################################################################################
 ################################################################################
 ################################################################################
@@ -827,27 +847,32 @@ class MainSrc():
     def _check_new_program_version(self):
         remote_version_filename = constants.remote_version_filename
         client_version = constants.VERSION
+        program_new_version_msg = messages.checking_new_version
         
         try:
+            utils.show_progress_bar(self, program_new_version_msg, 0)
             req = requests.get(remote_version_filename)
+            utils.show_progress_bar(self, program_new_version_msg, 25)
             if req.status_code == 200: 
                 req = req.json()
                 encode_msg = str(req['content'])
                 remote_version = str(base64.b64decode(encode_msg))
                 remote_version = remote_version.replace("b","")
                 remote_version = remote_version.replace("'","")
-                 
+                
+                utils.show_progress_bar(self, program_new_version_msg, 50)
                 if remote_version[-2:] == "\\n" or remote_version[-2:] == "\n":
                     remote_version = remote_version[:-2] #getting rid of \n at the end of line
-         
-                if float(remote_version) > float(client_version):
-                    new_version_window_title = f"Version {remote_version} Available for Download"
+                
+                utils.show_progress_bar(self, program_new_version_msg, 75)
+                if remote_version != client_version:
+                    utils.show_progress_bar(self, program_new_version_msg, 100)
+                    new_version_window_title = f"Version {remote_version} available for download"
                     
                     msg = f"""{messages.new_version_available}
-                        \nYour version: v{client_version}
-                        \nNew version: v{remote_version}
-                        \n\n{messages.check_downloaded_dir}
-                        \n\n{messages.confirm_download}"""
+                        \nYour version: v{client_version}\nNew version: v{remote_version}
+                        \n{messages.check_downloaded_dir}
+                        \n{messages.confirm_download}"""
     
                     icon = QtWidgets.QMessageBox.Question
                     msgBox = QtWidgets.QMessageBox()
@@ -880,8 +905,10 @@ class MainSrc():
                         _translate = QtCore.QCoreApplication.translate
                         self.form.setWindowTitle(_translate("Main", new_title))
             else:
+                utils.show_progress_bar(self, program_new_version_msg, 100)
                 print(f"\n{messages.remote_version_file_not_found}\n")
         except requests.exceptions.ConnectionError as e:
+            utils.show_progress_bar(self, program_new_version_msg, 100)
             self.log.error(f"{messages.dl_new_version_timeout} {e}")
             utils.show_message_box("error", messages.dl_new_version_timeout)
 ################################################################################
