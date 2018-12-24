@@ -650,6 +650,7 @@ class MainSrc():
 ################################################################################
 ################################################################################
     def _set_arcdps(self):
+        self.qtObj.main_tabWidget.setCurrentIndex(2)
         if self.qtObj.arcdps_yes_radioButton.isChecked():
             self.arcdps = True
             self._update_arcdps()
@@ -760,25 +761,27 @@ class MainSrc():
                 self._enable_form()
                 self.qtObj.main_tabWidget.setCurrentIndex(2)
             else:
-                utils.show_progress_bar(self, arcdps_installing_msg, 25)
+                utils.show_progress_bar(self, arcdps_installing_msg, 0)
                 utils.remove_arcdps_files(self)
                 arcdps_url = constants.arcdps_url
                 self._disable_form()
                 
                 #check arcdps website is up
                 try:
+                    utils.show_progress_bar(self, arcdps_installing_msg, 15)
                     requests.get(arcdps_url)
+                    utils.show_progress_bar(self, arcdps_installing_msg, 30)
                 except requests.exceptions.ConnectionError as e:
                     self.log.error(f"{e} {arcdps_url}")
                     utils.show_progress_bar(self, arcdps_installing_msg, 100)
                     self._enable_form()
-                    self.qtObj.main_tabWidget.setCurrentIndex(2)
                     return
                 
                 #try d3d9_url
                 try:
-                    utils.show_progress_bar(self, arcdps_installing_msg, 50)
-                    urllib.request.urlretrieve(d3d9_url, d3d9_path)  
+                    utils.show_progress_bar(self, arcdps_installing_msg, 40)
+                    urllib.request.urlretrieve(d3d9_url, d3d9_path)
+                    utils.show_progress_bar(self, arcdps_installing_msg, 50) 
                 except urllib.request.HTTPError as e:
                     utils.remove_arcdps_files(self)
                     utils.show_message_box("error", arcdps_404_msg)
@@ -786,8 +789,9 @@ class MainSrc():
                     
                 #try buildTemplate_url
                 try:
-                    utils.show_progress_bar(self, arcdps_installing_msg, 75)
+                    utils.show_progress_bar(self, arcdps_installing_msg, 60)
                     urllib.request.urlretrieve(buildTemplate_url, template_path)
+                    utils.show_progress_bar(self, arcdps_installing_msg, 70)
                 except urllib.request.HTTPError as e:
                     utils.remove_arcdps_files(self)
                     utils.show_message_box("error", arcdps_404_msg)
@@ -795,8 +799,9 @@ class MainSrc():
                     
                 #try extras_url
                 try:
-                    utils.show_progress_bar(self, arcdps_installing_msg, 90)
+                    utils.show_progress_bar(self, arcdps_installing_msg, 80)
                     urllib.request.urlretrieve(extras_url, extras_path)
+                    utils.show_progress_bar(self, arcdps_installing_msg, 90)
                 except urllib.request.HTTPError as e:
                     utils.remove_arcdps_files(self)
                     utils.show_message_box("error", arcdps_404_msg)
