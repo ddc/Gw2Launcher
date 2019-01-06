@@ -526,7 +526,7 @@
       </rect>
      </property>
      <property name="title">
-      <string>Other Utilities</string>
+      <string>Other Parameters</string>
      </property>
     </widget>
     <widget class="QPlainTextEdit" name="assetsrv_textEdit">

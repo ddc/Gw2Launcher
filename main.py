@@ -282,7 +282,7 @@ class Ui_Main(object):
         self.portal_label.setText(_translate("Main", "IP or DNS to use for connecting to a portal/gate server. (-portal)"))
         self.uninstall_checkBox.setText(_translate("Main", "Delete the contents of the Guild Wars 2 folder except GW2.EXE itself. (-uninstall)"))
         self.verify_checkBox.setText(_translate("Main", "Verify the .dat file. (-verify)"))
-        self.utilities_groupBox.setTitle(_translate("Main", "Other Utilities"))
+        self.utilities_groupBox.setTitle(_translate("Main", "Other Parameters"))
         self.main_tabWidget.setTabText(self.main_tabWidget.indexOf(self.parameters2_tab), _translate("Main", "Parameters II"))
         self.arcdps_groupBox.setTitle(_translate("Main", "Use ArcDps"))
         self.arcdps_yes_radioButton.setText(_translate("Main", "YES"))
