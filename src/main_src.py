@@ -32,6 +32,7 @@ class MainSrc():
         self._check_files()
         self._check_new_program_version()
         self._get_all_configs_from_settings_file()
+        self._check_arcdps_installed()
         self._update_arcdps()
         self._set_arcdps_tab()
         sys.excepthook = utils.log_uncaught_exceptions
@@ -680,6 +681,62 @@ class MainSrc():
 ################################################################################
 ################################################################################
 ################################################################################
+    def _check_arcdps_installed(self):
+        gw2_dir_path        = os.path.dirname(self.gw2Path)
+        md5sum_url          = constants.md5sum_url
+        d3d9_path           = f"{gw2_dir_path}/bin64/d3d9.dll"
+        arcdps_timeout_msg  = messages.arcdps_timeout
+        
+        if os.path.exists(f"{gw2_dir_path}/bin64/"):
+            if os.path.isfile(d3d9_path):
+                try:
+                    req_d3d9_md5 = ""
+                    req = requests.get(md5sum_url)
+                    if req.status_code == 200:
+                        req_d3d9_md5 = str(req.text.split()[0])
+                    else:
+                        utils.show_message_box("error", arcdps_timeout_msg)
+                        self.log.error(arcdps_timeout_msg)
+                        self.qtObj.main_tabWidget.setCurrentIndex(2)    
+                        return False
+                #except Exception as e:
+                except requests.exceptions.ConnectionError as e:
+                    self.log.error(f"{e} {md5sum_url}")
+                    self.qtObj.main_tabWidget.setCurrentIndex(2)
+                    return False                     
+                    
+                current_d3d9_md5 = utils.md5Checksum(d3d9_path)
+                if req_d3d9_md5 != current_d3d9_md5:
+                    #d3d9.dll exist but its not arcdps
+                    self.arcdps = False
+                    self.qtObj.arcdps_yes_radioButton.setChecked(False)
+                    self.qtObj.arcdps_no_radioButton.setChecked(True)
+                    utils.set_file_settings("GW2", "arcdps", str(self.arcdps))
+                    return False
+                else:
+                    #d3d9.dll exist and its arcdps 
+                    self.arcdps = True
+                    self.qtObj.arcdps_yes_radioButton.setChecked(True)
+                    self.qtObj.arcdps_no_radioButton.setChecked(False)
+                    utils.set_file_settings("GW2", "arcdps", str(self.arcdps))
+                    return True
+            else:
+                #d3d9.dll doesnt exist
+                self.arcdps = False
+                self.qtObj.arcdps_yes_radioButton.setChecked(False)
+                self.qtObj.arcdps_no_radioButton.setChecked(True)
+                utils.set_file_settings("GW2", "arcdps", str(self.arcdps))
+                return False
+        else:
+            #bin64 and d3d9.dll doesnt exists
+            self.arcdps = False
+            self.qtObj.arcdps_yes_radioButton.setChecked(False)
+            self.qtObj.arcdps_no_radioButton.setChecked(True)
+            utils.set_file_settings("GW2", "arcdps", str(self.arcdps))
+            return False
+################################################################################
+################################################################################
+################################################################################
     def _update_arcdps(self):
         gw2_dir_path        = os.path.dirname(self.gw2Path)
         d3d9_url            = constants.d3d9_url
@@ -939,6 +996,7 @@ class MainSrc():
                         new_title = f"{constants.FULL_PROGRAM_NAME} ({new_version_window_title})"
                         _translate = QtCore.QCoreApplication.translate
                         self.form.setWindowTitle(_translate("Main", new_title))
+                utils.show_progress_bar(self, program_new_version_msg, 100)
             else:
                 utils.show_progress_bar(self, program_new_version_msg, 100)
                 print(f"\n{messages.remote_version_file_not_found}\n")

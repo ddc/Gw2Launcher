@@ -8,7 +8,7 @@
 #|*****************************************************
 # # -*- coding: utf-8 -*-
 
-find_gw2_exec                   = "Please find GW2 64bits executable file before continue!!!"
+find_gw2_exec                   = "Please find \"Gw2-64.exe\" file before continue!!!"
 
 not_valid_gw2                   = "is not a valid Gw2 executable!!!\nThis program needs a valid GW2 file."
 
@@ -30,7 +30,7 @@ confirm_download                = "Do you want to download the new version now?"
 
 remote_version_file_not_found   = "ERROR: Remote File: VERSION was not found."
 
-need_find_gw2                   = "<== NEED TO FIND Gw2-64.exe TO ENABLE ALL PROGRAM FUNCTIONALITIES!!!"
+need_find_gw2                   = "<== NEED TO FIND \"Gw2-64.exe\" TO ENABLE ALL PROGRAM FUNCTIONALITIES!!!"
 
 gw2_32bit_not_supported         = "32bits Guild Wars 2 is not Supported!!!"
 
