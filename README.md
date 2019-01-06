@@ -2,7 +2,7 @@
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=plastic)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CTYZ8TK5MJV76)
 [<img src="https://img.shields.io/github/license/Hadesz1/Gw2Utils.svg?style=plastic">](https://github.com/Hadesz1/Gw2Utils/blob/master/LICENSE)
-[![Python](https://img.shields.io/badge/python-3-blue.svg?style=plastic)](https://www.python.org/downloads/)
+[![Python](https://img.shields.io/badge/python-3.6+-blue.svg?style=plastic)](https://www.python.org/downloads/)
 [![GitHub release](https://img.shields.io/github/release/Hadesz1/Gw2Utils.svg?style=plastic)](https://github.com/Hadesz1/Gw2Utils/releases/latest)
 [![QT5](https://img.shields.io/badge/QT-5-brightgreen.svg?style=plastic)](https://www.qt.io/)
 
@@ -13,15 +13,13 @@
 
 ## Program Notes
 + Guild Wars 2 "32bits" not supported
++ Configuration, logs and database files will be saved inside "Documents/Gw2Utils"
 + This program was compiled with PyInstaller
 + I did not write ArcDps loader nor do i provide any support for it or it's compatibility with Guild Wars 2. Credit goes to /u/deltaconnected.
-+ Configuration, logs and database files will be saved inside "Documents/Gw2Utils"
-    + "Documents/Gw2Utils/data/"
-    + "Documents/Gw2Utils/logs/"
 
 ## Acknowledgements
 + [QT5](https://www.qt.io)
-+ [Python](https://www.python.org/downloads/)
++ [Python3.6+](https://www.python.org/downloads/)
 + [Beautifulsoup4](https://pypi.org/project/beautifulsoup4/)
 + [PyInstaller](https://pyinstaller.readthedocs.io/en/stable/installation.html)
 + [Guild Wars 2](https://www.guildwars2.com/en/)
