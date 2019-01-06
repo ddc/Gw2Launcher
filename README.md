@@ -14,8 +14,8 @@
 ## Program Notes
 + Guild Wars 2 "32bits" not supported
 + Configuration, logs and database files will be saved inside "Documents/Gw2Utils"
-+ This program was compiled with PyInstaller
 + I did not write ArcDps loader nor do i provide any support for it or it's compatibility with Guild Wars 2. Credit goes to /u/deltaconnected.
++ This program was compiled with PyInstaller
 
 ## Acknowledgements
 + [QT5](https://www.qt.io)
@@ -28,7 +28,7 @@
 ## License
 Released under the [GNU GPL v3](LICENSE).
 
-## Buy me a cup of coffee
+## Buy Me a Cup of Coffee
 This program is open source and always will be, even if I don't get donations. That said, I know there are people out there that may still want to donate just to show their appreciation so this is for you guys. Thanks in advance!
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CTYZ8TK5MJV76)
