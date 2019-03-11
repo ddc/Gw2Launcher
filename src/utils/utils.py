@@ -262,11 +262,7 @@ def check_new_program_version(self):
         req = requests.get(remote_version_filename)
         show_progress_bar(self, program_new_version_msg, 25)
         if req.status_code == 200: 
-            req = req.json()
-            encode_msg = str(req['content'])
-            remote_version = str(base64.b64decode(encode_msg))
-            remote_version = remote_version.replace("b","")
-            remote_version = remote_version.replace("'","")
+            remote_version = req.text
             
             show_progress_bar(self, program_new_version_msg, 50)
             if remote_version[-2:] == "\\n" or remote_version[-2:] == "\n":

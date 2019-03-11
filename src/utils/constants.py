@@ -60,7 +60,7 @@ md5sum_url              = f"{arcdps_url}/x64/d3d9.dll.md5sum"
 buildTemplate_url       = f"{arcdps_url}/x64/buildtemplates/d3d9_arcdps_buildtemplates.dll"
 extras_url              = f"{arcdps_url}/x64/extras/d3d9_arcdps_extras.dll"
 github_exe_program_url  = f"https://github.com/Hadesz1/{short_program_name}/releases/download/{VERSION}/{exe_program_name}"
-remote_version_filename = f"https://api.github.com/repos/Hadesz1/{short_program_name}/contents/VERSION"
+remote_version_filename = f"https://raw.github.com/Hadesz1/{short_program_name}/master/VERSION"
 ################################################################################
 d3d9_path               = "/bin64/d3d9.dll"
 d3d9_bak_path           = "/bin64/d3d9.dll.bak"
