@@ -8,7 +8,7 @@
 #|*****************************************************
 # # -*- coding: utf-8 -*-
 
-import ast, sys, os, json, base64
+import ast, sys, os, json
 import logging, hashlib
 from src.utils import constants, messages
 from configparser import ConfigParser
@@ -100,23 +100,6 @@ def get_download_path():
         return location
     else:
         return os.path.join(os.path.expanduser('~'), 'downloads')
-################################################################################
-################################################################################
-################################################################################            
-def show_message_box(typeMsg, message):
-    if typeMsg.lower() == "error":
-        icon = QtWidgets.QMessageBox.Critical
-    elif typeMsg.lower() == "warning":
-        icon = QtWidgets.QMessageBox.Warning        
-    else:
-        icon = QtWidgets.QMessageBox.Information
-        
-    msgBox = QtWidgets.QMessageBox()
-    msgBox.setIcon(icon)
-    msgBox.setWindowTitle(typeMsg.capitalize())
-    msgBox.setText(message)
-    msgBox.setStandardButtons(QtWidgets.QMessageBox.Ok)
-    msgBox.exec_()
 ################################################################################
 ################################################################################
 ################################################################################
@@ -229,26 +212,30 @@ def backup_arcdps_files(self, type_backup:str):
 ################################################################################
 ################################################################################
 ################################################################################
-def show_ok_window(self, icon, window_title:str, msg:str):
-    #icons can be Information, Warning, Critical, Question
-    #icon = QtWidgets.QMessageBox.Information
-    if icon is None:
+def show_message_window(windowType:str, window_title:str, msg:str):
+    if windowType.lower() == "error":
+        icon = QtWidgets.QMessageBox.Critical
+    elif windowType.lower() == "warning":
+        icon = QtWidgets.QMessageBox.Warning
+    elif windowType.lower() == "question":
+        icon = QtWidgets.QMessageBox.Question     
+    else:
         icon = QtWidgets.QMessageBox.Information
-    
+
     msgBox = QtWidgets.QMessageBox()
     msgBox.setIcon(icon)
     msgBox.setWindowTitle(window_title)
     msgBox.setInformativeText(msg)
     
-    if icon == QtWidgets.QMessageBox.Question:
+    if windowType.lower() == "question":
         msgBox.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
         msgBox.setDefaultButton(QtWidgets.QMessageBox.Yes)    
     else:
         msgBox.setStandardButtons(QtWidgets.QMessageBox.Ok)
         msgBox.setDefaultButton(QtWidgets.QMessageBox.Ok)
     
-    reply = msgBox.exec_()
-    return reply
+    user_answer = msgBox.exec_()
+    return user_answer
 ################################################################################
 ################################################################################
 ################################################################################
@@ -272,13 +259,12 @@ def check_new_program_version(self):
             if remote_version != client_version:
                 show_progress_bar(self, program_new_version_msg, 100)
                 
-                icon = QtWidgets.QMessageBox.Question
                 new_version_window_title = f"Version {remote_version} available for download"
                 msg = f"""{messages.new_version_available}
                     \nYour version: v{client_version}\nNew version: v{remote_version}
                     \n{messages.check_downloaded_dir}
                     \n{messages.confirm_download}"""
-                reply = show_ok_window(self, icon, new_version_window_title, msg)
+                reply = show_message_window("question", new_version_window_title, msg)
             
                 if reply == QtWidgets.QMessageBox.Yes:
                     pb_dl_new_version_msg = messages.dl_new_version
@@ -291,12 +277,12 @@ def check_new_program_version(self):
                         urllib.request.urlretrieve(program_url, downloaded_program_path)
                         show_progress_bar(self, pb_dl_new_version_msg, 100)
                         
-                        show_message_box("Info", f"{messages.info_dl_completed}\n{downloaded_program_path}")
+                        show_message_window("Info", "INFO", f"{messages.info_dl_completed}\n{downloaded_program_path}")
                         sys.exit()
                     except Exception as e:
                         show_progress_bar(self, pb_dl_new_version_msg, 100)
                         self.log.error(f"{messages.error_dl_new_version} {e}")
-                        show_message_box("error", messages.error_dl_new_version)
+                        show_message_window("error", "ERROR", messages.error_dl_new_version)
                 else:
                     new_title = f"{constants.full_program_name} ({new_version_window_title})"
                     _translate = QtCore.QCoreApplication.translate
@@ -305,15 +291,13 @@ def check_new_program_version(self):
         else:
             show_progress_bar(self, program_new_version_msg, 100)
             self.log.error(f"{messages.error_check_new_version}\n{messages.remote_version_file_not_found} code:{req.status_code}")
-            icon = QtWidgets.QMessageBox.Critical
             window_title = "ERROR"
             msg = f"{messages.error_check_new_version}"        
-            show_ok_window(self, icon, window_title, msg)
+            show_message_window("critical", window_title, msg)
     except requests.exceptions.ConnectionError as e:
         show_progress_bar(self, program_new_version_msg, 100)
         self.log.error(f"{messages.dl_new_version_timeout} {e}")
-        show_message_box("error", messages.dl_new_version_timeout)
+        show_message_window("error", "ERROR", messages.dl_new_version_timeout)
 ################################################################################
 ################################################################################
 ################################################################################
-

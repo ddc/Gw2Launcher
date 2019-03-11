@@ -43,7 +43,7 @@ class MainSrc():
         if self.gw2Path is None or self.gw2Path == "":
             self._disable_form()
             find_gw2_exec_msg = messages.find_gw2_exec
-            utils.show_message_box("info", find_gw2_exec_msg)
+            utils.show_message_window("info", "INFO", find_gw2_exec_msg)
             self._get_gw2_file_name()
         else:
             self._enable_form()
@@ -414,11 +414,11 @@ class MainSrc():
 
         if file_name is not None:
             if file_name.lower() == "gw2.exe":
-                utils.show_message_box("error", str(messages.gw2_32bit_not_supported))
+                utils.show_message_window("error", "ERROR", str(messages.gw2_32bit_not_supported))
                 return
             
             not_valid_gw2_msg = f"\"{file_name}\" {messages.not_valid_gw2}"
-            utils.show_message_box("error", not_valid_gw2_msg)
+            utils.show_message_window("error", "ERROR", not_valid_gw2_msg)
 ################################################################################
 ################################################################################
 ################################################################################
@@ -444,7 +444,7 @@ class MainSrc():
                 utils.set_file_settings("Parameters2", "usedatfile", f"\"{self.usedatfile}\"")
                 self._set_all_configs_on_form_from_settings_file() 
                 message = f"\"{filename}\" is not a valid dat file!!!"
-                utils.show_message_box("error", message)  
+                utils.show_message_window("error", "ERROR", message)  
 ################################################################################
 ################################################################################
 ################################################################################
@@ -655,7 +655,6 @@ class MainSrc():
 ################################################################################
     def _set_arcdps(self):
         self.qtObj.main_tabWidget.setCurrentIndex(2)
-        icon = QtWidgets.QMessageBox.Information
         result = True
         
         if self.qtObj.arcdps_yes_radioButton.isChecked():
@@ -670,12 +669,11 @@ class MainSrc():
             result = utils.remove_arcdps_files(self)
             
         if result:
-            utils.show_ok_window(self, icon, window_title, msg)
+            utils.show_message_window("information", window_title, msg)
         else:
-            icon = QtWidgets.QMessageBox.Critical
             window_title = "ERROR"
             msg =  messages.arcdps_error_install            
-            utils.show_ok_window(self, icon, window_title, msg)
+            utils.show_message_window("critical", window_title, msg)
             
         utils.set_file_settings("GW2", "arcdps", str(self.arcdps))
 ################################################################################
@@ -732,7 +730,7 @@ class MainSrc():
                     if req.status_code == 200:
                         req_d3d9_md5 = str(req.text.split()[0])
                     else:
-                        utils.show_message_box("error", arcdps_timeout_msg)
+                        utils.show_message_window("error", "ERROR", arcdps_timeout_msg)
                         self.log.error(arcdps_timeout_msg)
                         utils.show_progress_bar(self, arcdps_updating_msg, 100)
                         self._enable_form()
@@ -758,7 +756,7 @@ class MainSrc():
                     except urllib.request.HTTPError as e:
                         utils.remove_arcdps_files(self)
                         utils.backup_arcdps_files(self, "revert_backup")
-                        utils.show_message_box("error", arcdps_404_msg)
+                        utils.show_message_window("error", "ERROR", arcdps_404_msg)
                         self.log.error(f"{e} {d3d9_url}")
                         utils.show_progress_bar(self, arcdps_updating_msg, 100)
                         self._enable_form()
@@ -772,7 +770,7 @@ class MainSrc():
                     except urllib.request.HTTPError as e:
                         utils.remove_arcdps_files(self)
                         utils.backup_arcdps_files(self, "revert_backup")
-                        utils.show_message_box("error", arcdps_404_msg)
+                        utils.show_message_window("error", "ERROR", arcdps_404_msg)
                         self.log.error(f"{e} {buildTemplate_url}")
                         utils.show_progress_bar(self, arcdps_updating_msg, 100)
                         self._enable_form()
@@ -786,7 +784,7 @@ class MainSrc():
                     except urllib.request.HTTPError as e:
                         utils.remove_arcdps_files(self)
                         utils.backup_arcdps_files(self, "revert_backup")
-                        utils.show_message_box("error", arcdps_404_msg)
+                        utils.show_message_window("error", "ERROR", arcdps_404_msg)
                         self.log.error(f"{e} {extras_url}")
                         utils.show_progress_bar(self, arcdps_updating_msg, 100)
                         self._enable_form()
@@ -825,7 +823,7 @@ class MainSrc():
                 except urllib.request.HTTPError as e:
                     utils.show_progress_bar(self, arcdps_installing_msg, 100)
                     utils.remove_arcdps_files(self)
-                    utils.show_message_box("error", arcdps_404_msg)
+                    utils.show_message_window("error", "ERROR", arcdps_404_msg)
                     self.log.error(f"{e} {d3d9_url}")
                     self._enable_form()
                     return False
@@ -838,7 +836,7 @@ class MainSrc():
                 except urllib.request.HTTPError as e:
                     utils.show_progress_bar(self, arcdps_installing_msg, 100)
                     utils.remove_arcdps_files(self)
-                    utils.show_message_box("error", arcdps_404_msg)
+                    utils.show_message_window("error", "ERROR", arcdps_404_msg)
                     self.log.error(f"{e} {buildTemplate_url}")                    
                     self._enable_form()
                     return False
@@ -851,7 +849,7 @@ class MainSrc():
                 except urllib.request.HTTPError as e:
                     utils.show_progress_bar(self, arcdps_installing_msg, 100)
                     utils.remove_arcdps_files(self)
-                    utils.show_message_box("error", arcdps_404_msg)
+                    utils.show_message_window("error", "ERROR", arcdps_404_msg)
                     self.log.error(f"{e} {extras_url}")                     
                     self._enable_form()
                     return False
@@ -893,7 +891,7 @@ class MainSrc():
                 self.qtObj.arcdps_current_version_label.setText(version.strip())
         except requests.exceptions.ConnectionError as e:
             self.log.error(f"{messages.arcdps_unreacheable} {e}")
-            utils.show_message_box("error", messages.arcdps_unreacheable)
+            utils.show_message_window("error", "ERROR", messages.arcdps_unreacheable)
             self.qtObj.arcdps_webpage_textEdit.setPlainText(messages.arcdps_unreacheable)
             self.qtObj.arcdps_current_version_label.setText("---")
 ################################################################################
