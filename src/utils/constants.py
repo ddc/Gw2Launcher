@@ -17,7 +17,7 @@ from src.utils import utils
 ################################################################################
 ################################################################################
 PROGRAM_NAME            = "Guild Wars 2 Utilities"
-VERSION                 = "1.12"
+VERSION                 = "1.13"
 ################################################################################
 exit_timer              = 5
 ################################################################################
@@ -27,8 +27,9 @@ exit_timer              = 5
 ################################################################################
 ################################################################################
 ################################################################################
-FULL_PROGRAM_NAME       = f"{PROGRAM_NAME} v{VERSION}"
-exe_program_name        = "Gw2Utils.exe"
+short_program_name      = "Gw2Utils"
+full_program_name       = f"{PROGRAM_NAME} v{VERSION}"
+exe_program_name        = f"{short_program_name}.exe"
 ################################################################################
 date_formatter          = "%b/%d/%Y"
 time_formatter          = "%H:%M:%S"
@@ -45,7 +46,7 @@ PYTHON_OK               = sys.version_info >= (3,6)
 gw2_64_bit_exec_name    = ["Gw2-64.exe"]
 ################################################################################
 my_docs_path            = str(utils.get_my_documents_path())
-program_path            = f"{my_docs_path}/Gw2Utils"
+program_path            = f"{my_docs_path}/{short_program_name}"
 #data_path               = f"{program_path}/data"
 #logs_path               = f"{program_path}/logs"
 ################################################################################
@@ -58,8 +59,8 @@ d3d9_url                = f"{arcdps_url}/x64/d3d9.dll"
 md5sum_url              = f"{arcdps_url}/x64/d3d9.dll.md5sum"
 buildTemplate_url       = f"{arcdps_url}/x64/buildtemplates/d3d9_arcdps_buildtemplates.dll"
 extras_url              = f"{arcdps_url}/x64/extras/d3d9_arcdps_extras.dll"
-github_exe_program_url  = f"https://github.com/Hadesz1/Gw2Utils/releases/download/{VERSION}/Gw2Utils.exe"
-remote_version_filename = "https://api.github.com/repos/Hadesz1/Gw2Utils/contents/VERSION"
+github_exe_program_url  = f"https://github.com/Hadesz1/{short_program_name}/releases/download/{VERSION}/{exe_program_name}"
+remote_version_filename = f"https://api.github.com/repos/Hadesz1/{short_program_name}/contents/VERSION"
 ################################################################################
 d3d9_path               = "/bin64/d3d9.dll"
 d3d9_bak_path           = "/bin64/d3d9.dll.bak"

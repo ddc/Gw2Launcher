@@ -8,13 +8,14 @@
 #|*****************************************************
 # # -*- coding: utf-8 -*-
 
-import ast, sys, os, json
+import ast, sys, os, json, base64
 import logging, hashlib
-from src.utils import constants
+from src.utils import constants, messages
 from configparser import ConfigParser
 from PyQt5.QtWidgets import QFileDialog
 from PyQt5 import QtCore, QtWidgets
 import ctypes.wintypes
+import requests, urllib.request
 ################################################################################
 ################################################################################
 ################################################################################
@@ -231,14 +232,91 @@ def backup_arcdps_files(self, type_backup:str):
 def show_ok_window(self, icon, window_title:str, msg:str):
     #icons can be Information, Warning, Critical, Question
     #icon = QtWidgets.QMessageBox.Information
+    if icon is None:
+        icon = QtWidgets.QMessageBox.Information
+    
     msgBox = QtWidgets.QMessageBox()
     msgBox.setIcon(icon)
     msgBox.setWindowTitle(window_title)
     msgBox.setInformativeText(msg)
-    msgBox.setStandardButtons(QtWidgets.QMessageBox.Ok)
-    msgBox.setDefaultButton(QtWidgets.QMessageBox.Ok)
+    
+    if icon == QtWidgets.QMessageBox.Question:
+        msgBox.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        msgBox.setDefaultButton(QtWidgets.QMessageBox.Yes)    
+    else:
+        msgBox.setStandardButtons(QtWidgets.QMessageBox.Ok)
+        msgBox.setDefaultButton(QtWidgets.QMessageBox.Ok)
+    
     reply = msgBox.exec_()
     return reply
+################################################################################
+################################################################################
+################################################################################
+def check_new_program_version(self):
+    remote_version_filename = constants.remote_version_filename
+    client_version = constants.VERSION
+    program_new_version_msg = messages.checking_new_version
+    
+    try:
+        show_progress_bar(self, program_new_version_msg, 0)
+        req = requests.get(remote_version_filename)
+        show_progress_bar(self, program_new_version_msg, 25)
+        if req.status_code == 200: 
+            req = req.json()
+            encode_msg = str(req['content'])
+            remote_version = str(base64.b64decode(encode_msg))
+            remote_version = remote_version.replace("b","")
+            remote_version = remote_version.replace("'","")
+            
+            show_progress_bar(self, program_new_version_msg, 50)
+            if remote_version[-2:] == "\\n" or remote_version[-2:] == "\n":
+                remote_version = remote_version[:-2] #getting rid of \n at the end of line
+            
+            show_progress_bar(self, program_new_version_msg, 75)
+            if remote_version != client_version:
+                show_progress_bar(self, program_new_version_msg, 100)
+                
+                icon = QtWidgets.QMessageBox.Question
+                new_version_window_title = f"Version {remote_version} available for download"
+                msg = f"""{messages.new_version_available}
+                    \nYour version: v{client_version}\nNew version: v{remote_version}
+                    \n{messages.check_downloaded_dir}
+                    \n{messages.confirm_download}"""
+                reply = show_ok_window(self, icon, new_version_window_title, msg)
+            
+                if reply == QtWidgets.QMessageBox.Yes:
+                    pb_dl_new_version_msg = messages.dl_new_version
+                    program_url = constants.github_exe_program_url
+                    user_download_path = get_download_path()
+                    downloaded_program_path = f"{user_download_path}\{constants.exe_program_name}"
+                    
+                    try:
+                        show_progress_bar(self, pb_dl_new_version_msg, 50)
+                        urllib.request.urlretrieve(program_url, downloaded_program_path)
+                        show_progress_bar(self, pb_dl_new_version_msg, 100)
+                        
+                        show_message_box("Info", f"{messages.info_dl_completed}\n{downloaded_program_path}")
+                        sys.exit()
+                    except Exception as e:
+                        show_progress_bar(self, pb_dl_new_version_msg, 100)
+                        self.log.error(f"{messages.error_dl_new_version} {e}")
+                        show_message_box("error", messages.error_dl_new_version)
+                else:
+                    new_title = f"{constants.full_program_name} ({new_version_window_title})"
+                    _translate = QtCore.QCoreApplication.translate
+                    self.form.setWindowTitle(_translate("Main", new_title))
+            show_progress_bar(self, program_new_version_msg, 100)
+        else:
+            show_progress_bar(self, program_new_version_msg, 100)
+            self.log.error(f"{messages.error_check_new_version}\n{messages.remote_version_file_not_found} code:{req.status_code}")
+            icon = QtWidgets.QMessageBox.Critical
+            window_title = "ERROR"
+            msg = f"{messages.error_check_new_version}"        
+            show_ok_window(self, icon, window_title, msg)
+    except requests.exceptions.ConnectionError as e:
+        show_progress_bar(self, program_new_version_msg, 100)
+        self.log.error(f"{messages.dl_new_version_timeout} {e}")
+        show_message_box("error", messages.dl_new_version_timeout)
 ################################################################################
 ################################################################################
 ################################################################################

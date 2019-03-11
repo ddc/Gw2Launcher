@@ -30,7 +30,7 @@ class MainSrc():
         self._check_dirs()
         self._setup_logging()
         self._check_files()
-        self._check_new_program_version()
+        utils.check_new_program_version(self)
         self._get_all_configs_from_settings_file()
         self._check_arcdps_installed()
         self._update_arcdps()
@@ -896,77 +896,6 @@ class MainSrc():
             utils.show_message_box("error", messages.arcdps_unreacheable)
             self.qtObj.arcdps_webpage_textEdit.setPlainText(messages.arcdps_unreacheable)
             self.qtObj.arcdps_current_version_label.setText("---")
-################################################################################
-################################################################################
-################################################################################
-    def _check_new_program_version(self):
-        remote_version_filename = constants.remote_version_filename
-        client_version = constants.VERSION
-        program_new_version_msg = messages.checking_new_version
-        
-        try:
-            utils.show_progress_bar(self, program_new_version_msg, 0)
-            req = requests.get(remote_version_filename)
-            utils.show_progress_bar(self, program_new_version_msg, 25)
-            if req.status_code == 200: 
-                req = req.json()
-                encode_msg = str(req['content'])
-                remote_version = str(base64.b64decode(encode_msg))
-                remote_version = remote_version.replace("b","")
-                remote_version = remote_version.replace("'","")
-                
-                utils.show_progress_bar(self, program_new_version_msg, 50)
-                if remote_version[-2:] == "\\n" or remote_version[-2:] == "\n":
-                    remote_version = remote_version[:-2] #getting rid of \n at the end of line
-                
-                utils.show_progress_bar(self, program_new_version_msg, 75)
-                if remote_version != client_version:
-                    utils.show_progress_bar(self, program_new_version_msg, 100)
-                    new_version_window_title = f"Version {remote_version} available for download"
-                    
-                    msg = f"""{messages.new_version_available}
-                        \nYour version: v{client_version}\nNew version: v{remote_version}
-                        \n{messages.check_downloaded_dir}
-                        \n{messages.confirm_download}"""
-    
-                    icon = QtWidgets.QMessageBox.Question
-                    msgBox = QtWidgets.QMessageBox()
-                    msgBox.setIcon(icon)
-                    msgBox.setWindowTitle(new_version_window_title)
-                    msgBox.setInformativeText(msg)
-                    msgBox.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
-                    msgBox.setDefaultButton(QtWidgets.QMessageBox.Yes)
-                    reply = msgBox.exec_()
-    
-                    if reply == QtWidgets.QMessageBox.Yes:
-                        pb_dl_new_version_msg = messages.dl_new_version
-                        program_url = constants.github_exe_program_url
-                        user_download_path = utils.get_download_path()
-                        downloaded_program_path = f"{user_download_path}\{constants.exe_program_name}"
-                        
-                        try:
-                            utils.show_progress_bar(self, pb_dl_new_version_msg, 50)
-                            urllib.request.urlretrieve(program_url, downloaded_program_path)
-                            utils.show_progress_bar(self, pb_dl_new_version_msg, 100)
-                            
-                            utils.show_message_box("Warning", f"{messages.info_dl_new_version}\n{downloaded_program_path}")
-                            sys.exit()
-                        except Exception as e:
-                            utils.show_progress_bar(self, pb_dl_new_version_msg, 100)
-                            self.log.error(f"{messages.error_dl_new_version} {e}")
-                            utils.show_message_box("error", messages.error_dl_new_version)
-                    else:
-                        new_title = f"{constants.FULL_PROGRAM_NAME} ({new_version_window_title})"
-                        _translate = QtCore.QCoreApplication.translate
-                        self.form.setWindowTitle(_translate("Main", new_title))
-                utils.show_progress_bar(self, program_new_version_msg, 100)
-            else:
-                utils.show_progress_bar(self, program_new_version_msg, 100)
-                print(f"\n{messages.remote_version_file_not_found}\n")
-        except requests.exceptions.ConnectionError as e:
-            utils.show_progress_bar(self, program_new_version_msg, 100)
-            self.log.error(f"{messages.dl_new_version_timeout} {e}")
-            utils.show_message_box("error", messages.dl_new_version_timeout)
 ################################################################################
 ################################################################################
 ################################################################################

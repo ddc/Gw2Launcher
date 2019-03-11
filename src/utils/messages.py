@@ -18,7 +18,9 @@ dl_new_version_timeout          = "Unable to reach Website to check for new vers
 
 error_dl_new_version            = "There was an ERROR trying to download new version.\nPlease try again later."
 
-info_dl_new_version             = "Download completed successfully.\nNew version downloaded to \"Downloads\" directory."
+error_check_new_version         = "There was an ERROR trying to check for a new program version!"
+
+info_dl_completed               = "Download completed successfully.\nNew version downloaded to \"Downloads\" directory."
 
 checking_new_version            = "Checking for new program version: "
 

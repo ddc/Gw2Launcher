@@ -247,7 +247,7 @@ class Ui_Main(object):
         
     def retranslateUi(self, Main):
         _translate = QtCore.QCoreApplication.translate
-        Main.setWindowTitle(_translate("Main", constants.FULL_PROGRAM_NAME))
+        Main.setWindowTitle(_translate("Main", constants.full_program_name))
         self.findGw2File_button.setText(_translate("Main", "Find Gw2 Executable"))
         self.startGw2_button.setText(_translate("Main", "Start Gw2"))
         self.port_groupBox.setTitle(_translate("Main", "Port"))
