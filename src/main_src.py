@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtWidgets
 from src.utils.create_files import CreateFiles 
 from src.utils import constants, messages, utils
 import logging.handlers
-import sys, os, base64
+import sys, os
 from time import sleep
 import requests, urllib.request
 from bs4 import BeautifulSoup
@@ -88,20 +88,18 @@ class MainSrc():
     def _enable_form(self):
         self.qtObj.startGw2_button.setEnabled(True)
         self.qtObj.currentParam_groupBox.setEnabled(True)
-        self.qtObj.main_tabWidget.setTabEnabled(0,True)
-        self.qtObj.main_tabWidget.setTabEnabled(1,True)
-        self.qtObj.main_tabWidget.setTabEnabled(2,True)
-        self.qtObj.main_tabWidget.setTabEnabled(3,True)
+        numPages = self.qtObj.main_tabWidget.count()
+        for x in range(0, numPages):
+            self.qtObj.main_tabWidget.setTabEnabled(x,True)
 ################################################################################
 ################################################################################
 ################################################################################
     def _disable_form(self):
         self.qtObj.startGw2_button.setEnabled(False)
         self.qtObj.currentParam_groupBox.setEnabled(False)
-        self.qtObj.main_tabWidget.setTabEnabled(0,False)
-        self.qtObj.main_tabWidget.setTabEnabled(1,False)
-        self.qtObj.main_tabWidget.setTabEnabled(2,False)
-        self.qtObj.main_tabWidget.setTabEnabled(3,False)
+        numPages = self.qtObj.main_tabWidget.count()
+        for x in range(0, numPages):
+            self.qtObj.main_tabWidget.setTabEnabled(x,False)
 ################################################################################
 ################################################################################
 ################################################################################  
