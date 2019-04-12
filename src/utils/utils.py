@@ -239,65 +239,71 @@ def show_message_window(windowType:str, window_title:str, msg:str):
 ################################################################################
 ################################################################################
 ################################################################################
-def check_new_program_version(self):
+def check_new_program_version(self, show_dialog=True):
     remote_version_filename = constants.remote_version_filename
     client_version = constants.VERSION
-    program_new_version_msg = messages.checking_new_version
+    program_checking_version_msg = messages.checking_new_version
+    obj_return = Object()
+    obj_return.new_version = False
     
     try:
-        show_progress_bar(self, program_new_version_msg, 0)
+        show_progress_bar(self, program_checking_version_msg, 0)
         req = requests.get(remote_version_filename)
-        show_progress_bar(self, program_new_version_msg, 25)
+        show_progress_bar(self, program_checking_version_msg, 25)
         if req.status_code == 200: 
             remote_version = req.text
             
-            show_progress_bar(self, program_new_version_msg, 50)
+            show_progress_bar(self, program_checking_version_msg, 50)
             if remote_version[-2:] == "\\n" or remote_version[-2:] == "\n":
                 remote_version = remote_version[:-2] #getting rid of \n at the end of line
             
-            show_progress_bar(self, program_new_version_msg, 75)
+            show_progress_bar(self, program_checking_version_msg, 75)
             if remote_version != client_version:
-                show_progress_bar(self, program_new_version_msg, 100)
+                obj_return.new_version = True
+                show_progress_bar(self, program_checking_version_msg, 100)
+                obj_return.new_version_msg = f"Version {remote_version} available for download"
                 
-                new_version_window_title = f"Version {remote_version} available for download"
-                msg = f"""{messages.new_version_available}
-                    \nYour version: v{client_version}\nNew version: v{remote_version}
-                    \n{messages.check_downloaded_dir}
-                    \n{messages.confirm_download}"""
-                reply = show_message_window("question", new_version_window_title, msg)
-            
-                if reply == QtWidgets.QMessageBox.Yes:
-                    pb_dl_new_version_msg = messages.dl_new_version
-                    program_url = constants.github_exe_program_url
-                    user_download_path = get_download_path()
-                    downloaded_program_path = f"{user_download_path}\{constants.exe_program_name}"
-                    
-                    try:
-                        show_progress_bar(self, pb_dl_new_version_msg, 50)
-                        urllib.request.urlretrieve(program_url, downloaded_program_path)
-                        show_progress_bar(self, pb_dl_new_version_msg, 100)
+                if show_dialog:
+                    msg = f"""{messages.new_version_available}
+                        \nYour version: v{client_version}\nNew version: v{remote_version}
+                        \n{messages.check_downloaded_dir}
+                        \n{messages.confirm_download}"""
+                    reply = show_message_window("question", obj_return.new_version_msg, msg)
+                
+                    if reply == QtWidgets.QMessageBox.Yes:
+                        pb_dl_new_version_msg = messages.dl_new_version
+                        program_url = constants.github_exe_program_url
+                        user_download_path = get_download_path()
+                        downloaded_program_path = f"{user_download_path}\{constants.exe_program_name}"
                         
-                        show_message_window("Info", "INFO", f"{messages.info_dl_completed}\n{downloaded_program_path}")
-                        sys.exit()
-                    except Exception as e:
-                        show_progress_bar(self, pb_dl_new_version_msg, 100)
-                        self.log.error(f"{messages.error_dl_new_version} {e}")
-                        show_message_window("error", "ERROR", messages.error_dl_new_version)
-                else:
-                    new_title = f"{constants.full_program_name} ({new_version_window_title})"
-                    _translate = QtCore.QCoreApplication.translate
-                    self.form.setWindowTitle(_translate("Main", new_title))
-            show_progress_bar(self, program_new_version_msg, 100)
+                        try:
+                            show_progress_bar(self, pb_dl_new_version_msg, 50)
+                            urllib.request.urlretrieve(program_url, downloaded_program_path)
+                            show_progress_bar(self, pb_dl_new_version_msg, 100)
+                            show_message_window("Info", "INFO", f"{messages.info_dl_completed}\n{downloaded_program_path}")
+                            sys.exit()
+                        except Exception as e:
+                            show_progress_bar(self, pb_dl_new_version_msg, 100)
+                            self.log.error(f"{messages.error_check_new_version} {e}")
+                            if e.code == 404:
+                                show_message_window("error", "ERROR", messages.remote_version_file_not_found) 
+                            else:
+                                show_message_window("error", "ERROR", messages.error_check_new_version)
+                    else:
+                        new_title = f"{constants.full_program_name} ({obj_return.new_version_msg})"
+                        _translate = QtCore.QCoreApplication.translate
+                        self.form.setWindowTitle(_translate("Main", new_title))
+            show_progress_bar(self, program_checking_version_msg, 100)
         else:
-            show_progress_bar(self, program_new_version_msg, 100)
+            show_progress_bar(self, program_checking_version_msg, 100)
             self.log.error(f"{messages.error_check_new_version}\n{messages.remote_version_file_not_found} code:{req.status_code}")
-            window_title = "ERROR"
-            msg = f"{messages.error_check_new_version}"        
-            show_message_window("critical", window_title, msg)
+            show_message_window("critical", "ERROR" , f"{messages.error_check_new_version}")
     except requests.exceptions.ConnectionError as e:
-        show_progress_bar(self, program_new_version_msg, 100)
+        show_progress_bar(self, program_checking_version_msg, 100)
         self.log.error(f"{messages.dl_new_version_timeout} {e}")
         show_message_window("error", "ERROR", messages.dl_new_version_timeout)
+    finally:
+        return obj_return
 ################################################################################
 ################################################################################
 ################################################################################
