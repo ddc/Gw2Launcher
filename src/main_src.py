@@ -8,7 +8,7 @@
 #|*****************************************************
 # # -*- coding: utf-8 -*-
 
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore
 from src.utils.create_files import CreateFiles 
 from src.utils import constants, messages, utils
 import logging.handlers
