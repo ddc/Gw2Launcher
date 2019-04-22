@@ -20,7 +20,6 @@
 ## Acknowledgements
 + [QT5](https://www.qt.io)
 + [Python3.6+](https://www.python.org/downloads/)
-+ [Beautifulsoup4](https://pypi.org/project/beautifulsoup4/)
 + [PyInstaller](https://pyinstaller.readthedocs.io/en/stable/installation.html)
 + [Guild Wars 2](https://www.guildwars2.com/en/)
 + [ArcDps](http://www.deltaconnected.com/arcdps/)
