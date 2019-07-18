@@ -1,9 +1,9 @@
 # Guild Wars 2 Utilities
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=plastic)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CTYZ8TK5MJV76)
-[<img src="https://img.shields.io/github/license//Gw2Utils.svg?style=plastic">](https://github.com//Gw2Utils/blob/master/LICENSE)
+[<img src="https://img.shields.io/github/license/ddc/Gw2Utils.svg?style=plastic">](https://github.com/ddc/Gw2Utils/blob/master/LICENSE)
 [![Python](https://img.shields.io/badge/python-3.6+-blue.svg?style=plastic)](https://www.python.org/downloads/)
-[![GitHub release](https://img.shields.io/github/release//Gw2Utils.svg?style=plastic)](https://github.com//Gw2Utils/releases/latest)
+[![GitHub release](https://img.shields.io/github/release/ddc/Gw2Utils.svg?style=plastic)](https://github.com/ddc/Gw2Utils/releases/latest)
 [![QT5](https://img.shields.io/badge/QT-5-brightgreen.svg?style=plastic)](https://www.qt.io/)
 
 Program to start [Guild Wars 2](https://www.guildwars2.com/en/) with different parameters.
@@ -11,7 +11,7 @@ Program to start [Guild Wars 2](https://www.guildwars2.com/en/) with different p
 ![screenshot](https://user-images.githubusercontent.com/34492089/47893497-fafb2580-de3b-11e8-90b8-3a985c710c13.png)
 
 ## Download
-+ [Latest Release](https://github.com//Gw2Utils/releases/latest)
++ [Latest Release](https://github.com/ddc/Gw2Utils/releases/latest)
 
 ## Program Notes
 + Guild Wars 2 "32bits" not supported
