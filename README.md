@@ -1,4 +1,4 @@
-# Guild Wars 2 Utilities by [Hadesz#1223](mailto:hadesz456@gmail.com)
+# Guild Wars 2 Utilities
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=plastic)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CTYZ8TK5MJV76)
 [<img src="https://img.shields.io/github/license/Hadesz1/Gw2Utils.svg?style=plastic">](https://github.com/Hadesz1/Gw2Utils/blob/master/LICENSE)
