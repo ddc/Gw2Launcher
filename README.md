@@ -1,5 +1,6 @@
 # Guild Wars 2 Utilities
 
+
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg?style=plastic)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CTYZ8TK5MJV76)
 [<img src="https://img.shields.io/github/license/ddc/Gw2Utils.svg?style=plastic">](https://github.com/ddc/Gw2Utils/blob/master/LICENSE)
 [![Python](https://img.shields.io/badge/python-3.6+-blue.svg?style=plastic)](https://www.python.org/downloads/)
