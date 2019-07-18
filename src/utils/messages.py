@@ -1,8 +1,7 @@
 #! /usr/bin/env python3
 #|*****************************************************
-# * Copyright         : Copyright (C) 2018
-# * Author            : Hadesz#1223 (discord)
-# * E-Mail            : hadesz456@gmail.com
+# * Copyright         : Copyright (C) 2019
+# * Author            : ddc
 # * License           : GPL v3
 # * Python            : 3.6
 #|*****************************************************
