@@ -6,7 +6,7 @@
 # * Python            : 3.6
 #|*****************************************************
 # # -*- coding: utf-8 -*-
-    
+
 from src.utils import constants
 from src.main_src import MainSrc
 from PyQt5 import QtCore, QtWidgets
