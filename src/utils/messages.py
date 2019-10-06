@@ -7,7 +7,7 @@
 # |*****************************************************
 # # -*- coding: utf-8 -*-
 
-find_gw2_exec = "Please find \"Gw2-64.exe\" file before continue!!!"
+find_gw2_exec = "Please find \"Gw2-64.exe\" executable file before continue!!!"
 
 not_valid_gw2 = "is not a valid Gw2 executable!!!\nThis program needs a valid GW2 file."
 
@@ -58,3 +58,5 @@ arcdps_installed = "Arcdps successfully installed !!!"
 arcdps_removed = "Arcdps successfully removed !!!"
 
 gw2_not_found = "ERROR:\nGuild Wars 2 was not found:"
+
+gw2_uninstalled = "GW2 was uninstalled or removed."

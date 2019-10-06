@@ -61,6 +61,20 @@ def get_all_ini_file_settings(file_name: str):
 
 
 ################################################################################
+def set_all_ini_file_settings(filename: str, section: str, config_name: str, value):
+    parser = configparser.ConfigParser(delimiters='=', allow_no_value=True)
+    parser.optionxform = str  # this wont change all values to lowercase
+    parser._interpolation = configparser.ExtendedInterpolation()
+    try:
+        parser.read(filename)
+        parser.set(section, config_name, value)
+        with open(filename, 'w') as configfile:
+            parser.write(configfile, space_around_delimiters=False)
+    except configparser.DuplicateOptionError:
+        return
+
+
+################################################################################
 # def get_file_settings(section: str, config_name: str):
 #     filename = constants.SETTINGS_FILENAME
 #     parser = configparser.ConfigParser(delimiters='=', allow_no_value=True)
@@ -77,7 +91,7 @@ def get_all_ini_file_settings(file_name: str):
 
 
 ################################################################################
-def set_file_settings(section, config_name, value):
+def set_file_settings(section: str, config_name: str, value):
     filename = constants.SETTINGS_FILENAME
     parser = configparser.ConfigParser(delimiters='=', allow_no_value=True)
     parser.optionxform = str  # this wont change all values to lowercase

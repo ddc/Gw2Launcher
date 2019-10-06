@@ -6,9 +6,9 @@
 [![GitHub release](https://img.shields.io/github/release/ddc/Gw2Launcher.svg?style=plastic)](https://github.com/ddc/Gw2Launcher/releases/latest)
 [![QT5](https://img.shields.io/badge/QT-5-brightgreen.svg?style=plastic)](https://www.qt.io/)
 
-Program to launch [Guild Wars 2](https://www.guildwars2.com/en) with different parameters.
+Program to launch [Guild Wars 2](https://www.guildwars2.com) with different parameters.
 
-![screenshot](https://user-images.githubusercontent.com/34492089/47893497-fafb2580-de3b-11e8-90b8-3a985c710c13.png)
+![screenshot](src/images/screenshot.png)
 
 ## Download
 + [Latest Release](https://github.com/ddc/Gw2Launcher/releases/latest)

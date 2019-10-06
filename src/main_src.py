@@ -149,11 +149,11 @@ class MainSrc:
     def _set_all_configs_on_form_from_settings_file(self):
         self.current_parameters_list = list()
         self.current_parameters_list.append(f"-clientport:{self.configs['port']}")
-        if self.configs['port'] == 80:
+        if int(self.configs['port']) == 80:
             self.qtObj.port80_radioButton.setChecked(True)
             self.qtObj.port443_radioButton.setChecked(False)
             self.qtObj.port6112_radioButton.setChecked(False)
-        elif self.configs['port'] == 443:
+        elif int(self.configs['port']) == 443:
             self.qtObj.port80_radioButton.setChecked(False)
             self.qtObj.port443_radioButton.setChecked(True)
             self.qtObj.port6112_radioButton.setChecked(False)
@@ -850,7 +850,10 @@ class MainSrc:
             my_process.started.connect(self._gw2_process_started())
         else:
             utilities.show_message_window("error", "ERROR",
-                                          f"{messages.gw2_not_found}\n{self.configs['gw2Path']}\n\n{messages.find_gw2_exec}")
+                                          f"{messages.gw2_not_found}\n"
+                                          f"{self.configs['gw2Path']}\n\n"
+                                          f"{messages.gw2_uninstalled}\n"
+                                          f"{messages.find_gw2_exec}")
 
     ################################################################################
     def _gw2_process_started(self):
