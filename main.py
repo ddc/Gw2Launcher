@@ -1,15 +1,16 @@
 #! /usr/bin/env python3
-#|*****************************************************
+# |*****************************************************
 # * Copyright         : Copyright (C) 2019
 # * Author            : ddc
 # * License           : GPL v3
 # * Python            : 3.6
-#|*****************************************************
+# |*****************************************************
 # # -*- coding: utf-8 -*-
 
 from src.utils import constants
 from src.main_src import MainSrc
 from PyQt5 import QtCore, QtWidgets
+
 
 class Ui_Main(object):
     def setupUi(self, Main):
@@ -185,7 +186,7 @@ class Ui_Main(object):
         self.arcdps_disclamer_label = QtWidgets.QLabel(self.arcDps_tab)
         self.arcdps_disclamer_label.setGeometry(QtCore.QRect(160, 10, 431, 41))
         self.arcdps_disclamer_label.setText("")
-        self.arcdps_disclamer_label.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.arcdps_disclamer_label.setAlignment(QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop)
         self.arcdps_disclamer_label.setWordWrap(True)
         self.arcdps_disclamer_label.setOpenExternalLinks(True)
         self.arcdps_disclamer_label.setObjectName("arcdps_disclamer_label")
@@ -233,7 +234,7 @@ class Ui_Main(object):
         self.current_param_label.setGeometry(QtCore.QRect(10, 20, 471, 51))
         self.current_param_label.setText("")
         self.current_param_label.setTextFormat(QtCore.Qt.AutoText)
-        self.current_param_label.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.current_param_label.setAlignment(QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop)
         self.current_param_label.setWordWrap(True)
         self.current_param_label.setObjectName("current_param_label")
 
@@ -241,12 +242,12 @@ class Ui_Main(object):
         self.main_tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Main)
 
-        mainSrc = MainSrc(self, Main)
-        mainSrc.init()
-        
+        main_src = MainSrc(self, Main)
+        main_src.init()
+
     def retranslateUi(self, Main):
         _translate = QtCore.QCoreApplication.translate
-        Main.setWindowTitle(_translate("Main", constants.full_program_name))
+        Main.setWindowTitle(_translate("Main", constants.FULL_PROGRAM_NAME))
         self.findGw2File_button.setText(_translate("Main", "Find Gw2 Executable"))
         self.startGw2_button.setText(_translate("Main", "Start Gw2"))
         self.port_groupBox.setTitle(_translate("Main", "Port"))
@@ -266,12 +267,12 @@ class Ui_Main(object):
         self.nosound_checkBox.setText(_translate("Main", "Disable audio system completely. (-nosound)"))
         self.prefreset_checkBox.setText(_translate("Main", "Reset game settings. (-prefreset)"))
         self.shareArchive_checkBox.setText(_translate("Main", "Gw2.dat file will be shared and can be accessed from other processes. (-shareArchive)"))
-        self.uispanallmonitors_checkBox.setText(_translate("Main", "Spread user interface across all monitors in a triple monitor setup. (-uispanallmonitors)"))
+        self.uispanallmonitors_checkBox.setText(_translate("Main","Spread user interface across all monitors in a triple monitor setup. (-uispanallmonitors)"))
         self.useOldFov_checkBox.setText(_translate("Main", "Restore the original field-of-view. (-useOldFov)"))
         self.windowed_checkBox.setText(_translate("Main", "Force Guild Wars 2 to run in windowed mode. (-windowed)"))
         self.umbra_checkBox.setText(_translate("Main", "Force the use of Umbra\'s GPU accelerated culling. (-umbra gpu)"))
         self.bmp_checkBox.setText(_translate("Main", "Force the game to create lossless screenshots as .BMP files. (-bmp)"))
-        self.main_tabWidget.setTabText(self.main_tabWidget.indexOf(self.parameters1_tab), _translate("Main", "Parameters I"))
+        self.main_tabWidget.setTabText(self.main_tabWidget.indexOf(self.parameters1_tab),_translate("Main", "Parameters I"))
         self.dat_label.setText(_translate("Main", "Use the specified .dat file instead of the default GW2.dat file. (-dat )"))
         self.daFile_button.setText(_translate("Main", ".dat File"))
         self.authsrv_label.setText(_translate("Main", "IP or DNS that can be used to connect to a login server. (-authsrv)"))
@@ -282,46 +283,47 @@ class Ui_Main(object):
         self.uninstall_checkBox.setText(_translate("Main", "Delete the contents of the Guild Wars 2 folder except GW2.EXE itself. (-uninstall)"))
         self.verify_checkBox.setText(_translate("Main", "Verify the .dat file. (-verify)"))
         self.utilities_groupBox.setTitle(_translate("Main", "Other Parameters"))
-        self.main_tabWidget.setTabText(self.main_tabWidget.indexOf(self.parameters2_tab), _translate("Main", "Parameters II"))
+        self.main_tabWidget.setTabText(self.main_tabWidget.indexOf(self.parameters2_tab),_translate("Main", "Parameters II"))
         self.arcdps_groupBox.setTitle(_translate("Main", "Use ArcDps"))
         self.arcdps_yes_radioButton.setText(_translate("Main", "YES"))
         self.arcdps_no_radioButton.setText(_translate("Main", "NO"))
         self.arcdps_latest_version_label.setText(_translate("Main", "Latest Version"))
         self.main_tabWidget.setTabText(self.main_tabWidget.indexOf(self.arcDps_tab), _translate("Main", "ArcDps"))
-        self.about_textBrowser.setHtml(_translate("Main", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt; font-weight:600;\">Guild Wars 2 Utilities</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">Implemented using Python3 and QT5.</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">Developed as an open source project and hosted on GitHub.</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">More info about Guild Wars 2 command line arguments on wiki:</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://wiki.guildwars2.com/wiki/Command_line_arguments\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Gw2 Wiki</span></a></p>\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt; text-decoration: underline; color:#0000ff;\"><br /></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt; font-weight:600;\">Acknowledgements:</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.deltaconnected.com/arcdps\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Arcdps</span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.guildwars2.com\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Guild Wars 2</span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://pyinstaller.readthedocs.io\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">PyInstaller</span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.python.org\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Python3</span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.qt.io\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">QT5</span></a></p>\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt; text-decoration: underline; color:#0000ff;\"><br /></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt; font-weight:600;\">Developed by:</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">Discord: Hadesz#1223</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">Gw2 ID: Hadesz.7508</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"mailto:hadesz456@gmail.com\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Email</span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://github.com/ddc/Gw2Utils/releases/latest\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Download</span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=CTYZ8TK5MJV76\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Donations</span></a></p></body></html>"))
+        self.about_textBrowser.setHtml(_translate("Main",
+                                                  "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+                                                  "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                                  "p, li { white-space: pre-wrap; }\n"
+                                                  "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
+                                                  "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+                                                  "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt; font-weight:600;\">Guild Wars 2 Utilities</span></p>\n"
+                                                  "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">Implemented using Python3 and QT5.</span></p>\n"
+                                                  "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">Developed as an open source project and hosted on GitHub.</span></p>\n"
+                                                  "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">More info about Guild Wars 2 command line arguments on wiki:</span></p>\n"
+                                                  "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://wiki.guildwars2.com/wiki/Command_line_arguments\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Gw2 Wiki</span></a></p>\n"
+                                                  "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt; text-decoration: underline; color:#0000ff;\"><br /></p>\n"
+                                                  "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt; font-weight:600;\">Acknowledgements:</span></p>\n"
+                                                  "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.deltaconnected.com/arcdps\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Arcdps</span></a></p>\n"
+                                                  "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.guildwars2.com\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Guild Wars 2</span></a></p>\n"
+                                                  "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://pyinstaller.readthedocs.io\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">PyInstaller</span></a></p>\n"
+                                                  "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.python.org\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Python3</span></a></p>\n"
+                                                  "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.qt.io\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">QT5</span></a></p>\n"
+                                                  "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt; text-decoration: underline; color:#0000ff;\"><br /></p>\n"
+                                                  "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt; font-weight:600;\">Developed by:</span></p>\n"
+                                                  "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">Discord: Hadesz#1223</span></p>\n"
+                                                  "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">Gw2 ID: Hadesz.7508</span></p>\n"
+                                                  "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"mailto:hadesz456@gmail.com\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Email</span></a></p>\n"
+                                                  "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://github.com/ddc/Gw2Launcher/releases/latest\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Download</span></a></p>\n"
+                                                  "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=CTYZ8TK5MJV76\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Donations</span></a></p></body></html>"))
         self.main_tabWidget.setTabText(self.main_tabWidget.indexOf(self.about_tab), _translate("Main", "About"))
         self.currentParam_groupBox.setTitle(_translate("Main", "Current Parameters"))
 
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     Main = QtWidgets.QWidget()
     ui = Ui_Main()
     ui.setupUi(Main)
     Main.show()
     sys.exit(app.exec_())
-

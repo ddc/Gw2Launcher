@@ -7,8 +7,8 @@ VSVersionInfo(
   ffi=FixedFileInfo(
 # filevers and prodvers should be always a tuple with four items: (1, 2, 3, 4)
 # Set not needed items to zero 0.
-filevers=(1, 0, 0, 15),
-prodvers=(1, 0, 0, 15),
+filevers=(2, 0, 0, 0),
+prodvers=(2, 0, 0, 0),
 
 
 # Contains a bitmask that specifies the valid bits 'flags'r
@@ -45,12 +45,12 @@ StringFileInfo(
     [
     StringStruct(u'CompanyName',			u'ddc'),
     StringStruct(u'LegalCopyright', 		u'Copyright (c) 2019 ddc'),
-    StringStruct(u'FileDescription',		u'Guild Wars 2 Utilities'),
-    StringStruct(u'ProductName', 			u'Guild Wars 2 Utilities'),
-    StringStruct(u'InternalName',			u'Gw2Utils'),
-    StringStruct(u'OriginalFilename', 		u'Gw2Utils.exe'),
-    StringStruct(u'FileVersion',			u'1.15'),
-    StringStruct(u'ProductVersion', 		u'1.15')
+    StringStruct(u'FileDescription',		u'Guild Wars 2 Launcher'),
+    StringStruct(u'ProductName', 			u'Guild Wars 2 Launcher'),
+    StringStruct(u'InternalName',			u'Gw2Launcher'),
+    StringStruct(u'OriginalFilename', 		u'Gw2Launcher.exe'),
+    StringStruct(u'FileVersion',			u'2.0'),
+    StringStruct(u'ProductVersion', 		u'2.0')
     ])
   ]), 
 VarFileInfo([VarStruct(u'Translation', [1033, 1200])])

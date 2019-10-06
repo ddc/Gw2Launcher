@@ -1,24 +1,23 @@
 #! /usr/bin/env python3
-#|*****************************************************
+# |*****************************************************
 # * Copyright         : Copyright (C) 2019
 # * Author            : ddc
 # * License           : GPL v3
 # * Python            : 3.6
-#|*****************************************************
+# |*****************************************************
 # # -*- coding: utf-8 -*-
 
 from src.utils import constants
-################################################################################
-################################################################################
-################################################################################
-class CreateFiles():
+
+
+class CreateFiles:
     def __init__(self, log):
         self.log = log
-################################################################################
-################################################################################
-################################################################################
-    def create_settings_file(self):
-        file = open(constants.settings_filename, encoding="utf-8", mode="w")
+
+    ################################################################################
+    @staticmethod
+    def create_settings_file():
+        file = open(constants.SETTINGS_FILENAME, encoding="utf-8", mode="w")
         file.write("""; DO NOT OPEN THIS FILE WITH NOTEPAD.
 ; Use Notepad++ or any other modern text editor.
 ; Use True or False.
@@ -63,14 +62,14 @@ repair=False
 diag=False
 uninstall=False  
 """)
-        file.close()        
-################################################################################
-################################################################################
-################################################################################
-    def create_style_file(self):
-        file = open(constants.style_qss_filename, encoding="utf-8", mode="w")
+        file.close()
+
+    ################################################################################
+    @staticmethod
+    def create_style_file():
+        file = open(constants.STYLE_QSS_FILENAME, encoding="utf-8", mode="w")
         file.write(
-"""QWidget {
+            """QWidget {
    background-color: #222222;
 }
 
@@ -305,8 +304,4 @@ QProgressBar::chunk:horizontal {
     background-color: qlineargradient(spread:pad, x1:1, y1:0.545, x2:1, y2:0, stop:0 #3874f2, stop:1 #5e90fa);
     border-radius: 3px;
 }""")
-        file.close()  
-################################################################################
-################################################################################
-################################################################################        
-        
+        file.close()
