@@ -7,7 +7,6 @@
 # |*****************************************************
 # # -*- coding: utf-8 -*-
 
-import ast
 import sys
 import os
 import json
