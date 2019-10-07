@@ -61,13 +61,15 @@ def get_all_ini_file_settings(file_name: str):
 
 
 ################################################################################
-def set_all_ini_file_settings(filename: str, section: str, config_name: str, value):
+def set_all_ini_file_settings(filename: str, dict_values: dict):
     parser = configparser.ConfigParser(delimiters='=', allow_no_value=True)
     parser.optionxform = str  # this wont change all values to lowercase
     parser._interpolation = configparser.ExtendedInterpolation()
+    parser.read(filename)
+    for section in dict_values.keys():
+        for option, value in dict_values[section].items():
+            parser.set(section, option, value)
     try:
-        parser.read(filename)
-        parser.set(section, config_name, value)
         with open(filename, 'w') as configfile:
             parser.write(configfile, space_around_delimiters=False)
     except configparser.DuplicateOptionError:
@@ -96,9 +98,9 @@ def set_file_settings(section: str, config_name: str, value):
     parser = configparser.ConfigParser(delimiters='=', allow_no_value=True)
     parser.optionxform = str  # this wont change all values to lowercase
     parser._interpolation = configparser.ExtendedInterpolation()
+    parser.read(filename)
+    parser.set(section, config_name, value)
     try:
-        parser.read(filename)
-        parser.set(section, config_name, value)
         with open(filename, 'w') as configfile:
             parser.write(configfile, space_around_delimiters=False)
     except configparser.DuplicateOptionError:

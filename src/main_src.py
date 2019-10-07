@@ -378,139 +378,147 @@ class MainSrc:
         if path is not "":
             filename = str(path.split("/")[-1])
             file_extension = str(filename.split(".")[-1])
+            final_values = {}
+            final_values['Parameters2'] = {}
             if file_extension == "dat":
                 self.qtObj.dat_checkBox.setChecked(True)
                 self.qtObj.dat_checkBox.setText(path)
                 self.configs['datFile'] = path
                 self.configs['useDatFile'] = True
-                utilities.set_file_settings("Parameters2", "datfile", f"\"{self.configs['datFile']}\"")
-                utilities.set_file_settings("Parameters2", "usedatfile", f"\"{self.usedatfile}\"")
-                self._set_all_configs_on_form_from_settings_file()
             else:
                 self.qtObj.dat_checkBox.setChecked(False)
                 self.qtObj.dat_checkBox.setText("")
                 self.configs['datFile'] = ""
                 self.configs['useDatFile'] = False
-                utilities.set_file_settings("Parameters2", "datfile", f"\"{self.configs['datFile']}\"")
-                utilities.set_file_settings("Parameters2", "usedatfile", f"\"{self.usedatfile}\"")
-                self._set_all_configs_on_form_from_settings_file()
                 message = f"\"{filename}\" is not a valid dat file!!!"
                 utilities.show_message_window("error", "ERROR", message)
 
+            final_values['Parameters2']['datFile'] = str(self.configs['datFile'])
+            final_values['Parameters2']['useDatFile'] = str(self.configs['useDatFile'])
+            utilities.set_all_ini_file_settings(constants.SETTINGS_FILENAME, final_values)
+            self._set_all_configs_on_form_from_settings_file()
+
     ################################################################################
     def _set_parameters1(self):
+        final_values = {}
+        final_values['Parameters1'] = {}
+
         if self.qtObj.autologin_checkBox.isChecked():
             self.configs['autologin'] = True
         else:
             self.configs['autologin'] = False
-        utilities.set_file_settings("Parameters1", "autologin", str(self.configs['autologin']))
+        final_values['Parameters1']['autologin'] = str(self.configs['autologin'])
 
         if self.qtObj.bit32_checkBox.isChecked():
             self.configs['32bits'] = True
         else:
             self.configs['32bits'] = False
-        utilities.set_file_settings("Parameters1", "32bits", str(self.configs['32bits']))
+        final_values['Parameters1']['32bits'] = str(self.configs['32bits'])
 
         if self.qtObj.bmp_checkBox.isChecked():
             self.configs['bmp'] = True
         else:
             self.configs['bmp'] = False
-        utilities.set_file_settings("Parameters1", "bmp", str(self.configs['bmp']))
+        final_values['Parameters1']['bmp'] = str(self.configs['bmp'])
 
         if self.qtObj.mapLoadinfo_checkBox.isChecked():
             self.configs['mapLoadinfo'] = True
         else:
             self.configs['mapLoadinfo'] = False
-        utilities.set_file_settings("Parameters1", "mapLoadinfo", str(self.configs['mapLoadinfo']))
+        final_values['Parameters1']['mapLoadinfo'] = str(self.configs['mapLoadinfo'])
 
         if self.qtObj.mce_checkBox.isChecked():
             self.configs['mce'] = True
         else:
             self.configs['mce'] = False
-        utilities.set_file_settings("Parameters1", "mce", str(self.configs['mce']))
+        final_values['Parameters1']['mce'] = str(self.configs['mce'])
 
         if self.qtObj.dx9single_checkBox.isChecked():
             self.configs['dx9single'] = True
         else:
             self.configs['dx9single'] = False
-        utilities.set_file_settings("Parameters1", "dx9single", str(self.configs['dx9single']))
+        final_values['Parameters1']['dx9single'] = str(self.configs['dx9single'])
 
         if self.qtObj.forwardrenderer_checkBox.isChecked():
             self.configs["forwardrenderer"] = True
         else:
             self.configs["forwardrenderer"] = False
-        utilities.set_file_settings("Parameters1", "forwardrenderer", str(self.configs["forwardrenderer"]))
+        final_values['Parameters1']['forwardrenderer'] = str(self.configs['forwardrenderer'])
 
         if self.qtObj.log_checkBox.isChecked():
             self.configs['log'] = True
         else:
             self.configs['log'] = False
-        utilities.set_file_settings("Parameters1", "log", str(self.configs['log']))
+        final_values['Parameters1']['log'] = str(self.configs['log'])
 
         if self.qtObj.nodelta_checkBox.isChecked():
             self.configs['nodelta'] = True
         else:
             self.configs['nodelta'] = False
-        utilities.set_file_settings("Parameters1", "nodelta", str(self.configs['nodelta']))
+        final_values['Parameters1']['nodelta'] = str(self.configs['nodelta'])
 
         if self.qtObj.nomusic_checkBox.isChecked():
             self.configs['nomusic'] = True
         else:
             self.configs['nomusic'] = False
-        utilities.set_file_settings("Parameters1", "nomusic", str(self.configs['nomusic']))
+        final_values['Parameters1']['nomusic'] = str(self.configs['nomusic'])
 
         if self.qtObj.noui_checkBox.isChecked():
             self.configs['noui'] = True
         else:
             self.configs['noui'] = False
-        utilities.set_file_settings("Parameters1", "noui", str(self.configs['noui']))
+        final_values['Parameters1']['noui'] = str(self.configs['noui'])
 
         if self.qtObj.nosound_checkBox.isChecked():
             self.configs['nosound'] = True
         else:
             self.configs['nosound'] = False
-        utilities.set_file_settings("Parameters1", "nosound", str(self.configs['nosound']))
+        final_values['Parameters1']['nosound'] = str(self.configs['nosound'])
 
         if self.qtObj.prefreset_checkBox.isChecked():
             self.configs['prefreset'] = True
         else:
             self.configs['prefreset'] = False
-        utilities.set_file_settings("Parameters1", "prefreset", str(self.configs['prefreset']))
+        final_values['Parameters1']['prefreset'] = str(self.configs['prefreset'])
 
         if self.qtObj.shareArchive_checkBox.isChecked():
             self.configs['shareArchive'] = True
         else:
             self.configs['shareArchive'] = False
-        utilities.set_file_settings("Parameters1", "shareArchive", str(self.configs['shareArchive']))
+        final_values['Parameters1']['shareArchive'] = str(self.configs['shareArchive'])
 
         if self.qtObj.uispanallmonitors_checkBox.isChecked():
             self.configs['uispanallmonitors'] = True
         else:
             self.configs['uispanallmonitors'] = False
-        utilities.set_file_settings("Parameters1", "uispanallmonitors", str(self.configs['uispanallmonitors']))
+        final_values['Parameters1']['uispanallmonitors'] = str(self.configs['uispanallmonitors'])
 
         if self.qtObj.useOldFov_checkBox.isChecked():
             self.configs['useOldFov'] = True
         else:
             self.configs['useOldFov'] = False
-        utilities.set_file_settings("Parameters1", "useOldFov", str(self.configs['useOldFov']))
+        final_values['Parameters1']['useOldFov'] = str(self.configs['useOldFov'])
 
         if self.qtObj.windowed_checkBox.isChecked():
             self.configs['windowed'] = True
         else:
             self.configs['windowed'] = False
-        utilities.set_file_settings("Parameters1", "windowed", str(self.configs['windowed']))
+        final_values['Parameters1']['windowed'] = str(self.configs['windowed'])
 
         if self.qtObj.umbra_checkBox.isChecked():
             self.configs['umbra'] = True
         else:
             self.configs['umbra'] = False
-        utilities.set_file_settings("Parameters1", "umbra", str(self.configs['umbra']))
+        final_values['Parameters1']['umbra'] = str(self.configs['umbra'])
 
+        utilities.set_all_ini_file_settings(constants.SETTINGS_FILENAME, final_values)
         self._set_all_configs_on_form_from_settings_file()
 
     ################################################################################
     def _set_parameters2(self):
+        final_values = {}
+        final_values['Parameters2'] = {}
+
         if self.qtObj.dat_checkBox.isChecked():
             if (self.configs['datFile'] is not None) and (self.configs['datFile'] != ""):
                 self.configs['useDatFile'] = True
@@ -520,32 +528,33 @@ class MainSrc:
         else:
             self.qtObj.dat_checkBox.setChecked(False)
             self.configs['useDatFile'] = False
-        utilities.set_file_settings("Parameters2", "usedatfile", str(self.configs['useDatFile']))
+        final_values['Parameters2']['useDatFile'] = str(self.configs['useDatFile'])
 
         if self.qtObj.verify_checkBox.isChecked():
             self.configs['verify'] = True
         else:
             self.configs['verify'] = False
-        utilities.set_file_settings("Parameters2", "verify", str(self.configs['verify']))
+        final_values['Parameters2']['verify'] = str(self.configs['verify'])
 
         if self.qtObj.repair_checkBox.isChecked():
             self.configs['repair'] = True
         else:
             self.configs['repair'] = False
-        utilities.set_file_settings("Parameters2", "repair", str(self.configs['repair']))
+        final_values['Parameters2']['repair'] = str(self.configs['repair'])
 
         if self.qtObj.diag_checkBox.isChecked():
             self.configs['diag'] = True
         else:
             self.configs['diag'] = False
-        utilities.set_file_settings("Parameters2", "diag", str(self.configs['diag']))
+        final_values['Parameters2']['diag'] = str(self.configs['diag'])
 
         if self.qtObj.uninstall_checkBox.isChecked():
             self.configs['uninstall'] = True
         else:
             self.configs['uninstall'] = False
-        utilities.set_file_settings("Parameters2", "uninstall", str(self.configs['uninstall']))
+        final_values['Parameters2']['uninstall'] = str(self.configs['uninstall'])
 
+        utilities.set_all_ini_file_settings(constants.SETTINGS_FILENAME, final_values)
         self._set_all_configs_on_form_from_settings_file()
 
     ################################################################################
