@@ -179,7 +179,7 @@ def show_progress_bar(self, message, value):
 
 ################################################################################
 def remove_arcdps_files(self):
-    gw2_dir_path = os.path.dirname(self.gw2Path)
+    gw2_dir_path = os.path.dirname(self.configs['gw2Path'])
     d3d9_path = remove_file(self, f"{gw2_dir_path}{constants.D3D9_PATH}")
     template_path = remove_file(self, f"{gw2_dir_path}{constants.TEMPLATE_PATH}")
     extras_path = remove_file(self, f"{gw2_dir_path}{constants.EXTRAS_PATH}")
@@ -188,7 +188,7 @@ def remove_arcdps_files(self):
 
 ################################################################################
 def remove_arcdps_backup_files(self):
-    gw2_dir_path = os.path.dirname(self.gw2Path)
+    gw2_dir_path = os.path.dirname(self.configs['gw2Path'])
     d3d9_bak = remove_file(self, f"{gw2_dir_path}{constants.D3D9_BAK_PATH}")
     template_bak = remove_file(self, f"{gw2_dir_path}{constants.TEMPLATE_BAK_PATH}")
     extras_bak = remove_file(self, f"{gw2_dir_path}{constants.EXTRAS_BAK_PATH}")
@@ -209,7 +209,7 @@ def remove_file(self, file_path):
 
 ################################################################################
 def backup_arcdps_files(self, type_backup: str):
-    gw2_dir_path = os.path.dirname(self.gw2Path)
+    gw2_dir_path = os.path.dirname(self.configs['gw2Path'])
     d3d9_path = f"{gw2_dir_path}{constants.D3D9_PATH}"
     template_path = f"{gw2_dir_path}{constants.TEMPLATE_PATH}"
     extras_path = f"{gw2_dir_path}{constants.EXTRAS_PATH}"

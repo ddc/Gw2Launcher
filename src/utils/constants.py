@@ -15,7 +15,7 @@ import logging
 
 PROGRAM_NAME = "Guild Wars 2 Launcher"
 SHORT_PROGRAM_NAME = "Gw2Launcher"
-VERSION = "2.0"
+VERSION = "2.1"
 ################################################################################
 EXIT_TIMER = 5
 ################################################################################

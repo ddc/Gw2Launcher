@@ -37,6 +37,10 @@ gw2_32bit_not_supported = "32bits Guild Wars 2 is not Supported!!!"
 
 arcdps_404 = "Could not find arcdps file to download from the website!!!!"
 
+arcdps_template__404_msg = "Could not find arcdps \"Template\" file to download from the website!!!!"
+
+arcdps_extras_404_msg = "Could not find arcdps \"Extras\" file to download from the website!!!!"
+
 arcdps_unreacheable = "Unable to reach Arcdps website!!!"
 
 arcdps_timeout = "Unable to reach Arcdps website to check for updates!!!"
