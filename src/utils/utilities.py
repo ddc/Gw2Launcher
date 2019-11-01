@@ -181,18 +181,14 @@ def show_progress_bar(self, message, value):
 def remove_arcdps_files(self):
     gw2_dir_path = os.path.dirname(self.configs['gw2Path'])
     d3d9_path = remove_file(self, f"{gw2_dir_path}{constants.D3D9_PATH}")
-    template_path = remove_file(self, f"{gw2_dir_path}{constants.TEMPLATE_PATH}")
-    extras_path = remove_file(self, f"{gw2_dir_path}{constants.EXTRAS_PATH}")
-    return True if d3d9_path and template_path and extras_path else False
+    return True if d3d9_path else False
 
 
 ################################################################################
 def remove_arcdps_backup_files(self):
     gw2_dir_path = os.path.dirname(self.configs['gw2Path'])
     d3d9_bak = remove_file(self, f"{gw2_dir_path}{constants.D3D9_BAK_PATH}")
-    template_bak = remove_file(self, f"{gw2_dir_path}{constants.TEMPLATE_BAK_PATH}")
-    extras_bak = remove_file(self, f"{gw2_dir_path}{constants.EXTRAS_BAK_PATH}")
-    return True if d3d9_bak and template_bak and extras_bak else False
+    return True if d3d9_bak else False
 
 
 ################################################################################
@@ -211,26 +207,14 @@ def remove_file(self, file_path):
 def backup_arcdps_files(self, type_backup: str):
     gw2_dir_path = os.path.dirname(self.configs['gw2Path'])
     d3d9_path = f"{gw2_dir_path}{constants.D3D9_PATH}"
-    template_path = f"{gw2_dir_path}{constants.TEMPLATE_PATH}"
-    extras_path = f"{gw2_dir_path}{constants.EXTRAS_PATH}"
     d3d9_bak_path = f"{gw2_dir_path}{constants.D3D9_BAK_PATH}"
-    template_bak_path = f"{gw2_dir_path}{constants.TEMPLATE_BAK_PATH}"
-    extras_bak_path = f"{gw2_dir_path}{constants.EXTRAS_BAK_PATH}"
 
     if type_backup == "backup":
         if os.path.isfile(d3d9_path):
             os.rename(d3d9_path, d3d9_bak_path)
-        if os.path.isfile(template_path):
-            os.rename(template_path, template_bak_path)
-        if os.path.isfile(extras_path):
-            os.rename(extras_path, extras_bak_path)
     elif type_backup == "revert_backup":
         if os.path.isfile(d3d9_bak_path):
             os.rename(d3d9_bak_path, d3d9_path)
-        if os.path.isfile(template_bak_path):
-            os.rename(template_bak_path, template_path)
-        if os.path.isfile(extras_bak_path):
-            os.rename(extras_bak_path, extras_path)
 
 
 ################################################################################

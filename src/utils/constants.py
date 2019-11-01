@@ -15,7 +15,7 @@ import logging
 
 PROGRAM_NAME = "Guild Wars 2 Launcher"
 SHORT_PROGRAM_NAME = "Gw2Launcher"
-VERSION = "2.1"
+VERSION = "2.2"
 ################################################################################
 EXIT_TIMER = 5
 ################################################################################
@@ -46,14 +46,8 @@ ERROR_LOGS_FILENAME = f"{PROGRAM_PATH}/errors.log"
 ARCDPS_URL = "http://www.deltaconnected.com/arcdps"
 D3D9_URL = f"{ARCDPS_URL}/x64/d3d9.dll"
 MD5SUM_URL = f"{ARCDPS_URL}/x64/d3d9.dll.md5sum"
-BUILD_TEMPLATE_URL = f"{ARCDPS_URL}/x64/buildtemplates/d3d9_arcdps_buildtemplates.dll"
-EXTRAS_URL = f"{ARCDPS_URL}/x64/extras/d3d9_arcdps_extras.dll"
-GITHUB_EXE_PROGRAM_URL = f"https://github.com/ddc/{SHORT_PROGRAM_NAME}/releases/download/v{VERSION}/{EXE_PROGRAM_NAME}"
+GITHUB_EXE_PROGRAM_URL = f"https://github.com/ddc/{SHORT_PROGRAM_NAME}/releases/download/V{VERSION}/{EXE_PROGRAM_NAME}"
 REMOTE_VERSION_FILENAME = f"https://raw.github.com/ddc/{SHORT_PROGRAM_NAME}/master/VERSION"
 ################################################################################
 D3D9_PATH = "/bin64/d3d9.dll"
 D3D9_BAK_PATH = "/bin64/d3d9.dll.bak"
-TEMPLATE_PATH = "/bin64/d3d9_arcdps_buildtemplates.dll"
-TEMPLATE_BAK_PATH = "/bin64/d3d9_arcdps_buildtemplates.dll.bak"
-EXTRAS_PATH = "/bin64/d3d9_arcdps_extras.dll"
-EXTRAS_BAK_PATH = "/bin64/d3d9_arcdps_extras.dll.bak"
