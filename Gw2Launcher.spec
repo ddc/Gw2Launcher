@@ -33,7 +33,7 @@ exe = EXE(pyz,
           uac_admin=True,
           icon='')
           
-coll = COLLECT(exe,
-               strip=False,
-               upx=False,
-               name='Gw2Launcher')
+#coll = COLLECT(exe,
+#               strip=False,
+#               upx=False,
+#               name='Gw2Launcher')
