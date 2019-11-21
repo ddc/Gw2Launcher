@@ -346,7 +346,7 @@ class MainSrc:
     def _get_gw2_file_name(self):
         path = str(utilities.open_get_filename())
         file_name = None
-        if path is not "":
+        if path != "":
             file_name = str(path.split("/")[-1])
             gw2_names = constants.GW2_64_BIT_EXEC_NAME
 
@@ -375,7 +375,7 @@ class MainSrc:
     ################################################################################
     def _get_dat_file_name(self):
         path = str(utilities.open_get_filename())
-        if path is not "":
+        if path != "":
             filename = str(path.split("/")[-1])
             file_extension = str(filename.split(".")[-1])
             final_values = {}
