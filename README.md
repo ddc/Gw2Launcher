@@ -18,7 +18,9 @@ Program to launch [Guild Wars 2](https://www.guildwars2.com) with different para
 + Configuration, logs and database files will be saved inside "%APPDATA%/Gw2Launcher"
 + I did not write ArcDps loader nor do i provide any support for it or it's compatibility with Guild Wars 2. Credit goes to /u/deltaconnected.
 + This program was compiled with PyInstaller
-
++ To install requirements:
+    + pip install -r requirements.txt
+    
 ## Acknowledgements
 + [QT5](https://www.qt.io)
 + [Python3.6+](https://www.python.org/downloads)
