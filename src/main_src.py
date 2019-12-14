@@ -24,13 +24,16 @@ class MainSrc:
         self.qtObj = qtObj
         self.form = form
         self.configs = None
+        self.new_version_msg = None
 
     ################################################################################
     def init(self):
+        utilities.show_progress_bar(self, messages.initializing, 0)
         self._check_dirs()
         self._setup_logging()
         sys.excepthook = utilities.log_uncaught_exceptions
         self._check_files()
+        utilities.show_progress_bar(self, messages.checking_new_version, 25)
         self._check_new_program_version()
 
         self.configs = utilities.get_all_ini_file_settings(constants.SETTINGS_FILENAME)
@@ -39,10 +42,13 @@ class MainSrc:
 
         self._check_arcdps_installed()
         if self.configs['gw2Path'] is not None:
+            utilities.show_progress_bar(self, messages.arcdps_new_version, 50)
             self._update_arcdps()
 
+        utilities.show_progress_bar(self, messages.get_arcdps_html, 75)
         self._set_arcdps_tab()
 
+        utilities.show_progress_bar(self, messages.ready, 100)
         if self.configs['useTheme']:
             self.form.setStyleSheet(open(constants.STYLE_QSS_FILENAME, "r").read())
 
@@ -90,9 +96,11 @@ class MainSrc:
     def _check_new_program_version(self):
         self.qtObj.updateAvail_label.clear()
         self.qtObj.update_button.setVisible(False)
-        new_version_obj = utilities.check_new_program_version(self, False)
+        self.client_version = constants.VERSION
+        new_version_obj = utilities.check_new_program_version(self)
         if new_version_obj.new_version_available:
             self.new_version = new_version_obj.new_version
+            self.new_version_msg = new_version_obj.new_version_msg
             self.qtObj.update_button.setFocus()
             self.qtObj.updateAvail_label.clear()
             self.qtObj.updateAvail_label.setText(new_version_obj.new_version_msg)
@@ -100,29 +108,7 @@ class MainSrc:
 
     ################################################################################
     def _update_program(self):
-        user_answer = utilities.show_message_window("question", "Update Available",
-                                                    f"{messages.new_version_available}\n\n"
-                                                    f"{messages.start_update_question}")
-        if user_answer == QtWidgets.QMessageBox.Yes:
-            pb_dl_new_version_msg = messages.dl_new_version
-            user_download_path = utilities.get_download_path()
-            program_url = f"{constants.GITHUB_EXE_PROGRAM_URL}{self.new_version}/{constants.EXE_PROGRAM_NAME}"
-            downloaded_program_path = f"{user_download_path}\\{constants.EXE_PROGRAM_NAME}"
-
-            try:
-                utilities.show_progress_bar(self, pb_dl_new_version_msg, 50)
-                urllib.request.urlretrieve(program_url, downloaded_program_path)
-                utilities.show_progress_bar(self, pb_dl_new_version_msg, 100)
-                utilities.show_message_window("Info", "INFO",
-                                              f"{messages.info_dl_completed}\n{downloaded_program_path}")
-                sys.exit()
-            except Exception as e:
-                utilities.show_progress_bar(self, pb_dl_new_version_msg, 100)
-                self.log.error(f"{messages.error_check_new_version} {e}")
-                if e.code == 404:
-                    utilities.show_message_window("error", "ERROR", messages.remote_file_not_found)
-                else:
-                    utilities.show_message_window("error", "ERROR", messages.error_check_new_version)
+        utilities.download_new_program_version(self, True)
 
     ################################################################################
     def _enable_form(self):
@@ -707,86 +693,68 @@ class MainSrc:
 
                 try:
                     req_d3d9_md5 = ""
-                    utilities.show_progress_bar(self, messages.arcdps_new_version, 0)
                     req = requests.get(md5sum_url)
-                    utilities.show_progress_bar(self, messages.arcdps_new_version, 15)
                     if req.status_code == 200:
                         req_d3d9_md5 = str(req.text.split()[0])
                     else:
                         utilities.show_message_window("error", "ERROR", messages.arcdps_timeout)
                         self.log.error(messages.arcdps_timeout)
-                        utilities.show_progress_bar(self, arcdps_updating_msg, 100)
                         self._enable_form()
                         self.qtObj.main_tabWidget.setCurrentIndex(2)
                         return False
                 # except Exception as e:
                 except requests.exceptions.ConnectionError as e:
                     self.log.error(f"{e} {md5sum_url}")
-                    utilities.show_progress_bar(self, arcdps_updating_msg, 100)
                     self._enable_form()
                     self.qtObj.main_tabWidget.setCurrentIndex(2)
                     return False
 
                 current_d3d9_md5 = utilities.md5Checksum(d3d9_path)
                 if req_d3d9_md5 != current_d3d9_md5:
-                    utilities.show_progress_bar(self, arcdps_updating_msg, 30)
                     utilities.backup_arcdps_files(self, "backup")
 
                     # try D3D9_URL
                     try:
-                        utilities.show_progress_bar(self, arcdps_updating_msg, 45)
                         urllib.request.urlretrieve(d3d9_url, d3d9_path)
                     except urllib.request.HTTPError as e:
                         utilities.remove_arcdps_files(self)
                         utilities.backup_arcdps_files(self, "revert_backup")
                         self.log.error(f"{e} {d3d9_url}")
                         utilities.show_message_window("error", "ERROR", messages.arcdps_404)
-                        utilities.show_progress_bar(self, arcdps_updating_msg, 100)
                         self._enable_form()
                         self.qtObj.main_tabWidget.setCurrentIndex(2)
                         return False
 
-                    utilities.show_progress_bar(self, arcdps_updating_msg, 90)
                     utilities.remove_arcdps_backup_files(self)
 
-                utilities.show_progress_bar(self, arcdps_updating_msg, 100)
                 self._enable_form()
                 self.qtObj.main_tabWidget.setCurrentIndex(2)
                 return True
             else:
-                utilities.show_progress_bar(self, arcdps_installing_msg, 0)
                 utilities.remove_arcdps_files(self)
                 arcdps_url = constants.ARCDPS_URL
                 self._disable_form()
 
                 # check arcdps website is up
                 try:
-                    utilities.show_progress_bar(self, arcdps_installing_msg, 15)
                     requests.get(arcdps_url)
-                    utilities.show_progress_bar(self, arcdps_installing_msg, 30)
                 except requests.exceptions.ConnectionError as e:
-                    utilities.show_progress_bar(self, arcdps_installing_msg, 100)
                     self.log.error(f"{e} {arcdps_url}")
                     self._enable_form()
                     return False
 
                 # try D3D9_URL
                 try:
-                    utilities.show_progress_bar(self, arcdps_installing_msg, 40)
                     urllib.request.urlretrieve(d3d9_url, d3d9_path)
-                    utilities.show_progress_bar(self, arcdps_installing_msg, 50)
                 except urllib.request.HTTPError as e:
-                    utilities.show_progress_bar(self, arcdps_installing_msg, 100)
                     utilities.remove_arcdps_files(self)
                     self.log.error(f"{e} {d3d9_url}")
                     utilities.show_message_window("error", "ERROR", messages.arcdps_404)
                     self._enable_form()
                     return False
 
-                utilities.show_progress_bar(self, arcdps_installing_msg, 95)
                 utilities.remove_arcdps_backup_files(self)
 
-                utilities.show_progress_bar(self, arcdps_installing_msg, 100)
                 self._enable_form()
                 self.qtObj.main_tabWidget.setCurrentIndex(2)
                 return True
@@ -803,9 +771,7 @@ class MainSrc:
         self.qtObj.arcps_url_textBrowser.setHtml(arcdps_ref)
 
         try:
-            utilities.show_progress_bar(self, messages.get_arcdps_html, 0)
             response = requests.get(arcdps_url)
-            utilities.show_progress_bar(self, messages.get_arcdps_html, 25)
             if response.status_code != 200:
                 self.log.error(messages.arcdps_error_dl)
             else:
@@ -814,14 +780,12 @@ class MainSrc:
                 body = soup.body
                 blist = str(body).split("<b>")
 
-                utilities.show_progress_bar(self, messages.get_arcdps_html, 50)
                 for content in blist:
                     if content.startswith('changes'):
                         changes = content.replace("changes</b><br/>", "").replace("<br/>", "").replace("     ", "")
                     if content.startswith('download'):
                         version = content.split("</a>")[1].split("<br/>")[0].strip(" (").strip(")")
 
-                utilities.show_progress_bar(self, messages.get_arcdps_html, 75)
                 self.qtObj.arcdps_webpage_textEdit.setPlainText(changes.strip())
                 self.qtObj.arcdps_current_version_label.setText(version.strip())
         except requests.exceptions.ConnectionError as e:
@@ -829,8 +793,6 @@ class MainSrc:
             utilities.show_message_window("error", "ERROR", messages.arcdps_unreacheable)
             self.qtObj.arcdps_webpage_textEdit.setPlainText(messages.arcdps_unreacheable)
             self.qtObj.arcdps_current_version_label.setText("---")
-
-        utilities.show_progress_bar(self, messages.get_arcdps_html, 100)
 
     ################################################################################
     def _start_gw2(self):

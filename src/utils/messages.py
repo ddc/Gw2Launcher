@@ -8,6 +8,8 @@
 # # -*- coding: utf-8 -*-
 
 # gw2 messages
+initializing = "Initializing..."
+ready = "Ready!"
 find_gw2_exec = "Please find \"Gw2-64.exe\" executable file before continue!!!"
 not_valid_gw2 = "is not a valid Gw2 executable!!!\nThis program needs a valid GW2 file."
 need_find_gw2 = "<== NEED TO FIND \"Gw2-64.exe\" TO ENABLE ALL PROGRAM FUNCTIONALITIES!!!"
@@ -29,7 +31,7 @@ arcdps_error_install = "Error installing arcdps!!!"
 arcdps_disclamer = "I did not write this loader nor do i provide any support for it or it's compatibility with Guild Wars 2. Credit goes to /u/deltaconnected."
 arcdps_installed = "Arcdps successfully installed !!!"
 arcdps_removed = "Arcdps successfully removed !!!"
-get_arcdps_html = "Getting lastest ArcDps release notes..."
+get_arcdps_html = "Getting ArcDps release notes..."
 
 # update messages
 dl_new_version = "Downloading new version..."
