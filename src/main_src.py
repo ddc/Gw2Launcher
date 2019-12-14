@@ -7,7 +7,7 @@
 # |*****************************************************
 # # -*- coding: utf-8 -*-
 
-from PyQt5 import QtCore
+from PyQt5 import QtCore, QtWidgets
 from src.utils.create_files import CreateFiles
 from src.utils import constants, messages, utilities
 import logging.handlers
@@ -31,7 +31,7 @@ class MainSrc:
         self._setup_logging()
         sys.excepthook = utilities.log_uncaught_exceptions
         self._check_files()
-        utilities.check_new_program_version(self)
+        self._check_new_program_version()
 
         self.configs = utilities.get_all_ini_file_settings(constants.SETTINGS_FILENAME)
         if self.configs['useTheme'] is None:
@@ -87,6 +87,44 @@ class MainSrc:
             create_files.create_style_file()
 
     ################################################################################
+    def _check_new_program_version(self):
+        self.qtObj.updateAvail_label.clear()
+        self.qtObj.update_button.setVisible(False)
+        new_version_obj = utilities.check_new_program_version(self, False)
+        if new_version_obj.new_version_available:
+            self.new_version = new_version_obj.new_version
+            self.qtObj.update_button.setFocus()
+            self.qtObj.updateAvail_label.clear()
+            self.qtObj.updateAvail_label.setText(new_version_obj.new_version_msg)
+            self.qtObj.update_button.setVisible(True)
+
+    ################################################################################
+    def _update_program(self):
+        user_answer = utilities.show_message_window("question", "Update Available",
+                                                    f"{messages.new_version_available}\n\n"
+                                                    f"{messages.start_update_question}")
+        if user_answer == QtWidgets.QMessageBox.Yes:
+            pb_dl_new_version_msg = messages.dl_new_version
+            user_download_path = utilities.get_download_path()
+            program_url = f"{constants.GITHUB_EXE_PROGRAM_URL}{self.new_version}/{constants.EXE_PROGRAM_NAME}"
+            downloaded_program_path = f"{user_download_path}\\{constants.EXE_PROGRAM_NAME}"
+
+            try:
+                utilities.show_progress_bar(self, pb_dl_new_version_msg, 50)
+                urllib.request.urlretrieve(program_url, downloaded_program_path)
+                utilities.show_progress_bar(self, pb_dl_new_version_msg, 100)
+                utilities.show_message_window("Info", "INFO",
+                                              f"{messages.info_dl_completed}\n{downloaded_program_path}")
+                sys.exit()
+            except Exception as e:
+                utilities.show_progress_bar(self, pb_dl_new_version_msg, 100)
+                self.log.error(f"{messages.error_check_new_version} {e}")
+                if e.code == 404:
+                    utilities.show_message_window("error", "ERROR", messages.remote_file_not_found)
+                else:
+                    utilities.show_message_window("error", "ERROR", messages.error_check_new_version)
+
+    ################################################################################
     def _enable_form(self):
         self.qtObj.startGw2_button.setEnabled(True)
         self.qtObj.currentParam_groupBox.setEnabled(True)
@@ -108,6 +146,7 @@ class MainSrc:
         self.qtObj.findGw2File_button.clicked.connect(lambda: self._get_gw2_file_name())
         self.qtObj.daFile_button.clicked.connect(lambda: self._get_dat_file_name())
         self.qtObj.startGw2_button.clicked.connect(lambda: self._start_gw2())
+        self.qtObj.update_button.clicked.connect(lambda: self._update_program())
         # port
         self.qtObj.port80_radioButton.clicked.connect(lambda: self._set_port())
         self.qtObj.port443_radioButton.clicked.connect(lambda: self._set_port())
@@ -764,7 +803,9 @@ class MainSrc:
         self.qtObj.arcps_url_textBrowser.setHtml(arcdps_ref)
 
         try:
+            utilities.show_progress_bar(self, messages.get_arcdps_html, 0)
             response = requests.get(arcdps_url)
+            utilities.show_progress_bar(self, messages.get_arcdps_html, 25)
             if response.status_code != 200:
                 self.log.error(messages.arcdps_error_dl)
             else:
@@ -773,12 +814,14 @@ class MainSrc:
                 body = soup.body
                 blist = str(body).split("<b>")
 
+                utilities.show_progress_bar(self, messages.get_arcdps_html, 50)
                 for content in blist:
                     if content.startswith('changes'):
                         changes = content.replace("changes</b><br/>", "").replace("<br/>", "").replace("     ", "")
                     if content.startswith('download'):
                         version = content.split("</a>")[1].split("<br/>")[0].strip(" (").strip(")")
 
+                utilities.show_progress_bar(self, messages.get_arcdps_html, 75)
                 self.qtObj.arcdps_webpage_textEdit.setPlainText(changes.strip())
                 self.qtObj.arcdps_current_version_label.setText(version.strip())
         except requests.exceptions.ConnectionError as e:
@@ -786,6 +829,8 @@ class MainSrc:
             utilities.show_message_window("error", "ERROR", messages.arcdps_unreacheable)
             self.qtObj.arcdps_webpage_textEdit.setPlainText(messages.arcdps_unreacheable)
             self.qtObj.arcdps_current_version_label.setText("---")
+
+        utilities.show_progress_bar(self, messages.get_arcdps_html, 100)
 
     ################################################################################
     def _start_gw2(self):

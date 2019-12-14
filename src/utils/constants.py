@@ -46,7 +46,7 @@ ERROR_LOGS_FILENAME = f"{PROGRAM_PATH}/errors.log"
 ARCDPS_URL = "http://www.deltaconnected.com/arcdps"
 D3D9_URL = f"{ARCDPS_URL}/x64/d3d9.dll"
 MD5SUM_URL = f"{ARCDPS_URL}/x64/d3d9.dll.md5sum"
-GITHUB_EXE_PROGRAM_URL = f"https://github.com/ddc/{SHORT_PROGRAM_NAME}/releases/download/v{VERSION}/{EXE_PROGRAM_NAME}"
+GITHUB_EXE_PROGRAM_URL = f"https://github.com/ddc/{SHORT_PROGRAM_NAME}/releases/download/v"
 REMOTE_VERSION_FILENAME = f"https://raw.github.com/ddc/{SHORT_PROGRAM_NAME}/master/VERSION"
 ################################################################################
 D3D9_PATH = "/bin64/d3d9.dll"
