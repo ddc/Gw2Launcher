@@ -259,7 +259,7 @@ def check_new_program_version(self):
             if remote_version[-2:] == "\\n" or remote_version[-2:] == "\n":
                 remote_version = remote_version[:-2]  # getting rid of \n at the end of line
 
-            if float(remote_version) != float(self.client_version):
+            if float(remote_version) > float(self.client_version):
                 obj_return.new_version_available = True
                 obj_return.new_version_msg = f"Version {remote_version} available for download"
                 obj_return.new_version = float(remote_version)
