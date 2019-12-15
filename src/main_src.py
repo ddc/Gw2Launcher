@@ -322,7 +322,7 @@ class MainSrc:
             if portal_text == "":
                 self.qtObj.portal_textEdit.setText(str(self.configs['portal']))
 
-        if (str(self.configs['useDatFile']).lower() == "true"):
+        if str(self.configs['useDatFile']).lower() == "true":
             if (self.configs['datFile'] is not None) and (self.configs['datFile'] != ""):
                 self.qtObj.dat_checkBox.setChecked(True)
                 self.current_parameters_list.append(f"-dat {self.configs['datFile']}")
@@ -681,9 +681,6 @@ class MainSrc:
         d3d9_path = f"{gw2_dir_path}{constants.D3D9_PATH}"
 
         if str(self.configs['arcdps']).lower() == "true":
-            arcdps_updating_msg = messages.arcdps_updating
-            arcdps_installing_msg = messages.arcdps_installing
-
             if not os.path.exists(f"{gw2_dir_path}/bin64/"):
                 os.makedirs(f"{gw2_dir_path}/bin64/")
 
@@ -693,7 +690,7 @@ class MainSrc:
 
                 try:
                     req_d3d9_md5 = ""
-                    req = requests.get(md5sum_url)
+                    req = requests.get(md5sum_url, stream=True, timeout=3)
                     if req.status_code == 200:
                         req_d3d9_md5 = str(req.text.split()[0])
                     else:
@@ -702,8 +699,8 @@ class MainSrc:
                         self._enable_form()
                         self.qtObj.main_tabWidget.setCurrentIndex(2)
                         return False
-                # except Exception as e:
-                except requests.exceptions.ConnectionError as e:
+                # except requests.exceptions.ConnectionError as e:
+                except Exception as e:
                     self.log.error(f"{e} {md5sum_url}")
                     self._enable_form()
                     self.qtObj.main_tabWidget.setCurrentIndex(2)
