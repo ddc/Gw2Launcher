@@ -690,7 +690,7 @@ class MainSrc:
 
                 try:
                     req_d3d9_md5 = ""
-                    req = requests.get(md5sum_url, stream=True, timeout=3)
+                    req = requests.get(md5sum_url, stream=True, timeout=1)
                     if req.status_code == 200:
                         req_d3d9_md5 = str(req.text.split()[0])
                     else:
@@ -768,7 +768,7 @@ class MainSrc:
         self.qtObj.arcps_url_textBrowser.setHtml(arcdps_ref)
 
         try:
-            response = requests.get(arcdps_url)
+            response = requests.get(arcdps_url, stream=True, timeout=1)
             if response.status_code != 200:
                 self.log.error(messages.arcdps_error_dl)
             else:
@@ -785,7 +785,8 @@ class MainSrc:
 
                 self.qtObj.arcdps_webpage_textEdit.setPlainText(changes.strip())
                 self.qtObj.arcdps_current_version_label.setText(version.strip())
-        except requests.exceptions.ConnectionError as e:
+        # except requests.exceptions.ConnectionError as e:
+        except Exception as e:
             self.log.error(f"{messages.arcdps_unreacheable} {e}")
             utilities.show_message_window("error", "ERROR", messages.arcdps_unreacheable)
             self.qtObj.arcdps_webpage_textEdit.setPlainText(messages.arcdps_unreacheable)
