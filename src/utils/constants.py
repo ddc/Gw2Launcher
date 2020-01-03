@@ -15,7 +15,7 @@ import logging
 
 PROGRAM_NAME = "Guild Wars 2 Launcher"
 SHORT_PROGRAM_NAME = "Gw2Launcher"
-VERSION = "2.4"
+VERSION = "2.5"
 ################################################################################
 EXIT_TIMER = 5
 ################################################################################
@@ -34,7 +34,7 @@ IS_LINUX = sys.platform == "linux"
 IS_64BIT = platform.machine().endswith("64")
 PYTHON_OK = sys.version_info >= (3, 6)
 ################################################################################
-GW2_64_BIT_EXEC_NAME = ["Gw2-64.exe"]
+GW2_64_BIT_EXEC_NAME = "Gw2-64.exe"
 ################################################################################
 APPDATA_PATH = os.getenv('APPDATA')  # returns AppData\Roaming. 'LOCALAPPDATA' == AppData\Local.
 PROGRAM_PATH = f"{APPDATA_PATH}/{SHORT_PROGRAM_NAME}"
