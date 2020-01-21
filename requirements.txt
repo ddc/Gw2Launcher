@@ -1,5 +1,16 @@
-PyQt5
-PyInstaller
-psycopg2
-BeautifulSoup4
-requests
+altgraph==0.17
+beautifulsoup4==4.8.2
+certifi==2019.11.28
+chardet==3.0.4
+future==0.18.2
+idna==2.8
+pefile==2019.4.18
+psycopg2==2.8.4
+-e git+https://github.com/pyinstaller/pyinstaller.git@55c8855d9db0fa596ceb28505f3ee2f402ecd4da#egg=PyInstaller
+PyQt5==5.13.2
+PyQt5-sip==12.7.0
+PyQt5-stubs==5.13.1.4
+pywin32-ctypes==0.2.0
+requests==2.22.0
+soupsieve==1.9.5
+urllib3==1.25.8
