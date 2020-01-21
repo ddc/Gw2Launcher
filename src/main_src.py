@@ -370,32 +370,26 @@ class MainSrc:
     ################################################################################
     def _get_gw2_file_name(self):
         path = str(utilities.open_get_filename())
-        file_name = None
         if path != "":
             file_name = str(path.split("/")[-1])
-            gw2_names = constants.GW2_64_BIT_EXEC_NAME
+            gw2_name = constants.GW2_64_BIT_EXEC_NAME
 
-            for value in gw2_names:
-                if value.lower() == file_name.lower():
-                    self.qtObj.gw2Path_label.setText(path)
-                    self.configs['gw2Path'] = path
-                    self._enable_form()
-                    utilities.set_file_settings("GW2", "gw2Path", f"\"{self.configs['gw2Path']}\"")
-                    return
+            if gw2_name.lower() == file_name.lower():
+                self.qtObj.gw2Path_label.setText(path)
+                self.configs['gw2Path'] = path
+                self._enable_form()
+                utilities.set_file_settings("GW2", "gw2Path", f"\"{self.configs['gw2Path']}\"")
+            elif file_name.lower() == "gw2.exe":
+                utilities.show_message_window("error", "ERROR", str(messages.gw2_32bit_not_supported))
+            else:
+                not_valid_gw2_msg = f"\"{file_name}\" {messages.not_valid_gw2}"
+                utilities.show_message_window("error", "ERROR", not_valid_gw2_msg)
 
-        if str(self.configs['gw2Path']) == "":
+        if str(self.configs['gw2Path']) == "" or self.configs['gw2Path'] is None:
             self._disable_form()
             self.qtObj.gw2Path_label.clear()
             self.qtObj.gw2Path_label.setText(messages.need_find_gw2)
             self.qtObj.findGw2File_button.setFocus()
-
-        if file_name is not None:
-            if file_name.lower() == "gw2.exe":
-                utilities.show_message_window("error", "ERROR", str(messages.gw2_32bit_not_supported))
-                return
-
-            not_valid_gw2_msg = f"\"{file_name}\" {messages.not_valid_gw2}"
-            utilities.show_message_window("error", "ERROR", not_valid_gw2_msg)
 
     ################################################################################
     def _get_dat_file_name(self):

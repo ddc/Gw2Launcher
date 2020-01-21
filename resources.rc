@@ -58,7 +58,7 @@ StringFileInfo(
     StringStruct(u'SpecialBuild', 		    u''),
     StringStruct(u'FileVersion',			u'2.5'),
     StringStruct(u'ProductVersion', 		u'2.5'),
-    StringStruct(u'Build', 		            u'January 2020'),
+    StringStruct(u'Build', 		            u'December 2019'),
     ])
   ]), 
 VarFileInfo([VarStruct(u'Translation', [1033, 1200])])
