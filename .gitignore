@@ -11,5 +11,3 @@ dist/
 
 # Pycharm
 .idea/
-Pipfile
-Pipfile.lock
