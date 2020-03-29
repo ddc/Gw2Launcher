@@ -668,6 +668,7 @@ class MainSrc:
         gw2_dir_path = ""
         if self.configs['gw2Path'] is not None:
             gw2_dir_path = os.path.dirname(self.configs['gw2Path'])
+
         if os.path.exists(f"{gw2_dir_path}\\bin64\\"):
             d3d9_path = f"{gw2_dir_path}\\bin64\\d3d9.dll"
             if os.path.isfile(d3d9_path):
@@ -676,6 +677,7 @@ class MainSrc:
                 self.qtObj.arcdps_no_radioButton.setChecked(False)
                 utilities.set_file_settings("GW2", "arcdps", str(self.configs['arcdps']))
                 return
+
         self.configs['arcdps'] = False
         self.qtObj.arcdps_yes_radioButton.setChecked(False)
         self.qtObj.arcdps_no_radioButton.setChecked(True)
