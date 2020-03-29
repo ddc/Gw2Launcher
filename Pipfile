@@ -6,13 +6,14 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-psycopg2 = "*"
-beautifulsoup4 = "*"
-requests = "*"
-PyQt5 = "*"
-PyInstaller = "*"
-pyqt5-stubs = "*"
-pyqt5-sip = "*"
+psycopg2 = "==2.8.4"
+beautifulsoup4 = "==4.8.2"
+requests = "==2.23.0"
+PyQt5 = "==5.14.1"
+PyInstaller = {editable = true,git = "https://github.com/pyinstaller/pyinstaller.git",ref = "develop"}
+PyQt5-sip = "==12.7.1"
+idna = "==2.9"
+setuptools = "==46.1.3"
 
 [requires]
 python_version = "3.8"
