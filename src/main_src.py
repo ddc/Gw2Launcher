@@ -629,12 +629,13 @@ class MainSrc:
     ################################################################################
     def _set_arcdps(self):
         self.qtObj.main_tabWidget.setCurrentIndex(2)
-        window_type = "information"
+        window_type = None
         window_title = None
         msg = None
 
         if self.qtObj.arcdps_yes_radioButton.isChecked():
             if self._update_arcdps():
+                window_type = "information"
                 window_title = "Installed"
                 msg = messages.arcdps_installed
                 self.configs['arcdps'] = True
@@ -647,6 +648,7 @@ class MainSrc:
                 self.qtObj.arcdps_no_radioButton.setChecked(True)
         elif self.qtObj.arcdps_no_radioButton.isChecked():
             if utilities.remove_arcdps_files(self):
+                window_type = "information"
                 window_title = "Removed"
                 msg = messages.arcdps_removed
                 self.configs['arcdps'] = False
