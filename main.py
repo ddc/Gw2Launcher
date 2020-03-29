@@ -7,9 +7,10 @@
 # |*****************************************************
 # # -*- coding: utf-8 -*-
 
-from src.utils import constants
-from src.main_src import MainSrc
 from PyQt5 import QtCore, QtWidgets
+
+from src.main_src import MainSrc
+from src.utils import constants
 
 
 class Ui_Main(object):
@@ -204,7 +205,7 @@ class Ui_Main(object):
         self.arcdps_webpage_textEdit.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
         self.arcdps_webpage_textEdit.setObjectName("arcdps_webpage_textEdit")
         self.arcps_url_textBrowser = QtWidgets.QTextBrowser(self.arcDps_tab)
-        self.arcps_url_textBrowser.setGeometry(QtCore.QRect(240, 60, 241, 21))
+        self.arcps_url_textBrowser.setGeometry(QtCore.QRect(220, 60, 280, 21))
         self.arcps_url_textBrowser.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.arcps_url_textBrowser.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.arcps_url_textBrowser.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)

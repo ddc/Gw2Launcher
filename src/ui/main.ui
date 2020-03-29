@@ -710,9 +710,9 @@
     <widget class="QTextBrowser" name="arcps_url_textBrowser">
      <property name="geometry">
       <rect>
-       <x>240</x>
+       <x>220</x>
        <y>60</y>
-       <width>241</width>
+       <width>280</width>
        <height>21</height>
       </rect>
      </property>

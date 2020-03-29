@@ -7,18 +7,20 @@
 # |*****************************************************
 # # -*- coding: utf-8 -*-
 
-import sys
-import os
+import configparser
+import datetime
+import hashlib
 import json
 import logging
-import hashlib
-import datetime
-from src.utils import constants, messages
-import configparser
-from PyQt5.QtWidgets import QFileDialog
-from PyQt5 import QtCore, QtWidgets
-import requests
+import os
+import sys
 import urllib.request
+
+import requests
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtWidgets import QFileDialog
+
+from src.utils import constants, messages
 
 _date_formatter = "%b/%d/%Y"
 _time_formatter = "%H:%M:%S"
@@ -121,12 +123,15 @@ def log_uncaught_exceptions(exc_type, exc_value, exc_traceback):
 
 
 ################################################################################
-def open_get_filename():
-    filename = QFileDialog.getOpenFileName(None, 'Open file')[0]
-    if filename == '':
+def dialog_get_file_path():
+    full_path = QFileDialog.getOpenFileName(None, 'Open file')[0]
+    if full_path == '':
         return ''
     else:
-        return str(filename)
+        if constants.IS_WINDOWS:
+            return str(full_path).replace("/", "\\")
+        else:
+            return str(full_path)
 
 
 ################################################################################

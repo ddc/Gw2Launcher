@@ -7,16 +7,18 @@
 # |*****************************************************
 # # -*- coding: utf-8 -*-
 
-from PyQt5 import QtCore, QtWidgets
-from src.utils.create_files import CreateFiles
-from src.utils import constants, messages, utilities
 import logging.handlers
-import sys
 import os
-from time import sleep
-import requests
+import sys
 import urllib.request
+from time import sleep
+
+import requests
+from PyQt5 import QtCore
 from bs4 import BeautifulSoup
+
+from src.utils import constants, messages, utilities
+from src.utils.create_files import CreateFiles
 
 
 class MainSrc:
@@ -369,16 +371,16 @@ class MainSrc:
 
     ################################################################################
     def _get_gw2_file_name(self):
-        path = str(utilities.open_get_filename())
+        path = str(utilities.dialog_get_file_path())
         if path != "":
-            file_name = str(path.split("/")[-1])
+            file_name = str(path.split("\\")[-1])
             gw2_name = constants.GW2_64_BIT_EXEC_NAME
 
             if gw2_name.lower() == file_name.lower():
                 self.qtObj.gw2Path_label.setText(path)
                 self.configs['gw2Path'] = path
                 self._enable_form()
-                utilities.set_file_settings("GW2", "gw2Path", f"\"{self.configs['gw2Path']}\"")
+                utilities.set_file_settings("GW2", "gw2Path", f"\"{path}\"")
             elif file_name.lower() == "gw2.exe":
                 utilities.show_message_window("error", "ERROR", str(messages.gw2_32bit_not_supported))
             else:
@@ -393,9 +395,9 @@ class MainSrc:
 
     ################################################################################
     def _get_dat_file_name(self):
-        path = str(utilities.open_get_filename())
+        path = str(utilities.dialog_get_file_path())
         if path != "":
-            filename = str(path.split("/")[-1])
+            filename = str(path.split("\\")[-1])
             file_extension = str(filename.split(".")[-1])
             final_values = {}
             final_values['Parameters2'] = {}
@@ -627,35 +629,45 @@ class MainSrc:
     ################################################################################
     def _set_arcdps(self):
         self.qtObj.main_tabWidget.setCurrentIndex(2)
-        result = True
+        window_type = "information"
+        window_title = None
+        msg = None
 
         if self.qtObj.arcdps_yes_radioButton.isChecked():
-            window_title = "Installed"
-            msg = messages.arcdps_installed
-            self.configs['arcdps'] = True
-            result = self._update_arcdps()
+            if self._update_arcdps():
+                window_title = "Installed"
+                msg = messages.arcdps_installed
+                self.configs['arcdps'] = True
+            else:
+                window_type = "error"
+                window_title = "ERROR"
+                msg = messages.arcdps_error_install
+                self.configs['arcdps'] = False
+                self.qtObj.arcdps_yes_radioButton.setChecked(False)
+                self.qtObj.arcdps_no_radioButton.setChecked(True)
         elif self.qtObj.arcdps_no_radioButton.isChecked():
-            window_title = "Removed"
-            msg = messages.arcdps_removed
-            self.configs['arcdps'] = False
-            result = utilities.remove_arcdps_files(self)
-
-        if result:
-            utilities.show_message_window("information", window_title, msg)
-        else:
-            window_title = "ERROR"
-            msg = messages.arcdps_error_install
-            utilities.show_message_window("critical", window_title, msg)
+            if utilities.remove_arcdps_files(self):
+                window_title = "Removed"
+                msg = messages.arcdps_removed
+                self.configs['arcdps'] = False
+            else:
+                window_type = "error"
+                window_title = "ERROR"
+                msg = messages.arcdps_error_remove
+                self.configs['arcdps'] = True
+                self.qtObj.arcdps_yes_radioButton.setChecked(True)
+                self.qtObj.arcdps_no_radioButton.setChecked(False)
 
         utilities.set_file_settings("GW2", "arcdps", str(self.configs['arcdps']))
+        utilities.show_message_window(window_type, window_title, msg)
 
     ################################################################################
     def _check_arcdps_installed(self):
         gw2_dir_path = ""
         if self.configs['gw2Path'] is not None:
             gw2_dir_path = os.path.dirname(self.configs['gw2Path'])
-        if os.path.exists(f"{gw2_dir_path}/bin64/"):
-            d3d9_path = f"{gw2_dir_path}/bin64/d3d9.dll"
+        if os.path.exists(f"{gw2_dir_path}\\bin64\\"):
+            d3d9_path = f"{gw2_dir_path}\\bin64\\d3d9.dll"
             if os.path.isfile(d3d9_path):
                 self.configs['arcdps'] = True
                 self.qtObj.arcdps_yes_radioButton.setChecked(True)
@@ -674,9 +686,9 @@ class MainSrc:
         md5sum_url = constants.MD5SUM_URL
         d3d9_path = f"{gw2_dir_path}{constants.D3D9_PATH}"
 
-        if str(self.configs['arcdps']).lower() == "true":
-            if not os.path.exists(f"{gw2_dir_path}/bin64/"):
-                os.makedirs(f"{gw2_dir_path}/bin64/")
+        if self.qtObj.arcdps_yes_radioButton.isChecked():
+            if not os.path.exists(f"{gw2_dir_path}\\bin64\\"):
+                os.makedirs(f"{gw2_dir_path}\\bin64\\")
 
             if os.path.isfile(d3d9_path):
                 self._disable_form()
@@ -774,8 +786,9 @@ class MainSrc:
                 for content in blist:
                     if content.startswith('changes'):
                         changes = content.replace("changes</b><br/>", "").replace("<br/>", "").replace("     ", "")
-                    if content.startswith('download'):
-                        version = content.split("</a>")[1].split("<br/>")[0].strip(" (").strip(")")
+                        version = content.split()[1].replace(":", "")
+                    # if content.startswith('download'):
+                    #     version = content.split("</a>")[1].split("<br/>")[0].strip(" (").strip(")")
 
                 self.qtObj.arcdps_webpage_textEdit.setPlainText(changes.strip())
                 self.qtObj.arcdps_current_version_label.setText(version.strip())
