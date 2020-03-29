@@ -14,7 +14,6 @@ import json
 import logging
 import os
 import sys
-import urllib.request
 
 import requests
 from PyQt5 import QtCore, QtWidgets
@@ -301,7 +300,9 @@ def download_new_program_version(self, show_dialog=True):
 
     try:
         show_progress_bar(self, dl_new_version_msg, 50)
-        urllib.request.urlretrieve(program_url, downloaded_program_path)
+        r = requests.get(program_url)
+        with open(downloaded_program_path, 'wb') as outfile:
+            outfile.write(r.content)
         show_progress_bar(self, dl_new_version_msg, 100)
         show_message_window("Info", "INFO", f"{messages.info_dl_completed}\n{downloaded_program_path}")
         sys.exit()

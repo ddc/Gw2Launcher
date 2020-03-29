@@ -10,7 +10,6 @@
 import logging.handlers
 import os
 import sys
-import urllib.request
 from time import sleep
 
 import requests
@@ -722,8 +721,10 @@ class MainSrc:
 
                     # try D3D9_URL
                     try:
-                        urllib.request.urlretrieve(d3d9_url, d3d9_path)
-                    except urllib.request.HTTPError as e:
+                        r = requests.get(d3d9_url)
+                        with open(d3d9_path, 'wb') as outfile:
+                            outfile.write(r.content)
+                    except requests.HTTPError as e:
                         utilities.remove_arcdps_files(self)
                         utilities.backup_arcdps_files(self, "revert_backup")
                         self.log.error(f"{e} {d3d9_url}")
@@ -752,8 +753,10 @@ class MainSrc:
 
                 # try D3D9_URL
                 try:
-                    urllib.request.urlretrieve(d3d9_url, d3d9_path)
-                except urllib.request.HTTPError as e:
+                    r = requests.get(d3d9_url)
+                    with open(d3d9_path, 'wb') as outfile:
+                        outfile.write(r.content)
+                except requests.HTTPError as e:
                     utilities.remove_arcdps_files(self)
                     self.log.error(f"{e} {d3d9_url}")
                     utilities.show_message_window("error", "ERROR", messages.arcdps_404)
