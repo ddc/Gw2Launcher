@@ -224,6 +224,13 @@ class Ui_Main(object):
         self.about_textBrowser.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse)
         self.about_textBrowser.setOpenExternalLinks(True)
         self.about_textBrowser.setObjectName("about_textBrowser")
+        self.paypal_button = QtWidgets.QPushButton(self.about_tab)
+        self.paypal_button.setGeometry(QtCore.QRect(270, 350, 100, 25))
+        self.paypal_button.setMinimumSize(QtCore.QSize(100, 25))
+        self.paypal_button.setMaximumSize(QtCore.QSize(100, 25))
+        self.paypal_button.setSizeIncrement(QtCore.QSize(100, 25))
+        self.paypal_button.setBaseSize(QtCore.QSize(100, 25))
+        self.paypal_button.setObjectName("paypal_button")
         self.main_tabWidget.addTab(self.about_tab, "")
         self.startGw2_button = QtWidgets.QPushButton(Main)
         self.startGw2_button.setGeometry(QtCore.QRect(20, 480, 131, 61))
@@ -239,12 +246,16 @@ class Ui_Main(object):
         self.current_param_label.setWordWrap(True)
         self.current_param_label.setObjectName("current_param_label")
         self.updateAvail_label = QtWidgets.QLabel(Main)
-        self.updateAvail_label.setGeometry(QtCore.QRect(340, 550, 201, 21))
+        self.updateAvail_label.setGeometry(QtCore.QRect(30, 550, 511, 21))
         self.updateAvail_label.setText("")
-        self.updateAvail_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.updateAvail_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.updateAvail_label.setObjectName("updateAvail_label")
         self.update_button = QtWidgets.QPushButton(Main)
-        self.update_button.setGeometry(QtCore.QRect(550, 550, 101, 25))
+        self.update_button.setGeometry(QtCore.QRect(550, 550, 100, 25))
+        self.update_button.setMinimumSize(QtCore.QSize(100, 25))
+        self.update_button.setMaximumSize(QtCore.QSize(100, 25))
+        self.update_button.setSizeIncrement(QtCore.QSize(100, 25))
+        self.update_button.setBaseSize(QtCore.QSize(100, 25))
         self.update_button.setObjectName("update_button")
 
         self.retranslateUi(Main)
@@ -309,22 +320,23 @@ class Ui_Main(object):
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://wiki.guildwars2.com/wiki/Command_line_arguments\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Gw2 Wiki</span></a></p>\n"
 "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt; text-decoration: underline; color:#0000ff;\"><br /></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt; font-weight:600;\">Acknowledgements:</span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.deltaconnected.com/arcdps\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Arcdps</span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.guildwars2.com\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Guild Wars 2</span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://pyinstaller.readthedocs.io\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">PyInstaller</span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.python.org\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Python3</span></a></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.qt.io\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">QT5</span></a></p>\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt; text-decoration: underline; color:#0000ff;\"><br /></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.deltaconnected.com/arcdps\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Arcdps</span></a></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.python.org\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Python3</span></a></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://pyinstaller.readthedocs.io\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">PyInstaller</span></a></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.guildwars2.com\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Guild Wars 2</span></a></p>\n"
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt; font-weight:600;\">Developed by:</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">Discord: Hadesz#1223</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:9pt;\">Gw2 ID: Hadesz.7508</span></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"mailto:hadesz456@gmail.com\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Email</span></a></p>\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://github.com/ddc/Gw2Launcher/releases/latest\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Download</span></a></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=CTYZ8TK5MJV76\"><span style=\" font-size:9pt; text-decoration: underline; color:#8b0000;\">Donations</span></a></p></body></html>"))
+"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.paypal_button.setText(_translate("Main", "PayPal"))
         self.main_tabWidget.setTabText(self.main_tabWidget.indexOf(self.about_tab), _translate("Main", "About"))
         self.startGw2_button.setText(_translate("Main", "Start Gw2"))
         self.currentParam_groupBox.setTitle(_translate("Main", "Current Parameters"))
-        self.update_button.setText(_translate("Main", "Update"))
+        self.update_button.setText(_translate("Main", "UPDATE"))
 
 
 if __name__ == "__main__":

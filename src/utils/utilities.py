@@ -15,7 +15,6 @@ import logging
 import os
 import sys
 
-import requests
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
 
@@ -27,7 +26,7 @@ _time_formatter = "%H:%M:%S"
 
 class Object:
     def __init__(self):
-        self.created = str(datetime.datetime.now().strftime(f"{_date_formatter} {_time_formatter}"))
+        self._created = str(datetime.datetime.now().strftime(f"{_date_formatter} {_time_formatter}"))
 
     def toJson(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
@@ -36,6 +35,40 @@ class Object:
         json_string = json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
         json_dict = json.loads(json_string)
         return json_dict
+
+
+################################################################################
+class ProgressBar:
+    def __init__(self, message, value=0):
+        width = 350
+        height = 25
+        self.progressBar = QtWidgets.QProgressBar()
+        self.progressBar.setObjectName("progressBar")
+        self.progressBar.setMinimumSize(QtCore.QSize(width, height))
+        self.progressBar.setMaximumSize(QtCore.QSize(width, height))
+        self.progressBar.setSizeIncrement(QtCore.QSize(width, height))
+        self.progressBar.setBaseSize(QtCore.QSize(width, height))
+        # self.progressBar.setGeometry(QtCore.QRect(960, 540, width, height))
+        self.progressBar.setMinimum(0)
+        self.progressBar.setMaximum(100)
+        self.progressBar.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.progressBar.setAlignment(QtCore.Qt.AlignCenter)
+        self.progressBar.show()
+        _translate = QtCore.QCoreApplication.translate
+        self.progressBar.setFormat(_translate("Main", f"{message}  %p%"))
+        self.progressBar.setValue(value)
+        QtWidgets.QApplication.processEvents()
+
+    def setValue(self, value):
+        QtWidgets.QApplication.processEvents()
+        self.progressBar.setValue(value)
+        if value == 100:
+            self.progressBar.close()
+
+
+################################################################################
+def get_current_path():
+    return os.path.abspath(os.getcwd())
 
 
 ################################################################################
@@ -77,22 +110,6 @@ def set_all_ini_file_settings(filename: str, dict_values: dict):
 
 
 ################################################################################
-# def get_file_settings(section: str, config_name: str):
-#     filename = constants.SETTINGS_FILENAME
-#     parser = configparser.ConfigParser(delimiters='=', allow_no_value=True)
-#     parser.optionxform = str  # this wont change all values to lowercase
-#     parser._interpolation = configparser.ExtendedInterpolation()
-#     parser.read(filename)
-#     try:
-#         value = parser.get(section, config_name).replace("\"", "")
-#     except Exception:
-#         value = None
-#     if value is not None and len(value) == 0:
-#         value = None
-#     return value
-
-
-################################################################################
 def set_file_settings(section: str, config_name: str, value):
     filename = constants.SETTINGS_FILENAME
     parser = configparser.ConfigParser(delimiters='=', allow_no_value=True)
@@ -114,8 +131,7 @@ def log_uncaught_exceptions(exc_type, exc_value, exc_traceback):
     stderr_hdlr.setLevel(constants.LOG_LEVEL)
     stderr_hdlr.setFormatter(constants.LOG_FORMATTER)
     logger.addHandler(stderr_hdlr)
-    if issubclass(exc_type, KeyboardInterrupt) \
-            or issubclass(exc_type, EOFError):
+    if issubclass(exc_type, KeyboardInterrupt) or issubclass(exc_type, EOFError):
         sys.__excepthook__(exc_type, exc_value, exc_traceback)
         return
     logger.exception("Uncaught exception", exc_info=(exc_type, exc_value, exc_traceback))
@@ -147,38 +163,18 @@ def md5Checksum(filePath):
 
 ################################################################################
 def get_download_path():
-    if os.name == 'nt':
+    if constants.IS_WINDOWS:
         import winreg
         sub_key = r'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders'
         downloads_guid = '{374DE290-123F-4565-9164-39C4925E467B}'
         with winreg.OpenKey(winreg.HKEY_CURRENT_USER, sub_key) as key:
-            location = winreg.QueryValueEx(key, downloads_guid)[0]
-        return location
+            downloads_path = winreg.QueryValueEx(key, downloads_guid)[0]
+        return downloads_path
     else:
-        return os.path.join(os.path.expanduser('~'), 'downloads')
-
-
-################################################################################
-def show_progress_bar(self, message, value):
-    self.progressBar = QtWidgets.QProgressBar()
-    _translate = QtCore.QCoreApplication.translate
-    self.progressBar.setObjectName("progressBar")
-    self.progressBar.setGeometry(QtCore.QRect(180, 150, 350, 25))
-    self.progressBar.setMinimumSize(QtCore.QSize(350, 25))
-    self.progressBar.setMaximumSize(QtCore.QSize(350, 25))
-    self.progressBar.setSizeIncrement(QtCore.QSize(350, 25))
-    self.progressBar.setBaseSize(QtCore.QSize(350, 25))
-    self.progressBar.setMinimum(0)
-    self.progressBar.setMaximum(100)
-    self.progressBar.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-    self.progressBar.setAlignment(QtCore.Qt.AlignCenter)
-    self.progressBar.setFormat(_translate("Main", message + "%p%"))
-    self.progressBar.show()
-    QtWidgets.QApplication.processEvents()
-    self.progressBar.setValue(value)
-    # sleep(3)
-    if value == 100:
-        self.progressBar.hide()
+        t1_path = str(os.path.expanduser("~/Downloads"))
+        t2_path = f"{t1_path}".split("\\")
+        downloads_path = '/'.join(t2_path)
+        return downloads_path.replace('\\', '/')
 
 
 ################################################################################
@@ -222,12 +218,12 @@ def backup_arcdps_files(self, type_backup: str):
 
 
 ################################################################################
-def show_message_window(windowType: str, window_title: str, msg: str):
-    if windowType.lower() == "error":
+def show_message_window(window_type: str, window_title: str, msg: str):
+    if window_type.lower() == "error":
         icon = QtWidgets.QMessageBox.Critical
-    elif windowType.lower() == "warning":
+    elif window_type.lower() == "warning":
         icon = QtWidgets.QMessageBox.Warning
-    elif windowType.lower() == "question":
+    elif window_type.lower() == "question":
         icon = QtWidgets.QMessageBox.Question
     else:
         icon = QtWidgets.QMessageBox.Information
@@ -237,7 +233,7 @@ def show_message_window(windowType: str, window_title: str, msg: str):
     msgBox.setWindowTitle(window_title)
     msgBox.setInformativeText(msg)
 
-    if windowType.lower() == "question":
+    if window_type.lower() == "question":
         msgBox.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
         msgBox.setDefaultButton(QtWidgets.QMessageBox.Yes)
     else:
@@ -250,6 +246,7 @@ def show_message_window(windowType: str, window_title: str, msg: str):
 
 ################################################################################
 def check_new_program_version(self):
+    import requests
     remote_version_filename = constants.REMOTE_VERSION_FILENAME
     obj_return = Object()
     obj_return.new_version_available = False
@@ -259,9 +256,8 @@ def check_new_program_version(self):
         req = requests.get(remote_version_filename, stream=True, timeout=3)
         if req.status_code == 200:
             remote_version = req.text
-
-            if remote_version[-2:] == "\\n" or remote_version[-2:] == "\n":
-                remote_version = remote_version[:-2]  # getting rid of \n at the end of line
+            # getting rid of \n at the end of line
+            remote_version = remote_version.replace("\\n", "").replace("\n", "")
 
             if float(remote_version) > float(self.client_version):
                 obj_return.new_version_available = True
@@ -269,47 +265,11 @@ def check_new_program_version(self):
                 obj_return.new_version = float(remote_version)
         else:
             self.log.error(
-                f"{messages.error_check_new_version}\n{messages.remote_version_file_not_found} code:{req.status_code}")
+                f"{messages.error_check_new_version}\n{messages.remote_version_file_not_found} code:"
+                f"{req.status_code}")
             show_message_window("critical", "ERROR", f"{messages.error_check_new_version}")
     except requests.exceptions.ConnectionError as e:
         self.log.error(f"{messages.dl_new_version_timeout} {e}")
         show_message_window("error", "ERROR", messages.dl_new_version_timeout)
     finally:
         return obj_return
-
-
-################################################################################
-def download_new_program_version(self, show_dialog=True):
-    if show_dialog:
-        msg = f"""{messages.new_version_available}
-                            \nYour version: v{self.client_version}\nNew version: v{self.new_version}
-                            \n{messages.check_downloaded_dir}
-                            \n{messages.confirm_download}"""
-        reply = show_message_window("question", self.new_version_msg, msg)
-
-        if reply == QtWidgets.QMessageBox.No:
-            new_title = f"{constants.FULL_PROGRAM_NAME} ({self.new_version_msg})"
-            _translate = QtCore.QCoreApplication.translate
-            self.form.setWindowTitle(_translate("Main", new_title))
-            return
-
-    user_download_path = get_download_path()
-    program_url = f"{constants.GITHUB_EXE_PROGRAM_URL}{self.new_version}/{constants.EXE_PROGRAM_NAME}"
-    downloaded_program_path = f"{user_download_path}\\{constants.EXE_PROGRAM_NAME}"
-    dl_new_version_msg = messages.dl_new_version
-
-    try:
-        show_progress_bar(self, dl_new_version_msg, 50)
-        r = requests.get(program_url)
-        with open(downloaded_program_path, 'wb') as outfile:
-            outfile.write(r.content)
-        show_progress_bar(self, dl_new_version_msg, 100)
-        show_message_window("Info", "INFO", f"{messages.info_dl_completed}\n{downloaded_program_path}")
-        sys.exit()
-    except Exception as e:
-        show_progress_bar(self, dl_new_version_msg, 100)
-        self.log.error(f"{messages.error_check_new_version} {e}")
-        if e.code == 404:
-            show_message_window("error", "ERROR", messages.remote_file_not_found)
-        else:
-            show_message_window("error", "ERROR", messages.error_check_new_version)

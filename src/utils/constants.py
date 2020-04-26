@@ -14,7 +14,7 @@ import sys
 
 PROGRAM_NAME = "Guild Wars 2 Launcher"
 SHORT_PROGRAM_NAME = "Gw2Launcher"
-VERSION = "2.6"
+VERSION = "2.7"
 ################################################################################
 EXIT_TIMER = 5
 ################################################################################
@@ -47,6 +47,8 @@ D3D9_URL = f"{ARCDPS_URL}/x64/d3d9.dll"
 MD5SUM_URL = f"{ARCDPS_URL}/x64/d3d9.dll.md5sum"
 GITHUB_EXE_PROGRAM_URL = f"https://github.com/ddc/{SHORT_PROGRAM_NAME}/releases/download/v"
 REMOTE_VERSION_FILENAME = f"https://raw.github.com/ddc/{SHORT_PROGRAM_NAME}/master/VERSION"
+PAYPAL_URL = "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CTYZ8TK5MJV76"
+GITHUB_LATEST_VERSION_URL = f"https://github.com/ddc/{SHORT_PROGRAM_NAME}/releases/latest"
 ################################################################################
 D3D9_PATH = "\\bin64\\d3d9.dll"
 D3D9_BAK_PATH = "\\bin64\\d3d9.dll.bak"

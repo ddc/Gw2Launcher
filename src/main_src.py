@@ -14,6 +14,7 @@ from time import sleep
 
 import requests
 from PyQt5 import QtCore
+from PyQt5.QtGui import QDesktopServices
 from bs4 import BeautifulSoup
 
 from src.utils import constants, messages, utilities
@@ -29,27 +30,30 @@ class MainSrc:
 
     ################################################################################
     def init(self):
-        utilities.show_progress_bar(self, messages.initializing, 0)
+        pb = utilities.ProgressBar(messages.initializing, 0)
         self._check_dirs()
         self._setup_logging()
         sys.excepthook = utilities.log_uncaught_exceptions
         self._check_files()
-        utilities.show_progress_bar(self, messages.checking_new_version, 25)
-        self._check_new_program_version()
-
         self.configs = utilities.get_all_ini_file_settings(constants.SETTINGS_FILENAME)
         if self.configs['useTheme'] is None:
             self.configs['useTheme'] = True
+        pb.setValue(100)
 
+        pb = utilities.ProgressBar(messages.checking_new_version, 25)
+        self._check_new_program_version()
+        pb.setValue(100)
+
+        pb = utilities.ProgressBar(messages.arcdps_new_version, 50)
         self._check_arcdps_installed()
         if self.configs['gw2Path'] is not None:
-            utilities.show_progress_bar(self, messages.arcdps_new_version, 50)
             self._update_arcdps()
+        pb.setValue(100)
 
-        utilities.show_progress_bar(self, messages.get_arcdps_html, 75)
+        pb = utilities.ProgressBar(messages.get_arcdps_html, 75)
         self._set_arcdps_tab()
+        pb.setValue(100)
 
-        utilities.show_progress_bar(self, messages.ready, 100)
         if self.configs['useTheme']:
             self.form.setStyleSheet(open(constants.STYLE_QSS_FILENAME, "r").read())
 
@@ -108,8 +112,16 @@ class MainSrc:
             self.qtObj.update_button.setVisible(True)
 
     ################################################################################
-    def _update_program(self):
-        utilities.download_new_program_version(self, True)
+    @staticmethod
+    def _update_program():
+        href = QtCore.QUrl(constants.GITHUB_LATEST_VERSION_URL)
+        QDesktopServices.openUrl(href)
+
+    ################################################################################
+    @staticmethod
+    def _donate_clicked():
+        href = QtCore.QUrl(constants.PAYPAL_URL)
+        QDesktopServices.openUrl(href)
 
     ################################################################################
     def _enable_form(self):
@@ -134,6 +146,7 @@ class MainSrc:
         self.qtObj.daFile_button.clicked.connect(lambda: self._get_dat_file_name())
         self.qtObj.startGw2_button.clicked.connect(lambda: self._start_gw2())
         self.qtObj.update_button.clicked.connect(lambda: self._update_program())
+        self.qtObj.paypal_button.clicked.connect(lambda: self._donate_clicked())
         # port
         self.qtObj.port80_radioButton.clicked.connect(lambda: self._set_port())
         self.qtObj.port443_radioButton.clicked.connect(lambda: self._set_port())
