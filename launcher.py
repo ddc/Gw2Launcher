@@ -36,8 +36,8 @@ class Launcher:
 
         self.progressBar.setValues(messages.checking_new_version, 75)
         self._check_update_required()
-        self._call_program()
         self.progressBar.close()
+        self._call_program()
 
     ################################################################################
     def _check_update_required(self):
