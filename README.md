@@ -23,7 +23,8 @@ Program to launch [Guild Wars 2](https://www.guildwars2.com) with different para
 + Install requirements:
     + pip install -r requirements.txt
 + Compile with PyInstaller:
-    + python3 -O -m PyInstaller --uac-admin --clean -y -F Gw2Launcher.spec
+    + python3 -O -m PyInstaller --clean -y -F launcher.spec
+    + python3 -O -m PyInstaller --clean -y -F gw2Launcher.spec
     
 ## Acknowledgements
 + [QT5](https://www.qt.io)
