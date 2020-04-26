@@ -12,6 +12,7 @@ import datetime
 import hashlib
 import json
 import logging
+import logging.handlers
 import os
 import sys
 
@@ -19,6 +20,7 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
 
 from src.utils import constants, messages
+from src.utils.create_files import CreateFiles
 
 _date_formatter = "%b/%d/%Y"
 _time_formatter = "%H:%M:%S"
@@ -189,6 +191,49 @@ def remove_arcdps_backup_files(self):
     gw2_dir_path = os.path.dirname(self.configs['gw2Path'])
     d3d9_bak = remove_file(self, f"{gw2_dir_path}{constants.D3D9_BAK_PATH}")
     return True if d3d9_bak else False
+
+
+################################################################################
+def check_dirs():
+    try:
+        if not os.path.exists(constants.PROGRAM_PATH):
+            os.makedirs(constants.PROGRAM_PATH)
+    except OSError as e:
+        show_message_window("error", "ERROR", f"Error creating program directories.\n{e}")
+        exit(1)
+
+
+################################################################################
+def setup_logging(self):
+    logger = logging.getLogger()
+    logger.setLevel(constants.LOG_LEVEL)
+    file_hdlr = logging.handlers.RotatingFileHandler(
+        filename=constants.ERROR_LOGS_FILENAME,
+        maxBytes=10 * 1024 * 1024,
+        encoding="utf-8",
+        backupCount=5,
+        mode='a')
+    file_hdlr.setFormatter(constants.LOG_FORMATTER)
+    logger.addHandler(file_hdlr)
+    self.log = logging.getLogger(__name__)
+    return self.log
+
+
+################################################################################
+def check_files(self):
+    create_files = CreateFiles(self)
+
+    try:
+        if not os.path.exists(constants.SETTINGS_FILENAME):
+            create_files.create_settings_file()
+    except Exception as e:
+        self.log.error(f"{e}")
+
+    try:
+        if not os.path.exists(constants.STYLE_QSS_FILENAME):
+            create_files.create_style_file()
+    except Exception as e:
+        self.log.error(f"{e}")
 
 
 ################################################################################

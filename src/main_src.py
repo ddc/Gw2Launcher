@@ -7,7 +7,6 @@
 # |*****************************************************
 # # -*- coding: utf-8 -*-
 
-import logging.handlers
 import os
 import sys
 from time import sleep
@@ -18,7 +17,6 @@ from PyQt5.QtGui import QDesktopServices
 from bs4 import BeautifulSoup
 
 from src.utils import constants, messages, utilities
-from src.utils.create_files import CreateFiles
 
 
 class MainSrc:
@@ -27,14 +25,15 @@ class MainSrc:
         self.form = form
         self.configs = None
         self.new_version_msg = None
+        self.log = None
 
     ################################################################################
     def init(self):
         pb = utilities.ProgressBar(messages.initializing, 0)
-        self._check_dirs()
-        self._setup_logging()
+        utilities.check_dirs()
+        self.log = utilities.setup_logging(self)
         sys.excepthook = utilities.log_uncaught_exceptions
-        self._check_files()
+        utilities.check_files(self)
         self.configs = utilities.get_all_ini_file_settings(constants.SETTINGS_FILENAME)
         if self.configs['useTheme'] is None:
             self.configs['useTheme'] = True
@@ -69,33 +68,6 @@ class MainSrc:
         self._register_form_events()
         self.qtObj.main_tabWidget.setCurrentIndex(0)
         self.qtObj.findGw2File_button.setFocus()
-
-    ################################################################################
-    def _check_dirs(self):
-        if not os.path.exists(constants.PROGRAM_PATH):
-            os.makedirs(constants.PROGRAM_PATH)
-
-    ################################################################################
-    def _setup_logging(self):
-        logger = logging.getLogger()
-        logger.setLevel(constants.LOG_LEVEL)
-        file_hdlr = logging.handlers.RotatingFileHandler(
-            filename=constants.ERROR_LOGS_FILENAME,
-            maxBytes=10 * 1024 * 1024,
-            encoding="utf-8",
-            backupCount=5,
-            mode='a')
-        file_hdlr.setFormatter(constants.LOG_FORMATTER)
-        logger.addHandler(file_hdlr)
-        self.log = logging.getLogger(__name__)
-
-    ################################################################################
-    def _check_files(self):
-        create_files = CreateFiles(self.log)
-        if not os.path.exists(constants.SETTINGS_FILENAME):
-            create_files.create_settings_file()
-        if not os.path.exists(constants.STYLE_QSS_FILENAME):
-            create_files.create_style_file()
 
     ################################################################################
     def _check_new_program_version(self):
@@ -794,7 +766,7 @@ class MainSrc:
         self.qtObj.arcps_url_textBrowser.setHtml(arcdps_ref)
 
         try:
-            response = requests.get(arcdps_url, stream=True, timeout=1)
+            response = requests.get(arcdps_url, stream=True, timeout=3)
             if response.status_code != 200:
                 self.log.error(messages.arcdps_error_dl)
             else:
@@ -807,6 +779,7 @@ class MainSrc:
                     if content.startswith('changes'):
                         changes = content.replace("changes</b><br/>", "").replace("<br/>", "").replace("     ", "")
                         version = content.split()[1].replace(":", "")
+                        break
                     # if content.startswith('download'):
                     #     version = content.split("</a>")[1].split("<br/>")[0].strip(" (").strip(")")
 
