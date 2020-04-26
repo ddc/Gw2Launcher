@@ -18,9 +18,12 @@ class CreateFiles:
     @staticmethod
     def create_settings_file():
         file = open(constants.SETTINGS_FILENAME, encoding="utf-8", mode="w")
-        file.write("""; DO NOT OPEN THIS FILE WITH NOTEPAD.
+        file.write(f"""; DO NOT OPEN THIS FILE WITH NOTEPAD.
 ; Use Notepad++ or any other modern text editor.
 ; Use True or False.
+
+[Main]
+programVersion={constants.VERSION}
 
 [Configs]
 useTheme=True

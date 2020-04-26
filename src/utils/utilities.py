@@ -41,7 +41,7 @@ class Object:
 
 ################################################################################
 class ProgressBar:
-    def __init__(self, message, value=0):
+    def __init__(self):
         width = 350
         height = 25
         self.progressBar = QtWidgets.QProgressBar()
@@ -55,17 +55,18 @@ class ProgressBar:
         self.progressBar.setMaximum(100)
         self.progressBar.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.progressBar.setAlignment(QtCore.Qt.AlignCenter)
-        self.progressBar.show()
+
+    def setValues(self, message="", value=0):
         _translate = QtCore.QCoreApplication.translate
         self.progressBar.setFormat(_translate("Main", f"{message}  %p%"))
-        self.progressBar.setValue(value)
-        QtWidgets.QApplication.processEvents()
-
-    def setValue(self, value):
+        self.progressBar.show()
         QtWidgets.QApplication.processEvents()
         self.progressBar.setValue(value)
         if value == 100:
             self.progressBar.close()
+
+    def close(self):
+        self.progressBar.close()
 
 
 ################################################################################

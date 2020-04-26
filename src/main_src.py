@@ -21,6 +21,7 @@ from src.utils import constants, messages, utilities
 
 class MainSrc:
     def __init__(self, qtObj, form):
+        self.progressBar = utilities.ProgressBar()
         self.qtObj = qtObj
         self.form = form
         self.configs = None
@@ -29,7 +30,7 @@ class MainSrc:
 
     ################################################################################
     def init(self):
-        pb = utilities.ProgressBar(messages.initializing, 0)
+        self.progressBar.setValues(messages.initializing, 0)
         utilities.check_dirs()
         self.log = utilities.setup_logging(self)
         sys.excepthook = utilities.log_uncaught_exceptions
@@ -37,21 +38,19 @@ class MainSrc:
         self.configs = utilities.get_all_ini_file_settings(constants.SETTINGS_FILENAME)
         if self.configs['useTheme'] is None:
             self.configs['useTheme'] = True
-        pb.setValue(100)
+        if self.configs['programVersion'] is None or self.configs['programVersion'] != constants.VERSION:
+            utilities.set_file_settings("Main", "programVersion", constants.VERSION)
 
-        pb = utilities.ProgressBar(messages.checking_new_version, 25)
+        self.progressBar.setValues(messages.checking_new_version, 25)
         self._check_new_program_version()
-        pb.setValue(100)
 
-        pb = utilities.ProgressBar(messages.arcdps_new_version, 50)
+        self.progressBar.setValues(messages.arcdps_new_version, 50)
         self._check_arcdps_installed()
         if self.configs['gw2Path'] is not None:
             self._update_arcdps()
-        pb.setValue(100)
 
-        pb = utilities.ProgressBar(messages.get_arcdps_html, 75)
+        self.progressBar.setValues(messages.get_arcdps_html, 75)
         self._set_arcdps_tab()
-        pb.setValue(100)
 
         if self.configs['useTheme']:
             self.form.setStyleSheet(open(constants.STYLE_QSS_FILENAME, "r").read())
@@ -68,6 +67,7 @@ class MainSrc:
         self._register_form_events()
         self.qtObj.main_tabWidget.setCurrentIndex(0)
         self.qtObj.findGw2File_button.setFocus()
+        self.progressBar.close()
 
     ################################################################################
     def _check_new_program_version(self):

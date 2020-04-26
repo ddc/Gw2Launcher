@@ -12,9 +12,9 @@ import os
 import platform
 import sys
 
-PROGRAM_NAME = "Guild Wars 2 Launcher"
+PROGRAM_NAME = "Guild Wars2 Launcher"
 SHORT_PROGRAM_NAME = "Gw2Launcher"
-VERSION = "2.7"
+VERSION = "2.8"
 ################################################################################
 EXIT_TIMER = 5
 ################################################################################
