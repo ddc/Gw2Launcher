@@ -34,7 +34,7 @@ class Launcher:
         utilities.check_files(self)
         self.configs = utilities.get_all_ini_file_settings(constants.SETTINGS_FILENAME)
 
-        self.progressBar.setValues(messages.checking_files, 75)
+        self.progressBar.setValues(messages.checking_new_version, 75)
         self._check_update_required()
         self._call_program()
         self.progressBar.close()

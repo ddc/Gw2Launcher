@@ -11,7 +11,7 @@
 # general
 error_executing_program = "Could not initialize "
 error_check_installation = "Please check your installation and try again."
-initializing = "Initializing first time run..."
+initializing = "Initializing..."
 checking_files = "Checking files..."
 
 # gw2 messages
