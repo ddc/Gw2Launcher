@@ -31,6 +31,7 @@ class MainSrc:
     ################################################################################
     def init(self):
         self.progressBar.setValues(messages.initializing, 0)
+        utilities.set_paypal_button(self)
         utilities.check_dirs()
         self.log = utilities.setup_logging(self)
         sys.excepthook = utilities.log_uncaught_exceptions

@@ -741,9 +741,9 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>0</y>
+       <y>40</y>
        <width>631</width>
-       <height>371</height>
+       <height>341</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -763,7 +763,6 @@
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;Guild Wars 2 Utilities&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Implemented using Python3 and QT5.&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Developed as an open source project and hosted on GitHub.&lt;/span&gt;&lt;/p&gt;
@@ -795,39 +794,61 @@ p, li { white-space: pre-wrap; }
      <property name="geometry">
       <rect>
        <x>270</x>
-       <y>350</y>
-       <width>100</width>
-       <height>25</height>
+       <y>10</y>
+       <width>80</width>
+       <height>30</height>
       </rect>
      </property>
      <property name="minimumSize">
       <size>
-       <width>100</width>
-       <height>25</height>
+       <width>80</width>
+       <height>30</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>100</width>
-       <height>25</height>
+       <width>80</width>
+       <height>30</height>
       </size>
      </property>
      <property name="sizeIncrement">
       <size>
-       <width>100</width>
-       <height>25</height>
+       <width>80</width>
+       <height>30</height>
       </size>
      </property>
      <property name="baseSize">
       <size>
-       <width>100</width>
-       <height>25</height>
+       <width>80</width>
+       <height>30</height>
       </size>
      </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="toolTip">
+      <string notr="true">PayPal</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">#paypal_button {
+    background-color: transparent;
+    background: none;
+    border: none;
+    background-repeat: none;
+}</string>
+     </property>
      <property name="text">
-      <string>PayPal</string>
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>100</width>
+       <height>100</height>
+      </size>
      </property>
     </widget>
+    <zorder>paypal_button</zorder>
+    <zorder>about_textBrowser</zorder>
    </widget>
   </widget>
   <widget class="QPushButton" name="startGw2_button">
