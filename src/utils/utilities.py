@@ -15,7 +15,6 @@ import logging
 import logging.handlers
 import os
 import sys
-import urllib.request
 
 import requests
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -328,8 +327,12 @@ def check_new_program_version(self):
 ################################################################################
 def set_paypal_button(self):
     url = constants.PAYPAL_REMOTE_FILENAME
-    data = urllib.request.urlopen(url).read()
-    pixmap = QtGui.QPixmap()
-    pixmap.loadFromData(data)
-    icon = QtGui.QIcon(pixmap)
-    self.qtObj.paypal_button.setIcon(icon)
+    data = requests.get(url, stream=True)
+    if data.status_code == 200:
+        pixmap = QtGui.QPixmap()
+        pixmap.loadFromData(data.content)
+        icon = QtGui.QIcon(pixmap)
+        self.qtObj.paypal_button.setIcon(icon)
+    else:
+        _translate = QtCore.QCoreApplication.translate
+        self.qtObj.paypal_button.setText(_translate("Main", "PayPal"))
