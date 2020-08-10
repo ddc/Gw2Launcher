@@ -701,7 +701,7 @@ class MainSrc:
                     self.qtObj.main_tabWidget.setCurrentIndex(2)
                     return False
 
-                current_d3d9_md5 = utilities.md5Checksum(d3d9_path)
+                current_d3d9_md5 = utilities.md5_checksum(d3d9_path)
                 if req_d3d9_md5 != current_d3d9_md5:
                     utilities.backup_arcdps_files(self, "backup")
 
