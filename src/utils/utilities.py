@@ -336,3 +336,5 @@ def set_paypal_button(self):
     else:
         _translate = QtCore.QCoreApplication.translate
         self.qtObj.paypal_button.setText(_translate("Main", "PayPal"))
+
+
