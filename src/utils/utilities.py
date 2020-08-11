@@ -154,15 +154,15 @@ def dialog_get_file_path():
 
 
 ################################################################################
-def md5Checksum(filePath):
-    with open(filePath, 'rb') as fh:
-        m = hashlib.md5()
+def md5_checksum(file_path):
+    md5 = hashlib.md5()
+    with open(file_path, 'rb') as f:
         while True:
-            data = fh.read(8192)
+            data = f.read(md5.block_size)
             if not data:
                 break
-            m.update(data)
-        return m.hexdigest()
+            md5.update(data)
+        return md5.hexdigest().upper()
 
 
 ################################################################################
