@@ -23,6 +23,7 @@ from PyQt5.QtWidgets import QFileDialog
 from src.utils import constants, messages
 from src.utils.create_files import CreateFiles
 
+
 _date_formatter = "%b/%d/%Y"
 _time_formatter = "%H:%M:%S"
 
@@ -146,11 +147,8 @@ def dialog_get_file_path():
     full_path = QFileDialog.getOpenFileName(None, 'Open file')[0]
     if full_path == '':
         return ''
-    else:
-        if constants.IS_WINDOWS:
-            return str(full_path).replace("/", "\\")
-        else:
-            return str(full_path)
+
+    return str(full_path).replace("/", "\\")
 
 
 ################################################################################
@@ -336,5 +334,3 @@ def set_paypal_button(self):
     else:
         _translate = QtCore.QCoreApplication.translate
         self.qtObj.paypal_button.setText(_translate("Main", "PayPal"))
-
-
