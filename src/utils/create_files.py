@@ -1,10 +1,7 @@
-#! /usr/bin/env python3
-# |*****************************************************
 # * Copyright         : Copyright (C) 2019
 # * Author            : ddc
 # * License           : GPL v3
 # * Python            : 3.6
-# |*****************************************************
 # # -*- coding: utf-8 -*-
 
 from src.utils import constants
@@ -14,7 +11,6 @@ class CreateFiles:
     def __init__(self, log):
         self.log = log
 
-    ################################################################################
     @staticmethod
     def create_settings_file():
         file = open(constants.SETTINGS_FILENAME, encoding="utf-8", mode="w")
@@ -67,7 +63,7 @@ uninstall=False
 """)
         file.close()
 
-    ################################################################################
+
     @staticmethod
     def create_style_file():
         file = open(constants.STYLE_QSS_FILENAME, encoding="utf-8", mode="w")

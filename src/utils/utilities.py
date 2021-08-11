@@ -1,10 +1,7 @@
-#! /usr/bin/env python3
-# |*****************************************************
 # * Copyright         : Copyright (C) 2019
 # * Author            : ddc
 # * License           : GPL v3
 # * Python            : 3.6
-# |*****************************************************
 # # -*- coding: utf-8 -*-
 
 import configparser
@@ -15,13 +12,12 @@ import logging
 import logging.handlers
 import os
 import sys
-
 import requests
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog
-
 from src.utils import constants, messages
 from src.utils.create_files import CreateFiles
+
 
 _date_formatter = "%b/%d/%Y"
 _time_formatter = "%H:%M:%S"
@@ -40,7 +36,6 @@ class Object:
         return json_dict
 
 
-################################################################################
 class ProgressBar:
     def __init__(self):
         _width = 350
@@ -70,12 +65,10 @@ class ProgressBar:
         self.progressBar.close()
 
 
-################################################################################
 def get_current_path():
     return os.path.abspath(os.getcwd())
 
 
-################################################################################
 def get_all_ini_file_settings(file_name: str):
     dictionary = {}
     parser = configparser.ConfigParser(delimiters='=', allow_no_value=True)
@@ -97,7 +90,6 @@ def get_all_ini_file_settings(file_name: str):
     return dictionary
 
 
-################################################################################
 def set_all_ini_file_settings(filename: str, dict_values: dict):
     parser = configparser.ConfigParser(delimiters='=', allow_no_value=True)
     parser.optionxform = str  # this wont change all values to lowercase
@@ -113,7 +105,6 @@ def set_all_ini_file_settings(filename: str, dict_values: dict):
         return
 
 
-################################################################################
 def set_file_settings(section: str, config_name: str, value):
     filename = constants.SETTINGS_FILENAME
     parser = configparser.ConfigParser(delimiters='=', allow_no_value=True)
@@ -128,7 +119,6 @@ def set_file_settings(section: str, config_name: str, value):
         return
 
 
-################################################################################
 def log_uncaught_exceptions(exc_type, exc_value, exc_traceback):
     logger = logging.getLogger(__name__)
     stderr_hdlr = logging.StreamHandler(stream=sys.stdout)
@@ -141,19 +131,14 @@ def log_uncaught_exceptions(exc_type, exc_value, exc_traceback):
     logger.exception("Uncaught exception", exc_info=(exc_type, exc_value, exc_traceback))
 
 
-################################################################################
 def dialog_get_file_path():
     full_path = QFileDialog.getOpenFileName(None, 'Open file')[0]
     if full_path == '':
         return ''
-    else:
-        if constants.IS_WINDOWS:
-            return str(full_path).replace("/", "\\")
-        else:
-            return str(full_path)
+
+    return str(full_path).replace("/", "\\")
 
 
-################################################################################
 def md5_checksum(file_path):
     md5 = hashlib.md5()
     with open(file_path, 'rb') as f:
@@ -165,7 +150,6 @@ def md5_checksum(file_path):
         return md5.hexdigest().upper()
 
 
-################################################################################
 def get_download_path():
     if constants.IS_WINDOWS:
         import winreg
@@ -181,21 +165,18 @@ def get_download_path():
         return downloads_path.replace('\\', '/')
 
 
-################################################################################
 def remove_arcdps_files(self):
     gw2_dir_path = os.path.dirname(self.configs['gw2Path'])
     d3d9_path = remove_file(self, f"{gw2_dir_path}{constants.D3D9_PATH}")
     return True if d3d9_path else False
 
 
-################################################################################
 def remove_arcdps_backup_files(self):
     gw2_dir_path = os.path.dirname(self.configs['gw2Path'])
     d3d9_bak = remove_file(self, f"{gw2_dir_path}{constants.D3D9_BAK_PATH}")
     return True if d3d9_bak else False
 
 
-################################################################################
 def check_dirs():
     try:
         if not os.path.exists(constants.PROGRAM_PATH):
@@ -205,7 +186,6 @@ def check_dirs():
         exit(1)
 
 
-################################################################################
 def setup_logging(self):
     logger = logging.getLogger()
     logger.setLevel(constants.LOG_LEVEL)
@@ -221,7 +201,6 @@ def setup_logging(self):
     return self.log
 
 
-################################################################################
 def check_files(self):
     create_files = CreateFiles(self)
 
@@ -238,7 +217,6 @@ def check_files(self):
         self.log.error(f"{e}")
 
 
-################################################################################
 def remove_file(self, file_path):
     try:
         if os.path.isfile(file_path):
@@ -250,7 +228,6 @@ def remove_file(self, file_path):
     return success
 
 
-################################################################################
 def backup_arcdps_files(self, type_backup: str):
     gw2_dir_path = os.path.dirname(self.configs['gw2Path'])
     d3d9_path = f"{gw2_dir_path}{constants.D3D9_PATH}"
@@ -264,7 +241,6 @@ def backup_arcdps_files(self, type_backup: str):
             os.rename(d3d9_bak_path, d3d9_path)
 
 
-################################################################################
 def show_message_window(window_type: str, window_title: str, msg: str):
     if window_type.lower() == "error":
         icon = QtWidgets.QMessageBox.Critical
@@ -291,7 +267,6 @@ def show_message_window(window_type: str, window_title: str, msg: str):
     return user_answer
 
 
-################################################################################
 def check_new_program_version(self):
     client_version = self.client_version
     remote_version = None
@@ -324,7 +299,6 @@ def check_new_program_version(self):
         return obj_return
 
 
-################################################################################
 def set_paypal_button(self):
     url = constants.PAYPAL_REMOTE_FILENAME
     data = requests.get(url, stream=True)

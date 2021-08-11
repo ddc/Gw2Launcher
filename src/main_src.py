@@ -1,21 +1,16 @@
-#! /usr/bin/env python3
-# |*****************************************************
 # * Copyright         : Copyright (C) 2019
 # * Author            : ddc
 # * License           : GPL v3
 # * Python            : 3.6
-# |*****************************************************
 # # -*- coding: utf-8 -*-
 
 import os
 import sys
 from time import sleep
-
 import requests
 from PyQt5 import QtCore
 from PyQt5.QtGui import QDesktopServices
 from bs4 import BeautifulSoup
-
 from src.utils import constants, messages, utilities
 
 
@@ -28,7 +23,7 @@ class MainSrc:
         self.new_version_msg = None
         self.log = None
 
-    ################################################################################
+
     def init(self):
         self.progressBar.setValues(messages.initializing, 0)
         utilities.set_paypal_button(self)
@@ -70,7 +65,7 @@ class MainSrc:
         self.qtObj.findGw2File_button.setFocus()
         self.progressBar.close()
 
-    ################################################################################
+
     def _check_new_program_version(self):
         self.qtObj.updateAvail_label.clear()
         self.qtObj.update_button.setVisible(False)
@@ -84,19 +79,19 @@ class MainSrc:
             self.qtObj.updateAvail_label.setText(new_version_obj.new_version_msg)
             self.qtObj.update_button.setVisible(True)
 
-    ################################################################################
+
     @staticmethod
     def _update_program():
         href = QtCore.QUrl(constants.GITHUB_LATEST_VERSION_URL)
         QDesktopServices.openUrl(href)
 
-    ################################################################################
+
     @staticmethod
     def _donate_clicked():
         href = QtCore.QUrl(constants.PAYPAL_URL)
         QDesktopServices.openUrl(href)
 
-    ################################################################################
+
     def _enable_form(self):
         self.qtObj.startGw2_button.setEnabled(True)
         self.qtObj.currentParam_groupBox.setEnabled(True)
@@ -104,7 +99,7 @@ class MainSrc:
         for x in range(0, num_pages):
             self.qtObj.main_tabWidget.setTabEnabled(x, True)
 
-    ################################################################################
+
     def _disable_form(self):
         self.qtObj.startGw2_button.setEnabled(False)
         self.qtObj.currentParam_groupBox.setEnabled(False)
@@ -112,7 +107,7 @@ class MainSrc:
         for x in range(0, num_pages):
             self.qtObj.main_tabWidget.setTabEnabled(x, False)
 
-    ################################################################################
+
     def _register_form_events(self):
         # buttons
         self.qtObj.findGw2File_button.clicked.connect(lambda: self._get_gw2_file_name())
@@ -157,7 +152,7 @@ class MainSrc:
         self.qtObj.authsrv_textEdit.textChanged.connect(lambda: self._set_authsrv())
         self.qtObj.portal_textEdit.textChanged.connect(lambda: self._set_portal())
 
-    ################################################################################
+
     def _set_all_configs_on_form_from_settings_file(self):
         self.current_parameters_list = list()
         self.current_parameters_list.append(f"-clientport:{self.configs['port']}")
@@ -354,7 +349,7 @@ class MainSrc:
         if self.qtObj.gw2Path_label.text() == "":
             self.qtObj.gw2Path_label.setText(str(self.configs['gw2Path']))
 
-    ################################################################################
+
     def _get_gw2_file_name(self):
         path = str(utilities.dialog_get_file_path())
         if path != "":
@@ -378,7 +373,7 @@ class MainSrc:
             self.qtObj.gw2Path_label.setText(messages.need_find_gw2)
             self.qtObj.findGw2File_button.setFocus()
 
-    ################################################################################
+
     def _get_dat_file_name(self):
         path = str(utilities.dialog_get_file_path())
         if path != "":
@@ -404,7 +399,7 @@ class MainSrc:
             utilities.set_all_ini_file_settings(constants.SETTINGS_FILENAME, final_values)
             self._set_all_configs_on_form_from_settings_file()
 
-    ################################################################################
+
     def _set_parameters1(self):
         final_values = {}
         final_values['Parameters1'] = {}
@@ -520,7 +515,7 @@ class MainSrc:
         utilities.set_all_ini_file_settings(constants.SETTINGS_FILENAME, final_values)
         self._set_all_configs_on_form_from_settings_file()
 
-    ################################################################################
+
     def _set_parameters2(self):
         final_values = {}
         final_values['Parameters2'] = {}
@@ -563,7 +558,7 @@ class MainSrc:
         utilities.set_all_ini_file_settings(constants.SETTINGS_FILENAME, final_values)
         self._set_all_configs_on_form_from_settings_file()
 
-    ################################################################################
+
     def _set_assetsrv(self):
         assetsrv_textEdit = str(self.qtObj.assetsrv_textEdit.toPlainText())
 
@@ -575,7 +570,7 @@ class MainSrc:
         utilities.set_file_settings("Parameters2", "assetsrv", f"\"{self.configs['assetsrv']}\"")
         self._set_all_configs_on_form_from_settings_file()
 
-    ################################################################################
+
     def _set_authsrv(self):
         authsrv_textEdit = str(self.qtObj.authsrv_textEdit.toPlainText())
 
@@ -587,7 +582,7 @@ class MainSrc:
         utilities.set_file_settings("Parameters2", "authsrv", f"\"{self.configs['authsrv']}\"")
         self._set_all_configs_on_form_from_settings_file()
 
-    ################################################################################
+
     def _set_portal(self):
         portal_textEdit = str(self.qtObj.portal_textEdit.toPlainText())
 
@@ -599,7 +594,7 @@ class MainSrc:
         utilities.set_file_settings("Parameters2", "portal", f"\"{self.configs['portal']}\"")
         self._set_all_configs_on_form_from_settings_file()
 
-    ################################################################################
+
     def _set_port(self):
         if self.qtObj.port80_radioButton.isChecked():
             self.configs['port'] = 80
@@ -611,7 +606,7 @@ class MainSrc:
         utilities.set_file_settings("GW2", "port", str(self.configs['port']))
         self._set_all_configs_on_form_from_settings_file()
 
-    ################################################################################
+
     def _set_arcdps(self):
         self.qtObj.main_tabWidget.setCurrentIndex(2)
         window_type = None
@@ -648,7 +643,7 @@ class MainSrc:
         utilities.set_file_settings("GW2", "arcdps", str(self.configs['arcdps']))
         utilities.show_message_window(window_type, window_title, msg)
 
-    ################################################################################
+
     def _check_arcdps_installed(self):
         gw2_dir_path = ""
         if self.configs['gw2Path'] is not None:
@@ -668,7 +663,7 @@ class MainSrc:
         self.qtObj.arcdps_no_radioButton.setChecked(True)
         utilities.set_file_settings("GW2", "arcdps", str(self.configs['arcdps']))
 
-    ################################################################################
+
     def _update_arcdps(self):
         gw2_dir_path = os.path.dirname(self.configs['gw2Path'])
         d3d9_url = constants.D3D9_URL
@@ -755,7 +750,7 @@ class MainSrc:
                 self.qtObj.main_tabWidget.setCurrentIndex(2)
                 return True
 
-    ################################################################################
+
     def _set_arcdps_tab(self):
         arcdps_url = constants.ARCDPS_URL
         arcdps_ref = "<p align=\"left\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px;" \
@@ -793,7 +788,7 @@ class MainSrc:
             self.qtObj.arcdps_webpage_textEdit.setPlainText(messages.arcdps_unreacheable)
             self.qtObj.arcdps_current_version_label.setText("---")
 
-    ################################################################################
+
     def _start_gw2(self):
         if os.path.exists(self.configs['gw2Path']):
             program = str(self.configs['gw2Path'])
@@ -812,7 +807,7 @@ class MainSrc:
                                           f"{messages.gw2_uninstalled}\n"
                                           f"{messages.find_gw2_exec}")
 
-    ################################################################################
+
     def _gw2_process_started(self):
         self._disable_form()
         sleep(constants.EXIT_TIMER)
