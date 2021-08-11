@@ -1,12 +1,8 @@
-#! /usr/bin/env python3
-# |*****************************************************
 # * Copyright         : Copyright (C) 2019
 # * Author            : ddc
 # * License           : GPL v3
 # * Python            : 3.6
-# |*****************************************************
 # # -*- coding: utf-8 -*-
-
 
 # general
 error_executing_program = "Could not initialize "

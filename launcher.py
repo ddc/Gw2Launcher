@@ -1,19 +1,15 @@
 #! /usr/bin/env python3
-# |*****************************************************
 # * Copyright         : Copyright (C) 2019
 # * Author            : ddc
 # * License           : GPL v3
 # * Python            : 3.6
-# |*****************************************************
 # # -*- coding: utf-8 -*-
 
 import os
 import subprocess
 import sys
-
 import requests
 from PyQt5 import QtCore, QtWidgets
-
 from src.utils import constants, messages, utilities
 
 
@@ -39,7 +35,7 @@ class Launcher:
         self.progressBar.close()
         self._call_program()
 
-    ################################################################################
+
     def _check_update_required(self):
         if self.configs['programVersion'] is None:
             self.client_version = constants.VERSION
@@ -52,7 +48,7 @@ class Launcher:
             self.new_version_msg = new_version_obj.new_version_msg
             self._download_new_program_version(False)
 
-    ################################################################################
+
     def _download_new_program_version(self, show_dialog=True):
         if show_dialog:
             msg = f"""{messages.new_version_available}
@@ -78,7 +74,7 @@ class Launcher:
             utilities.show_message_window("error", "ERROR", f"{messages.error_dl_new_version}")
             self.log.error(f"{messages.error_dl_new_version} {r.status_code} {r}")
 
-    ################################################################################
+
     def _call_program(self):
         code = None
         cmd = [f"{os.path.abspath(os.getcwd())}\\{constants.EXE_PROGRAM_NAME}"]

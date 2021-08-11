@@ -1,10 +1,7 @@
-#! /usr/bin/env python3
-# |*****************************************************
 # * Copyright         : Copyright (C) 2019
 # * Author            : ddc
 # * License           : GPL v3
 # * Python            : 3.6
-# |*****************************************************
 # # -*- coding: utf-8 -*-
 
 import logging
@@ -13,7 +10,7 @@ import os
 
 PROGRAM_NAME = "Guild Wars2 Launcher"
 SHORT_PROGRAM_NAME = "Gw2Launcher"
-VERSION = "3.0"
+VERSION = "3.1"
 ################################################################################
 EXIT_TIMER = 5
 ################################################################################
